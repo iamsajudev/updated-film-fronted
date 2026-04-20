@@ -4,13 +4,6 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "*" }],
   },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  // Disable Turbopack for build
-  experimental: {
-    turbo: false,
-  },
 }
 
 module.exports = nextConfig
