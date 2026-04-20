@@ -1,4 +1,3 @@
-import type { Metadata, Viewport } from "next";
 import { Inter, Poppins, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -22,8 +21,8 @@ const robotoMono = Roboto_Mono({
   display: "swap",
 });
 
-// Viewport configuration
-export const viewport: Viewport = {
+// Viewport configuration (JavaScript version)
+export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -35,8 +34,8 @@ export const viewport: Viewport = {
   ],
 };
 
-// Metadata configuration
-export const metadata: Metadata = {
+// Metadata configuration (JavaScript version)
+export const metadata = {
   // Basic Metadata
   title: {
     default: "NYBFF - New York Bengali Film Festival",
@@ -178,8 +177,6 @@ export const metadata: Metadata = {
   category: "Entertainment",
   classification: "Film Festival",
   
-
-  
   // Bookmark
   bookmarks: ["https://nybff.us"],
   
@@ -200,14 +197,9 @@ export const metadata: Metadata = {
   
   // Asset links
   assets: ["https://nybff.us/assets"],
-  
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
     <html 
       lang="en" 
