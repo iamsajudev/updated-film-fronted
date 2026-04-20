@@ -1,0 +1,7 @@
+{
+  "name": "NYBFF",
+  "short_name": "NYBFF",
+  "icons": [],
+  "start_url": "/",
+  "display": "standalone"
+}
