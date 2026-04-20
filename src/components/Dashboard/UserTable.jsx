@@ -25,7 +25,7 @@ const UserTable = () => {
     const usersCacheRef = useRef(null);
     const filterTimeoutRef = useRef(null);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
 
     // Batch state update helper
     const updateState = useCallback((updates) => {

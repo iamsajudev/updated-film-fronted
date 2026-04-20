@@ -27,7 +27,7 @@ export default function UserDashboard() {
             console.log('=== Dashboard Debug Info ===');
             console.log('Token:', token ? 'Present' : 'Missing');
             console.log('User Data:', userData);
-            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
+            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us');
 
             if (!token || !userData) {
                 console.log('No auth data, redirecting to login');
@@ -45,7 +45,7 @@ export default function UserDashboard() {
 
             // Try to fetch fresh user data from API (non-blocking)
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
 
                 // Add timeout to fetch
                 const timeoutId = setTimeout(() => {
@@ -161,7 +161,7 @@ export default function UserDashboard() {
         try {
             const token = getToken();
             if (token) {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
                 // Use a shorter timeout for logout
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);

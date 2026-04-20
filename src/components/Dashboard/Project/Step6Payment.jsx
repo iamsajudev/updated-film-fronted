@@ -157,7 +157,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting }) {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
             
             // Create payment intent on your backend server
             const response = await fetch(`${API_URL}/api/payments/create-payment-intent`, {

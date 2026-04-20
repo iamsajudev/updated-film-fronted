@@ -18,7 +18,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [focusedField, setFocusedField] = useState(null);
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
 
     // Check if user is already logged in
     useEffect(() => {

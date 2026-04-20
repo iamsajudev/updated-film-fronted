@@ -23,7 +23,7 @@ const Register = () => {
     const [focusedField, setFocusedField] = useState(null);
     const [passwordStrength, setPasswordStrength] = useState(0);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
 
     useEffect(() => {
         const token = getToken();

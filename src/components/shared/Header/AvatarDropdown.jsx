@@ -55,7 +55,7 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/logout`, {
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us'}/api/auth/logout`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,

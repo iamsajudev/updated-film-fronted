@@ -118,7 +118,7 @@ const Profile = () => {
                     return;
                 }
 
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
                 const endpoint = `${API_URL}/api/users/profile`;
 
                 const timeoutId = setTimeout(() => {
@@ -339,7 +339,7 @@ const Profile = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
 
             const submitData = {
                 fullName: editForm.fullName || editForm.name,
