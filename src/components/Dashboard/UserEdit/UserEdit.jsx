@@ -72,7 +72,7 @@ const UserEdit = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
             const response = await fetch(`${API_URL}/api/users/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -270,7 +270,7 @@ const UserEdit = () => {
                 delete submitData.profileImageBase64;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
             const response = await fetch(`${API_URL}/api/users/${userId}`, {
                 method: 'PUT',
                 headers: {
@@ -383,7 +383,7 @@ const UserEdit = () => {
                                         </button>
                                     </div>
                                 ) : (
-                                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                                    <div className="w-24 h-24 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
                                         {formData.name?.charAt(0).toUpperCase() || 'U'}
                                     </div>
                                 )}
@@ -861,7 +861,7 @@ const UserEdit = () => {
                             if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
                                 try {
                                     const token = localStorage.getItem('token');
-                                    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+                                    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
                                     const response = await fetch(`${API_URL}/api/users/${userId}`, {
                                         method: 'DELETE',
                                         headers: {

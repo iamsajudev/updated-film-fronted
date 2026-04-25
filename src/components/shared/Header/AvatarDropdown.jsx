@@ -55,7 +55,7 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us'}/api/auth/logout`, {
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/logout`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -116,7 +116,7 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
                 aria-expanded={isOpen}
             >
                 <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md transition-all duration-200 group-hover:shadow-lg group-hover:scale-105">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md transition-all duration-200 group-hover:shadow-lg group-hover:scale-105">
                         {getAvatarContent()}
                     </div>
                     {/* Online indicator */}
@@ -133,9 +133,9 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
             {isOpen && (
                 <div className="absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-in slide-in-from-top-2 fade-in duration-200">
                     {/* User Info Header */}
-                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+                    <div className="p-4 bg-linear-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden shadow-md">
+                            <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden shadow-md">
                                 {userAvatar ? (
                                     <img src={userAvatar} alt={getDisplayName()} className="w-full h-full object-cover" />
                                 ) : (

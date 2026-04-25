@@ -25,7 +25,7 @@ const UserTable = () => {
     const usersCacheRef = useRef(null);
     const filterTimeoutRef = useRef(null);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
     // Batch state update helper
     const updateState = useCallback((updates) => {
@@ -489,7 +489,7 @@ const FastUserRow = React.memo(({
                             )}
                         </div>
                     ) : (
-                        <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium flex-shrink-0 shadow-sm">
+                        <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium shrink-0 shadow-sm">
                             {getInitials(userName)}
                         </div>
                     )}

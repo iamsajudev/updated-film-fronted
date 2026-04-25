@@ -4,7 +4,7 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://server.nybff.us"
+    "NEXT_PUBLIC_API_URL": "http://localhost:5000"
   }
 }
 

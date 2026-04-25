@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
+import Header from "@/components/shared/Header/Header";
+import Footer from "@/components/shared/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +21,7 @@ export const metadata = {
     template: "%s | NYBFF",
   },
   description: "New York Bengali Film Festival celebrates the rich cultural heritage of Bengali cinema, showcasing independent films, documentaries, and short films from emerging and established filmmakers.",
-  
+
   // Keywords for SEO
   keywords: [
     "film festival",
@@ -35,7 +37,7 @@ export const metadata = {
     "NYBFF",
     "New York Bengali Film Festival"
   ],
-  
+
   // Authors and Creator
   authors: [
     { name: "NYBFF Team", url: "https://nybff.us" },
@@ -43,7 +45,7 @@ export const metadata = {
   ],
   creator: "New York Bengali Film Festival",
   publisher: "New York Bengali Film Festival",
-  
+
   // URL and Canonical
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://nybff.us"),
   alternates: {
@@ -53,7 +55,7 @@ export const metadata = {
       "bn": "/bn",
     },
   },
-  
+
   // Open Graph (Facebook, LinkedIn, etc.)
   openGraph: {
     title: "NYBFF - New York Bengali Film Festival",
@@ -75,7 +77,7 @@ export const metadata = {
     phoneNumbers: ["+1 (212) 555-0123"],
     countryName: "United States",
   },
-  
+
   // Twitter Card
   twitter: {
     card: "summary_large_image",
@@ -85,7 +87,7 @@ export const metadata = {
     creator: "@nybff",
     site: "@nybff",
   },
-  
+
   // Icons
   icons: {
     icon: [
@@ -107,10 +109,10 @@ export const metadata = {
       },
     ],
   },
-  
+
   // Manifest
   manifest: "/site.webmanifest",
-  
+
   // Robots
   robots: {
     index: true,
@@ -125,7 +127,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  
+
   // Verification
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
@@ -135,30 +137,30 @@ export const metadata = {
       "facebook-domain-verification": process.env.FACEBOOK_DOMAIN_VERIFICATION,
     },
   },
-  
+
   // Apple specific
   appleWebApp: {
     capable: true,
     title: "NYBFF",
     statusBarStyle: "black-translucent",
   },
-  
+
   // Microsoft specific
   formatDetection: {
     email: true,
     address: true,
     telephone: true,
   },
-  
+
   // Other metadata
   category: "Entertainment",
   classification: "Film Festival",
-  
 
-  
+
+
   // Bookmark
   bookmarks: ["https://nybff.us"],
-  
+
   // Mobile app deep links
   appLinks: {
     ios: {
@@ -170,16 +172,20 @@ export const metadata = {
       url: "https://nybff.us",
     },
   },
-  
+
   // Archive
   archives: ["https://nybff.us/archive"],
-  
+
   // Asset links
   assets: ["https://nybff.us/assets"],
-  
+
 };
 
 
 export default function RootLayout({ children }) {
-  return <main className="flex-grow">{children}</main>;
+  return <main className="flex-grow">
+    <Header />
+    {children}
+    <Footer />
+  </main>;
 }

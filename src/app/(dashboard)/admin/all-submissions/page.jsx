@@ -22,7 +22,7 @@ export default function AdminSubmissions() {
     inReview: 0
   });
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://server.nybff.us";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   // Get auth token
   const getToken = () => {

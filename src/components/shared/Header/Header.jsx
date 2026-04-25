@@ -3,9 +3,30 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AvatarDropdown from "./AvatarDropdown";
-import { getUser, subscribeToUserUpdates } from "@/utils/auth";
+
+// Create local versions of auth functions that don't log to console
+const getLocalUser = () => {
+  if (typeof window !== "undefined") {
+    try {
+      const user = localStorage.getItem("user");
+      return user ? JSON.parse(user) : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+};
+
+const isLocalAuthenticated = () => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
+    const user = getLocalUser();
+    return !!(token && user);
+  }
+  return false;
+};
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,19 +35,25 @@ const Header = () => {
   const [userAvatar, setUserAvatar] = useState("");
   const [userInitials, setUserInitials] = useState("U");
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const menuRef = useRef(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   // Get user data from localStorage and listen for updates
   useEffect(() => {
     const loadUserData = () => {
       try {
-        const userData = getUser();
-        if (userData) {
+        const userData = getLocalUser();
+        const authenticated = isLocalAuthenticated();
+
+        setIsLoggedIn(authenticated);
+
+        if (userData && authenticated) {
           const role = userData.role || userData.userType || 'user';
           const name = userData.fullName || userData.name || '';
           const avatar = userData.avatar || userData.profileImage || '';
-          
+
           // Calculate initials
           let initials = 'U';
           if (name) {
@@ -37,15 +64,21 @@ const Header = () => {
               initials = name.substring(0, 2).toUpperCase();
             }
           }
-          
+
           setUserRole(role);
           setUserName(name);
           setUserAvatar(avatar);
           setUserInitials(initials);
+        } else {
+          setUserRole(null);
+          setUserName("");
+          setUserAvatar("");
+          setUserInitials("U");
         }
       } catch (error) {
         console.error('Error getting user data:', error);
-        setUserRole('user');
+        setUserRole(null);
+        setIsLoggedIn(false);
       } finally {
         setIsLoading(false);
       }
@@ -53,47 +86,48 @@ const Header = () => {
 
     loadUserData();
 
-    // Subscribe to real-time user profile updates
-    const unsubscribe = subscribeToUserUpdates((updatedUser) => {
-      console.log('Header received user update:', updatedUser);
-      if (updatedUser) {
-        const role = updatedUser.role || updatedUser.userType || 'user';
-        const name = updatedUser.fullName || updatedUser.name || '';
-        const avatar = updatedUser.avatar || updatedUser.profileImage || '';
-        
-        // Calculate initials
-        let initials = 'U';
-        if (name) {
-          const parts = name.trim().split(' ');
-          if (parts.length >= 2) {
-            initials = (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-          } else {
-            initials = name.substring(0, 2).toUpperCase();
-          }
-        }
-        
-        setUserRole(role);
-        setUserName(name);
-        setUserAvatar(avatar);
-        setUserInitials(initials);
-      }
-    });
-
     // Listen for storage events
     const handleStorageChange = (e) => {
-      if (e.key === 'user') {
-        console.log('Storage changed in header, reloading user data...');
+      if (e.key === 'user' || e.key === 'token') {
         loadUserData();
       }
     };
 
     window.addEventListener('storage', handleStorageChange);
 
+    // Custom event for auth changes
+    const handleAuthChange = () => {
+      loadUserData();
+    };
+
+    window.addEventListener('authChanged', handleAuthChange);
+    window.addEventListener('authCleared', handleAuthChange);
+
     return () => {
-      unsubscribe();
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('authChanged', handleAuthChange);
+      window.removeEventListener('authCleared', handleAuthChange);
     };
   }, []);
+
+  // Handle navigation with auth check
+  const handleNavigation = (e, href) => {
+    // Public routes that anyone can access
+    const publicRoutes = ['/', '/projects', '/projects/drop-project'];
+
+    // Check if the route is public
+    const isPublicRoute = publicRoutes.some(route => href.startsWith(route));
+
+    // If route requires auth and user is not logged in, redirect to login
+    if (!isPublicRoute && !isLoggedIn) {
+      e.preventDefault();
+      router.push(`/login?redirect=${encodeURIComponent(href)}`);
+      return;
+    }
+
+    // Otherwise, allow navigation
+    setIsMenuOpen(false);
+  };
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -132,24 +166,34 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Centralized Link Configuration based on role
+  // Get navigation links based on auth status
   const getNavLinks = () => {
-    const isAdmin = userRole === 'admin' || userRole === 'Administrator';
-    
-    if (isAdmin) {
-      return [
-        { name: "Dashboard", href: "/admin/dashboard" },
-        { name: "Users", href: "/admin/all-users" },
-        { name: "Submissions", href: "/admin/all-submissions" },
-        // { name: "Projects", href: "/admin/projects" },
-        { name: "Settings", href: "/settings" },
-      ];
-    }
-    
-    return [
-      { name: "Dashboard", href: "/dashboard" },
-      { name: "Submissions", href: "/projects" },
+    // Base links that everyone sees (public)
+    const links = [
+      { name: "All Projects", href: "/projects", public: true },
+      // { name: "Drop Project", href: "/projects/drop-project", public: true }
     ];
+
+    // If logged in, show additional protected links
+    if (isLoggedIn) {
+      const isAdmin = userRole === 'admin' || userRole === 'Administrator';
+
+      if (isAdmin) {
+        links.push(
+          { name: "Dashboard", href: "/admin/dashboard", public: false },
+          { name: "Users", href: "/admin/all-users", public: false },
+          { name: "Submissions", href: "/admin/all-submissions", public: false }
+        );
+      } else {
+        // Regular user additional links
+        links.push(
+          { name: "Dashboard", href: "/dashboard", public: false },
+          // { name: "My Submissions", href: "/projects/my-submissions", public: false }
+        );
+      }
+    }
+
+    return links;
   };
 
   const navLinks = getNavLinks();
@@ -157,9 +201,9 @@ const Header = () => {
   // Show loading state
   if (isLoading) {
     return (
-      <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50">
-        <div className="flex flex-wrap items-center justify-between gap-5 w-full max-w-7xl mx-auto">
-          <Link href="/" className="max-sm:hidden" aria-label="Home">
+      <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50 max-w-7xl mx-auto">
+        <div className="flex flex-wrap items-center justify-between gap-5 w-full ">
+          <Link href="/projects" className="max-sm:hidden" aria-label="Home">
             <Image
               src="/assets/logo-final.webp"
               alt="Company Logo"
@@ -179,11 +223,11 @@ const Header = () => {
   }
 
   return (
-    <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50">
+    <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50 ">
       <div className="flex flex-wrap items-center justify-between gap-5 w-full max-w-7xl mx-auto">
 
-        {/* Logo Section */}
-        <Link href="/" className="max-sm:hidden" aria-label="Home">
+        {/* Logo Section - Links to Projects */}
+        <Link href="/projects" className="max-sm:hidden" aria-label="Projects">
           <Image
             src="/assets/logo-final.webp"
             alt="Company Logo"
@@ -193,7 +237,7 @@ const Header = () => {
             priority
           />
         </Link>
-        <Link href="/" className="hidden max-sm:block" aria-label="Home">
+        <Link href="/projects" className="hidden max-sm:block" aria-label="Projects">
           <Image
             src="/assets/logo-final.webp"
             alt="Company Logo"
@@ -217,7 +261,7 @@ const Header = () => {
         <div
           ref={menuRef}
           className={`
-            lg:static lg:block lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none lg:translate-x-0
+            lg:static lg:flex lg:items-center lg:justify-between lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none lg:translate-x-0
             max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-3/4 max-lg:min-w-[280px] max-lg:max-w-[400px]
             max-lg:h-full max-lg:bg-white max-lg:z-50 max-lg:shadow-xl
             transition-transform duration-300 ease-out
@@ -235,27 +279,20 @@ const Header = () => {
             </button>
           </div>
 
-          {/* User Profile Preview for Mobile */}
-          <div className="px-6 pt-4 pb-2 lg:hidden flex items-center gap-3 border-b border-gray-100">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md">
-              {userAvatar ? (
-                <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
-              ) : (
-                <span className="text-lg">{userInitials}</span>
-              )}
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-900">{userName || 'User'}</p>
-              <p className="text-xs text-gray-500">{userRole === 'admin' ? 'Administrator' : 'Member'}</p>
-            </div>
-          </div>
-
-          {/* Admin Badge for Mobile */}
-          {(userRole === 'admin' || userRole === 'Administrator') && (
-            <div className="px-6 pt-4 pb-2 lg:hidden">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                Admin Mode
-              </span>
+          {/* Mobile User Profile Preview - Only show if logged in */}
+          {isLoggedIn && (
+            <div className="px-6 pt-4 pb-2 lg:hidden flex items-center gap-3 border-b border-gray-100">
+              <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md">
+                {userAvatar ? (
+                  <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-lg">{userInitials}</span>
+                )}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{userName || 'User'}</p>
+                <p className="text-xs text-gray-500">{userRole === 'admin' ? 'Administrator' : 'Member'}</p>
+              </div>
             </div>
           )}
 
@@ -263,20 +300,42 @@ const Header = () => {
           <ul className="lg:flex lg:gap-x-2 max-lg:p-6 max-lg:space-y-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || pathname?.startsWith(link.href + '/');
-              const activeCheck = isActive;
+              const isClickable = link.public || isLoggedIn;
+
+              if (!isClickable) {
+                return (
+                  <li key={link.name}>
+                    <button
+                      onClick={(e) => handleNavigation(e, link.href)}
+                      className={`
+                        block w-full text-left font-semibold text-[15px] py-2.5 px-4 rounded-lg transition-all
+                        text-slate-700 hover:text-blue-700 hover:bg-gray-50
+                      `}
+                    >
+                      {link.name}
+                    </button>
+                  </li>
+                );
+              }
 
               return (
                 <li key={link.name}>
                   <Link
                     href={link.href}
+                    onClick={(e) => {
+                      if (!link.public && !isLoggedIn) {
+                        handleNavigation(e, link.href);
+                      } else {
+                        setIsMenuOpen(false);
+                      }
+                    }}
                     className={`
                       block font-semibold text-[15px] py-2.5 px-4 rounded-lg transition-all
-                      ${activeCheck
+                      ${isActive && isLoggedIn
                         ? "text-blue-700 bg-blue-50/80 lg:bg-blue-50"
                         : "text-slate-700 hover:text-blue-700 hover:bg-gray-50"
                       }
                     `}
-                    onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}
                   </Link>
@@ -285,11 +344,33 @@ const Header = () => {
             })}
           </ul>
 
+          {/* Mobile Auth Links (Login/Register) - Only show when not logged in */}
+          {!isLoggedIn && (
+            <div className="border-t border-gray-100 mt-4 pt-4 px-6 lg:hidden">
+              <div className="space-y-2">
+                <Link
+                  href="/login"
+                  className="block text-sm font-semibold text-blue-600 hover:text-blue-700 py-2 px-2 rounded-lg hover:bg-blue-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="block text-sm text-gray-600 hover:text-gray-700 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Create Account
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Admin Quick Links for Mobile */}
-          {(userRole === 'admin' || userRole === 'Administrator') && (
+          {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
             <div className="border-t border-gray-100 mt-4 pt-4 px-6 lg:hidden">
               <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Quick Admin Actions
+                Quick Actions
               </p>
               <div className="space-y-2">
                 <Link
@@ -311,18 +392,18 @@ const Header = () => {
           )}
         </div>
 
-        {/* Action Buttons */}
+        {/* Right Side Actions - Avatar Dropdown or Auth Buttons */}
         <div className="flex items-center space-x-4">
-          {/* Welcome Text for Desktop */}
-          {userName && (
+          {/* Welcome Text for Desktop - Only show when logged in */}
+          {isLoggedIn && userName && (
             <div className="hidden lg:block text-sm text-gray-600">
               <span className="font-medium">Welcome,</span>{" "}
               <span className="text-gray-800">{userName.split(' ')[0]}</span>
             </div>
           )}
-          
+
           {/* Admin Badge for Desktop */}
-          {(userRole === 'admin' || userRole === 'Administrator') && (
+          {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
             <div className="hidden lg:block">
               <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                 <span className="mr-1">👑</span>
@@ -330,13 +411,30 @@ const Header = () => {
               </span>
             </div>
           )}
-          
-          {/* Avatar Dropdown Component */}
-          <AvatarDropdown 
-            userAvatar={userAvatar} 
-            userName={userName} 
-            userInitials={userInitials}
-          />
+
+          {/* Avatar Dropdown or Auth Buttons */}
+          {isLoggedIn ? (
+            <AvatarDropdown
+              userAvatar={userAvatar}
+              userName={userName}
+              userInitials={userInitials}
+            />
+          ) : (
+            <div className="hidden lg:flex items-center space-x-3">
+              <Link
+                href="/login"
+                className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
 
           {/* Mobile Hamburger Toggle */}
           <button

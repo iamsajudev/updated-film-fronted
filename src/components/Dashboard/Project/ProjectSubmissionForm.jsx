@@ -55,7 +55,7 @@ export default function ProjectSubmissionForm() {
         productionBudget: "",
         countryOfOrigin: "",
         countryOfFilming: "",
-        language: "en", // Default to English
+        language: "en",
         shootingFormat: "",
         aspectRatio: "16:9",
         filmColor: "Color",
@@ -72,7 +72,6 @@ export default function ProjectSubmissionForm() {
     };
 
     const nextStep = () => {
-        // Validate required fields before proceeding
         if (currentStep === 1) {
             if (!formData.projectType || !formData.projectTitle || !formData.briefSynopsis) {
                 alert("Please fill in all required fields in Project Information");
@@ -92,83 +91,14 @@ export default function ProjectSubmissionForm() {
         setCurrentStep((prev) => Math.max(prev - 1, 1));
     };
 
-    // Helper function to validate and fix language code
-    const getValidLanguageCode = (language) => {
-        if (!language) return "en";
-
-        // Map common language names to ISO codes
-        const languageMap = {
-            'english': 'en',
-            'spanish': 'es',
-            'french': 'fr',
-            'german': 'de',
-            'italian': 'it',
-            'portuguese': 'pt',
-            'chinese': 'zh',
-            'japanese': 'ja',
-            'korean': 'ko',
-            'hindi': 'hi',
-            'bengali': 'bn',
-            'arabic': 'ar',
-            'russian': 'ru',
-            'turkish': 'tr',
-            'dutch': 'nl',
-            'polish': 'pl',
-            'swedish': 'sv',
-            'danish': 'da',
-            'finnish': 'fi',
-            'norwegian': 'no',
-            'greek': 'el',
-            'czech': 'cs',
-            'hungarian': 'hu',
-            'romanian': 'ro',
-            'vietnamese': 'vi',
-            'thai': 'th',
-            'indonesian': 'id',
-            'malay': 'ms',
-            'hebrew': 'he',
-            'arabic': 'ar'
-        };
-
-        const lowerLang = language.toLowerCase().trim();
-
-        // If it's already a valid ISO code (2 chars)
-        if (lowerLang.length === 2 && /^[a-z]{2}$/.test(lowerLang)) {
-            return lowerLang;
-        }
-
-        // Try to map from language name
-        if (languageMap[lowerLang]) {
-            return languageMap[lowerLang];
-        }
-
-        // Default to English
-        console.warn(`Unrecognized language: ${language}, defaulting to 'en'`);
-        return "en";
-    };
-
     const handleSubmit = async (paymentIntentId) => {
         setIsSubmitting(true);
 
         try {
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                alert('Please login to submit your project');
-                router.push('/login');
-                return;
-            }
-
-            // Send ALL form data, not just mapped fields
             const submissionData = {
-                // Send the entire formData
                 ...formData,
-
-                // Add payment info
                 paymentIntentId,
                 submittedAt: new Date().toISOString(),
-
-                // Also include mapped fields for backend compatibility
                 title: formData.projectTitle,
                 description: formData.briefSynopsis,
                 category: formData.projectType,
@@ -177,15 +107,14 @@ export default function ProjectSubmissionForm() {
                 genre: formData.genres,
             };
 
-            console.log('Submitting complete data:', submissionData);
+            console.log('Submitting project data:', submissionData.projectTitle);
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
             const response = await fetch(`${API_URL}/api/projects/submit`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(submissionData),
             });
@@ -193,21 +122,45 @@ export default function ProjectSubmissionForm() {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                console.log('All project data saved successfully!');
-                router.push(`/dashboard?success=true&projectId=${data.project?._id}`);
+                console.log('Project submitted successfully!');
+                
+                // Auto-login: Save token and user data to localStorage
+                if (data.authToken) {
+                    localStorage.setItem('token', data.authToken);
+                    if (data.user) {
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                    }
+                    
+                    // Dispatch auth events for other components
+                    window.dispatchEvent(new CustomEvent('authChanged', { 
+                        detail: { token: data.authToken, user: data.user } 
+                    }));
+                    
+                    console.log('Auto-login successful!');
+                    
+                    // Show appropriate success message
+                    if (data.user?.isNewUser) {
+                        alert('Account created and project submitted successfully! You are now logged in.');
+                    } else {
+                        alert('Project submitted successfully! You are now logged in.');
+                    }
+                } else {
+                    alert('Your project has been submitted successfully!');
+                }
+                
+                // Redirect to projects page
+                router.push(`/projects?success=true&projectId=${data.projectId}`);
             } else {
                 throw new Error(data.message || 'Submission failed');
             }
 
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Submission error:", error);
             alert(error.message || "There was an error submitting your project. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
-
-
 
     const renderStep = () => {
         switch (currentStep) {
@@ -263,6 +216,7 @@ export default function ProjectSubmissionForm() {
                         onSubmit={handleSubmit}
                         onPrev={prevStep}
                         isSubmitting={isSubmitting}
+                        isLoggedIn={true}
                     />
                 );
             default:

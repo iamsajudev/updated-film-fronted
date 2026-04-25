@@ -2,7 +2,7 @@
 import { getToken } from '@/utils/auth';
 
 // Remove '/api' from base URL since your backend routes already include it
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 // Generic fetch with authentication
 const authFetch = async (endpoint, options = {}) => {

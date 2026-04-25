@@ -72,7 +72,7 @@ const SettingsPage = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
             const response = await fetch(`${API_URL}/api/users/profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -213,7 +213,7 @@ const SettingsPage = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
             
             // Prepare data for API
             const submitData = {
@@ -298,7 +298,7 @@ const SettingsPage = () => {
         
         try {
             const token = localStorage.getItem('token');
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
             
             const response = await fetch(`${API_URL}/api/users/change-password`, {
                 method: 'PUT',
@@ -340,7 +340,7 @@ const SettingsPage = () => {
         
         try {
             const token = localStorage.getItem('token');
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
             
             const response = await fetch(`${API_URL}/api/users/profile`, {
                 method: 'DELETE',
@@ -435,7 +435,7 @@ const SettingsPage = () => {
                                     className="object-cover w-full h-full"
                                 />
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white text-4xl font-bold">
+                                <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-500 to-purple-600 text-white text-4xl font-bold">
                                     {editForm.firstName?.charAt(0) || 'U'}
                                 </div>
                             )}

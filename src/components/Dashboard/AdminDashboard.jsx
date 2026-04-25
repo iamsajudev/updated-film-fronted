@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://server.nybff.us";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   // Get auth token with error handling
   const getToken = useCallback(() => {
@@ -805,7 +805,7 @@ SystemStatus.displayName = 'SystemStatus';
 
 // Loading Skeleton Component
 const LoadingSkeleton = () => (
-  <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+  <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
     <div className="container mx-auto px-4 py-6 md:py-8 max-w-7xl">
       {/* Header Skeleton */}
       <div className="mb-6 md:mb-8">

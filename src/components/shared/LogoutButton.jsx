@@ -12,7 +12,7 @@ export default function LogoutButton() {
         
         // Optional: Call logout API if needed
         try {
-            await fetch('https://server.nybff.us/api/auth/logout', {
+            await fetch('http://localhost:5000/api/auth/logout', {
                 method: 'POST',
             });
         } catch (error) {

@@ -245,9 +245,9 @@ const CountrySelect = ({ value, onChange, placeholder = "Select a country", requ
 
     return (
         <div className={`relative ${className}`} ref={dropdownRef}>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-                Country {required && <span className="text-red-500">*</span>}
-            </label>
+            {/* <label className="block text-sm font-medium text-gray-700 mb-2">
+                {required && <span className="text-red-500">*</span>}
+            </label> */}
 
             {/* Selected Country Display */}
             <div

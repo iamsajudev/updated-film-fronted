@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getToken, getUser, clearAuthData, subscribeToUserUpdates, getUserInitials } from '@/utils/auth';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function UserDashboard() {
     const router = useRouter();
@@ -17,7 +18,6 @@ export default function UserDashboard() {
     useEffect(() => {
         let isMounted = true;
 
-        // Create abort controller for this effect
         abortControllerRef.current = new AbortController();
 
         const loadUserData = async () => {
@@ -27,7 +27,7 @@ export default function UserDashboard() {
             console.log('=== Dashboard Debug Info ===');
             console.log('Token:', token ? 'Present' : 'Missing');
             console.log('User Data:', userData);
-            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us');
+            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
 
             if (!token || !userData) {
                 console.log('No auth data, redirecting to login');
@@ -37,17 +37,14 @@ export default function UserDashboard() {
                 return;
             }
 
-            // Set user data from localStorage first
             if (isMounted) {
                 setUser(userData);
                 setLoading(false);
             }
 
-            // Try to fetch fresh user data from API (non-blocking)
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
-                // Add timeout to fetch
                 const timeoutId = setTimeout(() => {
                     if (abortControllerRef.current && isMounted) {
                         abortControllerRef.current.abort();
@@ -89,7 +86,6 @@ export default function UserDashboard() {
                         experience: freshUserData.experience
                     };
 
-                    // Update localStorage
                     localStorage.setItem('user', JSON.stringify(updatedUserData));
 
                     if (isMounted) {
@@ -101,7 +97,6 @@ export default function UserDashboard() {
             } catch (error) {
                 if (!isMounted) return;
 
-                // Don't log abort errors as they're expected
                 if (error.name === 'AbortError') {
                     console.log('Request was aborted (timeout or cleanup)');
                     return;
@@ -112,13 +107,11 @@ export default function UserDashboard() {
                     console.log('Cannot connect to server');
                     setConnectionError(true);
                 }
-                // Don't redirect - keep using cached user data
             }
         };
 
         loadUserData();
 
-        // Subscribe to user profile updates
         const unsubscribe = subscribeToUserUpdates((updatedUser) => {
             console.log('User profile updated in real-time:', updatedUser);
             if (isMounted) {
@@ -126,7 +119,6 @@ export default function UserDashboard() {
             }
         });
 
-        // Listen for storage events
         const handleStorageChange = (e) => {
             if (e.key === 'user') {
                 console.log('Storage changed, refreshing user data...');
@@ -139,10 +131,8 @@ export default function UserDashboard() {
 
         window.addEventListener('storage', handleStorageChange);
 
-        // Cleanup function
         return () => {
             isMounted = false;
-            // Only abort if controller exists and hasn't been aborted already
             if (abortControllerRef.current && !abortControllerRef.current.signal.aborted) {
                 try {
                     abortControllerRef.current.abort();
@@ -161,8 +151,7 @@ export default function UserDashboard() {
         try {
             const token = getToken();
             if (token) {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
-                // Use a shorter timeout for logout
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);
 
@@ -178,7 +167,6 @@ export default function UserDashboard() {
                 clearTimeout(timeoutId);
             }
         } catch (error) {
-            // Ignore abort errors for logout
             if (error.name !== 'AbortError') {
                 console.error('Logout error:', error);
             }
@@ -192,58 +180,55 @@ export default function UserDashboard() {
     const navigationItems = [
         { id: 'overview', name: 'Dashboard Overview', icon: '📊', href: '/dashboard' },
         { id: 'projects', name: 'My Projects', icon: '🎬', href: '/projects' },
-        { id: 'submissions', name: 'Submissions', icon: '📄', href: '/submissions' },
+        { id: 'settings', name: 'Settings', icon: '⚙️', href: '/settings' },
         { id: 'profile', name: 'Profile', icon: '⚙️', href: '/profile' }
     ];
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-                <div className="container mx-auto px-4 py-8 max-w-7xl">
-                    {/* Header Skeleton */}
+            <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-50">
+                <div className="mx-auto py-8 max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-8">
-                        <div className="h-8 w-48 bg-gray-200 rounded-lg animate-pulse mb-2"></div>
-                        <div className="h-4 w-96 bg-gray-200 rounded-lg animate-pulse"></div>
+                        <div className="h-10 w-64 bg-linear-to-r from-gray-200 to-gray-100 rounded-xl animate-pulse mb-3"></div>
+                        <div className="h-5 w-96 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
                     </div>
 
-                    {/* Stats Cards Skeleton */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                         {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm">
+                            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                                 <div className="flex items-center justify-between mb-4">
-                                    <div className="w-12 h-12 bg-gray-200 rounded-xl animate-pulse"></div>
-                                    <div className="w-16 h-8 bg-gray-200 rounded-full animate-pulse"></div>
+                                    <div className="w-12 h-12 bg-linear-to-br from-gray-200 to-gray-100 rounded-xl animate-pulse"></div>
+                                    <div className="w-16 h-6 bg-linear-to-r from-gray-200 to-gray-100 rounded-full animate-pulse"></div>
                                 </div>
-                                <div className="h-8 w-24 bg-gray-200 rounded-lg animate-pulse mb-2"></div>
-                                <div className="h-4 w-32 bg-gray-200 rounded-lg animate-pulse"></div>
+                                <div className="h-8 w-20 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse mb-2"></div>
+                                <div className="h-4 w-32 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
                             </div>
                         ))}
                     </div>
 
-                    {/* Main Content Skeleton */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-1 space-y-6">
-                            <div className="bg-white rounded-2xl p-6 shadow-sm">
+                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gray-200 rounded-full animate-pulse"></div>
+                                    <div className="w-16 h-16 bg-linear-to-br from-gray-200 to-gray-100 rounded-full animate-pulse"></div>
                                     <div className="flex-1">
-                                        <div className="h-5 w-32 bg-gray-200 rounded-lg animate-pulse mb-2"></div>
-                                        <div className="h-4 w-24 bg-gray-200 rounded-lg animate-pulse"></div>
+                                        <div className="h-5 w-32 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse mb-2"></div>
+                                        <div className="h-4 w-24 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
                                     </div>
                                 </div>
                                 <div className="space-y-3">
-                                    <div className="h-4 w-full bg-gray-200 rounded-lg animate-pulse"></div>
-                                    <div className="h-4 w-3/4 bg-gray-200 rounded-lg animate-pulse"></div>
-                                    <div className="h-4 w-1/2 bg-gray-200 rounded-lg animate-pulse"></div>
+                                    <div className="h-4 w-full bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
+                                    <div className="h-4 w-3/4 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
+                                    <div className="h-4 w-1/2 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
                         <div className="lg:col-span-2 space-y-6">
-                            <div className="bg-white rounded-2xl p-6 shadow-sm">
-                                <div className="h-6 w-32 bg-gray-200 rounded-lg animate-pulse mb-4"></div>
+                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                                <div className="h-6 w-40 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse mb-4"></div>
                                 <div className="space-y-3">
-                                    <div className="h-20 bg-gray-200 rounded-lg animate-pulse"></div>
-                                    <div className="h-20 bg-gray-200 rounded-lg animate-pulse"></div>
+                                    <div className="h-20 bg-linear-to-r from-gray-200 to-gray-100 rounded-xl animate-pulse"></div>
+                                    <div className="h-20 bg-linear-to-r from-gray-200 to-gray-100 rounded-xl animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
@@ -254,45 +239,59 @@ export default function UserDashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-50">
             {/* Connection Warning Banner */}
-            {connectionError && (
-                <div className="bg-yellow-50 border-b border-yellow-200">
-                    <div className="container mx-auto px-4 py-3">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                                <span className="text-sm text-yellow-700">
-                                    Using cached data. Unable to connect to server.
-                                </span>
+            <AnimatePresence>
+                {connectionError && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="bg-amber-50 border-b border-amber-200"
+                    >
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
+                                        <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm text-amber-700">
+                                        Using cached data. Unable to connect to server.
+                                    </span>
+                                </div>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="text-sm text-amber-700 hover:text-amber-900 font-medium underline"
+                                >
+                                    Retry
+                                </button>
                             </div>
-                            <button
-                                onClick={() => window.location.reload()}
-                                className="text-sm text-yellow-700 hover:text-yellow-900 underline"
-                            >
-                                Retry
-                            </button>
                         </div>
-                    </div>
-                </div>
-            )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-            <div className="container mx-auto px-4 py-8">
-                <div className="grid grid-cols-12 gap-6">
+            <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-12 gap-8">
                     {/* Left Sidebar */}
-                    <div className="col-span-12 md:col-span-3">
-                        <div className="bg-white rounded-2xl shadow-sm overflow-hidden sticky top-8">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="col-span-12 md:col-span-3"
+                    >
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-8">
                             {/* Profile Section */}
-                            <div className="p-6 text-center border-b border-gray-100">
+                            <div className="p-6 text-center bg-linear-to-br from-blue-50 to-indigo-50">
                                 <div className="relative inline-block">
-                                    <div className="w-24 h-24 mx-auto bg-linear-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg overflow-hidden">
+                                    <div className="w-24 h-24 mx-auto bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white">
                                         {user?.avatar ? (
                                             <img
                                                 src={user.avatar}
                                                 alt={user.name || 'User'}
-                                                className="w-full h-full object-cover"
+                                                className="w-full h-full object-cover rounded-full"
                                                 onError={(e) => {
                                                     e.target.style.display = 'none';
                                                     const parent = e.target.parentElement;
@@ -310,18 +309,18 @@ export default function UserDashboard() {
                                     <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
                                 </div>
 
-                                <h3 className="mt-4 text-gray-900 font-semibold text-lg">
+                                <h3 className="mt-4 text-gray-900 font-bold text-lg">
                                     {user?.fullName || user?.name || 'User'}
                                 </h3>
                                 <p className="text-gray-500 text-sm mt-1">
                                     {user?.title || 'Creative Professional'}
                                 </p>
-                                <p className="text-gray-400 text-xs mt-1">
+                                <p className="text-gray-400 text-xs mt-1 break-all">
                                     {user?.email || 'user@example.com'}
                                 </p>
 
-                                <div className="mt-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    {user?.role === 'admin' ? 'Administrator' : (user?.role || 'User')}
+                                <div className="mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-linear-to-r from-blue-100 to-indigo-100 text-blue-700">
+                                    {user?.role === 'admin' ? '👑 Administrator' : (user?.role === 'user' ? '🎬 Filmmaker' : (user?.role || 'User'))}
                                 </div>
                             </div>
 
@@ -332,9 +331,9 @@ export default function UserDashboard() {
                                         key={item.id}
                                         href={item.href}
                                         onClick={() => setActiveTab(item.id)}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${activeTab === item.id
-                                                ? 'bg-blue-50 text-blue-700 shadow-sm'
-                                                : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${activeTab === item.id
+                                            ? 'bg-linear-to-r from-blue-50 to-indigo-50 text-blue-700 shadow-sm'
+                                            : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
                                             }`}
                                     >
                                         <span className="text-xl">{item.icon}</span>
@@ -342,145 +341,314 @@ export default function UserDashboard() {
                                             {item.name}
                                         </span>
                                         {activeTab === item.id && (
-                                            <div className="w-1 h-6 bg-blue-600 rounded-full"></div>
+                                            <motion.div
+                                                layoutId="activeTab"
+                                                className="w-1 h-6 bg-linear-to-b from-blue-500 to-purple-600 rounded-full"
+                                            ></motion.div>
                                         )}
                                     </Link>
                                 ))}
                             </nav>
 
                             {/* Logout Button */}
-                            <div className="p-4 border-t border-gray-200">
+                            <div className="p-4 border-t border-gray-100">
                                 <button
                                     onClick={handleLogout}
-                                    className="flex cursor-pointer items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-all duration-200 w-full group"
+                                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-all duration-200 w-full group"
                                 >
                                     <span className="text-xl">🚪</span>
                                     <span className="text-sm font-medium flex-1 text-left">
                                         Logout
                                     </span>
+                                    <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right Content */}
-                    <div className="col-span-12 md:col-span-9">
+                    <div className="col-span-12 md:col-span-9 space-y-6">
                         {/* Welcome Header */}
-                        <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
-                            <div className="flex items-center justify-between">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.1 }}
+                            className="bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl shadow-purple-500/20"
+                        >
+                            <div className="flex items-center justify-between flex-wrap gap-4">
                                 <div>
-                                    <h1 className="text-2xl font-bold text-gray-900">
+                                    <h1 className="text-2xl font-bold mb-1">
                                         Welcome back, {user?.name?.split(' ')[0] || 'User'}! 👋
                                     </h1>
-                                    <p className="text-gray-600 mt-1">
+                                    <p className="text-blue-100 text-sm">
                                         Here's what's happening with your account today.
                                     </p>
                                 </div>
-                                <div>
-                                    {/* {user?.avatar && (
-                                        <div className="w-16 h-16 rounded-full overflow-hidden hidden md:block">
-                                            <img
-                                                src={user.avatar}
-                                                alt={user.name}
-                                                className="w-full h-full object-cover"
-                                            />
+                                <Link
+                                    href="/projects/drop-project"
+                                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all shadow-lg"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    New Project
+                                </Link>
+                            </div>
+                        </motion.div>
+
+                        {/* Stats Cards */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.2 }}
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                        >
+                            {[
+                                { label: 'Projects', value: user?.stats?.projects || 0, icon: '🎬', color: 'from-blue-500 to-cyan-500' },
+                                { label: 'Submissions', value: user?.stats?.submissions || 0, icon: '📄', color: 'from-purple-500 to-pink-500' },
+                                { label: 'Selections', value: user?.stats?.selections || 0, icon: '🏆', color: 'from-amber-500 to-orange-500' },
+                                { label: 'Awards', value: user?.stats?.awards || 0, icon: '⭐', color: 'from-emerald-500 to-teal-500' }
+                            ].map((stat, idx) => (
+                                <div key={idx} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className={`w-10 h-10 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center text-xl`}>
+                                            {stat.icon}
                                         </div>
-                                    )} */}
-                                    <div>
-                                        <Link
-                                            href="/projects/drop-project"
-                                            className="bg-[#1EB97A] hover:bg-[#189663] text-white px-6 py-2.5 rounded-md font-semibold flex items-center gap-2 transition-all shadow-sm w-fit"
-                                        >
-                                            <span className="text-xl">+</span> Add New Project
+                                        <span className="text-2xl font-bold text-gray-800">{stat.value}</span>
+                                    </div>
+                                    <p className="text-gray-600 text-sm font-medium">{stat.label}</p>
+                                </div>
+                            ))}
+                        </motion.div>
+
+                        {/* Account Information Card */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                        >
+                            <div className="px-6 py-5 border-b border-gray-100 bg-linear-to-r from-blue-50 via-indigo-50 to-purple-50">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                                        <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-sm">
+                                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                        </div>
+                                        Account Information
+                                    </h2>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span className="text-xs text-gray-500">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    {/* User ID */}
+                                    <div className="group">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">User ID</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100 group-hover:border-blue-200 transition-colors">
+                                            <code className="text-sm font-mono text-gray-900">{user?.id?.slice(-12) || 'N/A'}</code>
+                                            <button
+                                                onClick={() => navigator.clipboard.writeText(user?.id)}
+                                                className="ml-2 text-gray-400 hover:text-blue-600 transition-colors"
+                                                title="Copy ID"
+                                            >
+                                                <svg className="w-3.5 h-3.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Full Name */}
+                                    <div className="group">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Full Name</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
+                                            <p className="text-sm font-semibold text-gray-900">{user?.fullName || user?.name || 'N/A'}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Professional Title */}
+                                    <div className="group">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Professional Title</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
+                                            <p className="text-sm text-gray-700">{user?.title || 'Not specified'}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Email Address */}
+                                    <div className="group">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Email Address</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100 group-hover:border-blue-200 transition-colors">
+                                            <div className="flex items-center justify-between">
+                                                <p className="text-sm text-gray-900 break-all">{user?.email || 'N/A'}</p>
+                                                {user?.email && (
+                                                    <button
+                                                        onClick={() => navigator.clipboard.writeText(user.email)}
+                                                        className="text-gray-400 hover:text-blue-600 transition-colors ml-2 shrink-0"
+                                                        title="Copy Email"
+                                                    >
+                                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                                        </svg>
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Location */}
+                                    <div className="group">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
+                                            <p className="text-sm text-gray-700">{user?.location || 'Not specified'}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Member Since */}
+                                    <div className="group">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Member Since</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-sm font-medium text-gray-900">
+                                                    {user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
+                                                </span>
+                                                {user?.createdAt && (
+                                                    <span className="text-xs text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
+                                                        {Math.floor((new Date() - new Date(user.createdAt)) / (1000 * 60 * 60 * 24 * 30))}+ months
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Bio Section - Full Width */}
+                                {user?.bio && (
+                                    <div className="mt-5 pt-4 border-t border-gray-100">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+                                            </svg>
+                                            <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Bio / About</label>
+                                        </div>
+                                        <div className="bg-linear-to-r from-blue-50/30 to-purple-50/30 rounded-xl p-4 border border-blue-100">
+                                            <p className="text-sm text-gray-700 leading-relaxed">{user.bio}</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Verification Badge */}
+                                <div className="mt-5 pt-4 border-t border-gray-100">
+                                    <div className="flex items-center justify-between flex-wrap gap-3">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
+                                                <svg className="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-xs text-gray-600">Email Verified</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-xs text-gray-600">2FA Optional</span>
+                                        </div>
+                                        <Link href="/profile/edit" className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+                                            Edit Profile
+                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
                                         </Link>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* User Info Card */}
-                        <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-6">
-                            <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
-                                <h2 className="text-lg font-semibold text-gray-900">
-                                    Account Information
-                                </h2>
-                            </div>
-                            <div className="p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="text-xs font-medium text-gray-500 uppercase">User ID</label>
-                                        <p className="text-sm text-gray-900 mt-1 font-mono">{user?.id || 'N/A'}</p>
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-medium text-gray-500 uppercase">Full Name</label>
-                                        <p className="text-sm text-gray-900 mt-1 font-semibold">{user?.fullName || user?.name || 'N/A'}</p>
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-medium text-gray-500 uppercase">Professional Title</label>
-                                        <p className="text-sm text-gray-900 mt-1">{user?.title || 'Not specified'}</p>
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-medium text-gray-500 uppercase">Role</label>
-                                        <p className="text-sm text-gray-900 mt-1">
-                                            <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                                {user?.role === 'admin' ? 'Administrator' : (user?.role || 'User')}
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-medium text-gray-500 uppercase">Email</label>
-                                        <p className="text-sm text-gray-900 mt-1 break-all">{user?.email || 'N/A'}</p>
-                                    </div>
-                                    <div>
-                                        <label className="text-xs font-medium text-gray-500 uppercase">Location</label>
-                                        <p className="text-sm text-gray-900 mt-1">{user?.location || 'Not specified'}</p>
-                                    </div>
-                                    {user?.bio && (
-                                        <div className="md:col-span-2">
-                                            <label className="text-xs font-medium text-gray-500 uppercase">Bio</label>
-                                            <p className="text-sm text-gray-900 mt-1">{user.bio}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Quick Actions */}
-                        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                            <div className="px-6 py-4 border-b border-gray-200">
-                                <h2 className="text-lg font-semibold text-gray-900">
+                        {/* Quick Actions Card */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.4 }}
+                            className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+                        >
+                            <div className="px-6 py-4 border-b border-gray-100 bg-linear-to-r from-gray-50 to-white">
+                                <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
                                     Quick Actions
                                 </h2>
                             </div>
                             <div className="p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                     <button
                                         onClick={() => router.push('/profile')}
-                                        className="p-4 bg-blue-50 rounded-xl text-center hover:bg-blue-100 transition group"
+                                        className="group p-5 bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105"
                                     >
-                                        <div className="text-3xl mb-2">👤</div>
-                                        <p className="font-medium text-gray-900">My Profile</p>
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">👤</div>
+                                        <p className="font-semibold text-gray-900">My Profile</p>
                                         <p className="text-xs text-gray-600 mt-1">View and edit your profile</p>
                                     </button>
                                     <button
                                         onClick={() => router.push('/projects')}
-                                        className="p-4 bg-purple-50 rounded-xl text-center hover:bg-purple-100 transition group"
+                                        className="group p-5 bg-linear-to-br from-purple-50 to-pink-50 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105"
                                     >
-                                        <div className="text-3xl mb-2">🎬</div>
-                                        <p className="font-medium text-gray-900">My Projects</p>
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">🎬</div>
+                                        <p className="font-semibold text-gray-900">My Projects</p>
                                         <p className="text-xs text-gray-600 mt-1">Manage your projects</p>
                                     </button>
                                     <button
                                         onClick={() => router.push('/submissions')}
-                                        className="p-4 bg-green-50 rounded-xl text-center hover:bg-green-100 transition group"
+                                        className="group p-5 bg-linear-to-br from-emerald-50 to-teal-50 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105"
                                     >
-                                        <div className="text-3xl mb-2">📄</div>
-                                        <p className="font-medium text-gray-900">Submissions</p>
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">📄</div>
+                                        <p className="font-semibold text-gray-900">Submissions</p>
                                         <p className="text-xs text-gray-600 mt-1">View your submissions</p>
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>

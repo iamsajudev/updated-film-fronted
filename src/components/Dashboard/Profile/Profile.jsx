@@ -118,7 +118,7 @@ const Profile = () => {
                     return;
                 }
 
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
                 const endpoint = `${API_URL}/api/users/profile`;
 
                 const timeoutId = setTimeout(() => {
@@ -339,7 +339,7 @@ const Profile = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://server.nybff.us';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
             const submitData = {
                 fullName: editForm.fullName || editForm.name,
@@ -473,7 +473,7 @@ const Profile = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+            <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center">
                 <div className="text-center">
                     <div className="relative">
                         <Loader2 className="w-16 h-16 text-blue-600 animate-spin mx-auto" />
@@ -488,11 +488,11 @@ const Profile = () => {
     }
 
     return (
-        <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 min-h-screen pb-20">
+        <div className="bg-linear-to-br from-gray-50 via-white to-gray-50 min-h-screen pb-20">
             {/* Success Message Toast */}
             {showSuccessMessage && (
                 <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300">
-                    <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-4 flex items-center gap-3 text-white">
+                    <div className="bg-linear-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-4 flex items-center gap-3 text-white">
                         <CheckCircle className="w-5 h-5" />
                         <p className="font-medium">{successMessage}</p>
                     </div>
@@ -502,7 +502,7 @@ const Profile = () => {
             {/* Error Message */}
             {error && (
                 <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300">
-                    <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-lg p-4 flex items-center gap-3 text-white">
+                    <div className="bg-linear-to-r from-red-500 to-red-600 rounded-lg shadow-lg p-4 flex items-center gap-3 text-white">
                         <AlertCircle className="w-5 h-5" />
                         <p className="font-medium">{error}</p>
                     </div>
@@ -510,7 +510,7 @@ const Profile = () => {
             )}
 
             {/* Cover Photo Section */}
-            <div className="relative h-80 lg:h-96 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 overflow-hidden rounded-2xl">
+            <div className="relative h-80 lg:h-96 bg-linear-to-r from-slate-900 via-slate-800 to-slate-900 overflow-hidden rounded-2xl">
                 <div className="absolute inset-0 bg-black/30"></div>
                 
                 {(() => {
@@ -525,7 +525,7 @@ const Profile = () => {
                         );
                     }
                     return (
-                        <div className="w-full h-full bg-gradient-to-r from-blue-900 via-purple-900 to-pink-900">
+                        <div className="w-full h-full bg-linear-to-r from-blue-900 via-purple-900 to-pink-900">
                             <div className="absolute inset-0 animate-pulse" style={{
                                 background: 'linear-gradient(45deg, rgba(59,130,246,0.3), rgba(147,51,234,0.3), rgba(236,72,153,0.3))',
                                 backgroundSize: '200% 200%',
@@ -535,7 +535,7 @@ const Profile = () => {
                     );
                 })()}
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent "></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent "></div>
 
                 {isEditing && (
                     <button
@@ -568,7 +568,7 @@ const Profile = () => {
                             <button
                                 onClick={handleSave}
                                 disabled={submitting}
-                                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg text-white hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center gap-2 text-sm font-medium shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-4 py-2 bg-linear-to-r from-blue-600 to-blue-700 rounded-lg text-white hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center gap-2 text-sm font-medium shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {submitting ? (
                                     <>
@@ -605,10 +605,10 @@ const Profile = () => {
                             {/* Avatar Section - Centered */}
                             <div className="relative flex justify-center">
                                 <div className="relative group">
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl opacity-75 blur-md group-hover:opacity-100 transition duration-300"></div>
-                                    <div className="relative rounded-2xl border-4 border-white shadow-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                                    <div className="absolute -inset-1 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl opacity-75 blur-md group-hover:opacity-100 transition duration-300"></div>
+                                    <div className="relative rounded-2xl border-4 border-white shadow-2xl overflow-hidden bg-linear-to-br from-gray-50 to-gray-100">
                                         {isUploading ? (
-                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
+                                            <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-50">
                                                 <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
                                             </div>
                                         ) : (
@@ -685,7 +685,7 @@ const Profile = () => {
                         {/* Contact Details Card */}
                         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 transform transition-all duration-300 hover:shadow-2xl">
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
+                                <div className="p-2 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg">
                                     <AtSign className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Contact Details</h3>
@@ -774,7 +774,7 @@ const Profile = () => {
                         {/* Skills Section Card */}
                         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 transform transition-all duration-300 hover:shadow-2xl">
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg">
+                                <div className="p-2 bg-linear-to-br from-purple-500 to-purple-600 rounded-lg">
                                     <TrendingUp className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Skills & Expertise</h3>
@@ -792,14 +792,14 @@ const Profile = () => {
                                         />
                                         <button
                                             onClick={addSkill}
-                                            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-medium whitespace-nowrap"
+                                            className="px-4 py-2 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-medium whitespace-nowrap"
                                         >
                                             Add
                                         </button>
                                     </div>
                                     <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto">
                                         {editForm.skills.map((skill, index) => (
-                                            <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-medium rounded-full border border-blue-100">
+                                            <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 bg-linear-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-medium rounded-full border border-blue-100">
                                                 {skill}
                                                 <button onClick={() => removeSkill(skill)} className="hover:text-red-600 ml-1 transition-colors">
                                                     <X className="w-3 h-3" />
@@ -812,7 +812,7 @@ const Profile = () => {
                                 <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto">
                                     {user.skills.length > 0 ? (
                                         user.skills.map((skill, index) => (
-                                            <span key={index} className="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-medium rounded-full border border-blue-100">
+                                            <span key={index} className="px-3 py-1.5 bg-linear-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-medium rounded-full border border-blue-100">
                                                 {skill}
                                             </span>
                                         ))
@@ -829,7 +829,7 @@ const Profile = () => {
                         {/* Biography Card */}
                         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 transform transition-all duration-300 hover:shadow-2xl">
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-gradient-to-br from-green-500 to-green-600 rounded-lg">
+                                <div className="p-2 bg-linear-to-br from-green-500 to-green-600 rounded-lg">
                                     <User className="w-4 h-4 text-white" />
                                 </div>
                                 <h2 className="text-lg font-bold text-gray-800">Biography</h2>
@@ -852,7 +852,7 @@ const Profile = () => {
 
                         {/* Statistics Dashboard */}
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
-                            <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                            <div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
                                 <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                     <Film className="w-5 h-5" />
                                 </div>
@@ -872,7 +872,7 @@ const Profile = () => {
                                 <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Projects</p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                            <div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
                                 <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                     <Users className="w-5 h-5" />
                                 </div>
@@ -892,7 +892,7 @@ const Profile = () => {
                                 <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Submissions</p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                            <div className="bg-linear-to-br from-green-500 to-green-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
                                 <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                     <Award className="w-5 h-5" />
                                 </div>
@@ -912,7 +912,7 @@ const Profile = () => {
                                 <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Selections</p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                            <div className="bg-linear-to-br from-yellow-500 to-orange-500 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
                                 <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                     <Trophy className="w-5 h-5" />
                                 </div>
@@ -932,7 +932,7 @@ const Profile = () => {
                                 <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Awards</p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                            <div className="bg-linear-to-br from-pink-500 to-rose-500 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
                                 <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                     <Users className="w-5 h-5" />
                                 </div>
@@ -952,7 +952,7 @@ const Profile = () => {
                                 <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Followers</p>
                             </div>
 
-                            <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
+                            <div className="bg-linear-to-br from-indigo-500 to-indigo-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
                                 <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                     <Users className="w-5 h-5" />
                                 </div>
@@ -1018,13 +1018,13 @@ const Profile = () => {
                                             + Add Experience
                                         </button>
                                     ) : (
-                                        <div className="space-y-3 p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl">
+                                        <div className="space-y-3 p-4 bg-linear-to-r from-gray-50 to-blue-50 rounded-xl">
                                             <input type="text" placeholder="Job Title" value={newExperience.title} onChange={(e) => setNewExperience({ ...newExperience, title: e.target.value })} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
                                             <input type="text" placeholder="Company" value={newExperience.company} onChange={(e) => setNewExperience({ ...newExperience, company: e.target.value })} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
                                             <input type="text" placeholder="Period (e.g., 2020 - Present)" value={newExperience.period} onChange={(e) => setNewExperience({ ...newExperience, period: e.target.value })} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
                                             <textarea placeholder="Description" value={newExperience.description} onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })} rows={2} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" />
                                             <div className="flex gap-2">
-                                                <button onClick={addExperience} className="px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200">Add</button>
+                                                <button onClick={addExperience} className="px-3 py-1 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200">Add</button>
                                                 <button onClick={() => setShowAddExperience(false)} className="px-3 py-1 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-all duration-200">Cancel</button>
                                             </div>
                                         </div>
