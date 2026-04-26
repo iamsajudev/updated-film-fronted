@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Complete list of all countries with codes
 const countries = [
@@ -201,6 +202,15 @@ const countries = [
     { code: "ZW", name: "Zimbabwe", dialCode: "+263" }
 ];
 
+// Helper function to get country flag emoji from country code
+const getCountryFlag = (countryCode) => {
+    const codePoints = countryCode
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+};
+
 const CountrySelect = ({ value, onChange, placeholder = "Select a country", required = false, className = "" }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
@@ -245,27 +255,26 @@ const CountrySelect = ({ value, onChange, placeholder = "Select a country", requ
 
     return (
         <div className={`relative ${className}`} ref={dropdownRef}>
-            {/* <label className="block text-sm font-medium text-gray-700 mb-2">
-                {required && <span className="text-red-500">*</span>}
-            </label> */}
-
-            {/* Selected Country Display */}
+            {/* Selected Country Display - Dark Theme */}
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer bg-white flex items-center justify-between"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-[#1EB97A] focus:ring-2 focus:ring-[#1EB97A]/20 cursor-pointer flex items-center justify-between transition-all duration-200 hover:border-gray-600"
             >
-                <span className={selectedCountry ? "text-black" : "text-gray-400"}>
+                <span className={selectedCountry ? "text-white" : "text-gray-500"}>
                     {selectedCountry ? (
-                        <div className="flex items-center gap-2">
-                            <span className="text-lg">{getCountryFlag(selectedCountry.code)}</span>
-                            <span>{selectedCountry.name}</span>
+                        <div className="flex items-center gap-3">
+                            <span className="text-xl">{getCountryFlag(selectedCountry.code)}</span>
+                            <span className="text-sm font-medium">{selectedCountry.name}</span>
+                            {selectedCountry.dialCode && (
+                                <span className="text-xs text-gray-400 ml-1">({selectedCountry.dialCode})</span>
+                            )}
                         </div>
                     ) : (
                         placeholder
                     )}
                 </span>
                 <svg
-                    className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -274,61 +283,101 @@ const CountrySelect = ({ value, onChange, placeholder = "Select a country", requ
                 </svg>
             </div>
 
-            {/* Dropdown */}
-            {isOpen && (
-                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-hidden">
-                    {/* Search Input */}
-                    <div className="p-2 border-b border-gray-200">
-                        <input
-                            ref={inputRef}
-                            type="text"
-                            placeholder="Search country..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                            autoFocus
-                        />
-                    </div>
-
-                    {/* Countries List */}
-                    <div className="overflow-y-auto max-h-64">
-                        {filteredCountries.length > 0 ? (
-                            filteredCountries.map((country) => (
-                                <button
-                                    key={country.code}
-                                    onClick={() => handleSelectCountry(country)}
-                                    className={`w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors flex items-center gap-2 ${selectedCountry?.code === country.code ? "bg-blue-50 text-blue-600" : "text-gray-700"
-                                        }`}
-                                >
-                                    <span className="text-lg">{getCountryFlag(country.code)}</span>
-                                    <span>{country.name}</span>
-                                    {selectedCountry?.code === country.code && (
-                                        <svg className="w-4 h-4 ml-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            {/* Dropdown - Dark Theme */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute z-50 w-full mt-2 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl overflow-hidden"
+                    >
+                        {/* Search Input */}
+                        <div className="p-3 border-b border-gray-800">
+                            <div className="relative">
+                                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input
+                                    ref={inputRef}
+                                    type="text"
+                                    placeholder="Search country..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1EB97A]/50 focus:border-[#1EB97A] text-white placeholder-gray-500 text-sm transition-all"
+                                    autoFocus
+                                />
+                                {searchTerm && (
+                                    <button
+                                        onClick={() => setSearchTerm("")}
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                         </svg>
-                                    )}
-                                </button>
-                            ))
-                        ) : (
-                            <div className="px-4 py-8 text-center text-gray-500">
-                                No countries found
+                                    </button>
+                                )}
                             </div>
-                        )}
-                    </div>
-                </div>
-            )}
+                        </div>
+
+                        {/* Countries List - With flags */}
+                        <div className="overflow-y-auto max-h-72">
+                            {filteredCountries.length > 0 ? (
+                                filteredCountries.map((country, index) => (
+                                    <motion.button
+                                        key={country.code}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.01 }}
+                                        onClick={() => handleSelectCountry(country)}
+                                        className={`w-full px-4 py-3 text-left hover:bg-gray-800 transition-all duration-200 flex items-center gap-3 group ${
+                                            selectedCountry?.code === country.code 
+                                                ? "bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 border-l-2 border-[#1EB97A]" 
+                                                : "border-l-2 border-transparent"
+                                        }`}
+                                    >
+                                        <span className="text-2xl">{getCountryFlag(country.code)}</span>
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-2">
+                                                <span className={`text-sm font-medium ${selectedCountry?.code === country.code ? "text-[#1EB97A]" : "text-gray-300 group-hover:text-white"}`}>
+                                                    {country.name}
+                                                </span>
+                                                {country.dialCode && (
+                                                    <span className="text-xs text-gray-500">{country.dialCode}</span>
+                                                )}
+                                            </div>
+                                            <span className="text-xs text-gray-500">{country.code}</span>
+                                        </div>
+                                        {selectedCountry?.code === country.code && (
+                                            <svg className="w-4 h-4 text-[#1EB97A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        )}
+                                    </motion.button>
+                                ))
+                            ) : (
+                                <div className="px-4 py-12 text-center">
+                                    <svg className="w-12 h-12 mx-auto text-gray-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    <p className="text-gray-500 text-sm">No countries found</p>
+                                    <p className="text-gray-600 text-xs mt-1">Try a different search term</p>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Footer with country count */}
+                        <div className="p-2 border-t border-gray-800 bg-gray-900/50">
+                            <p className="text-xs text-center text-gray-500">
+                                {filteredCountries.length} of {countries.length} countries
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
-};
-
-
-// Helper function to get country flag emoji from country code
-const getCountryFlag = (countryCode) => {
-    const codePoints = countryCode
-        .toUpperCase()
-        .split('')
-        .map(char => 127397 + char.charCodeAt());
-    return String.fromCodePoint(...codePoints);
 };
 
 export default CountrySelect;

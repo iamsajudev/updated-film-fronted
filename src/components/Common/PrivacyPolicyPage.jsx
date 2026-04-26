@@ -1,343 +1,457 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Shield,
+    Lock,
+    Cookie,
+    Eye,
+    Trash2,
+    Download,
+    Mail,
+    Phone,
+    MapPin,
+    CheckCircle,
+    AlertCircle,
+    X,
+    ExternalLink,
+    FileText,
+    Users,
+    Database,
+    Server,
+    Globe,
+    Clock
+} from "lucide-react";
 
 const PrivacyPolicyPage = () => {
     const [lastUpdated] = useState("March 31, 2026");
     const [showCookieConsent, setShowCookieConsent] = useState(true);
+    const [accepted, setAccepted] = useState(false);
+
+    useEffect(() => {
+        const cookiesAccepted = localStorage.getItem("cookiesAccepted");
+        if (cookiesAccepted === "true") {
+            setShowCookieConsent(false);
+        }
+    }, []);
 
     const handleAcceptCookies = () => {
         setShowCookieConsent(false);
         localStorage.setItem("cookiesAccepted", "true");
     };
 
+    const sections = [
+        { id: "introduction", label: "Introduction", icon: <FileText className="w-3 h-3" /> },
+        { id: "information", label: "Information", icon: <Database className="w-3 h-3" /> },
+        { id: "usage", label: "Usage", icon: <Users className="w-3 h-3" /> },
+        { id: "cookies", label: "Cookies", icon: <Cookie className="w-3 h-3" /> },
+        { id: "sharing", label: "Sharing", icon: <Globe className="w-3 h-3" /> },
+        { id: "rights", label: "Your Rights", icon: <Shield className="w-3 h-3" /> },
+        { id: "security", label: "Security", icon: <Lock className="w-3 h-3" /> },
+        { id: "contact", label: "Contact", icon: <Mail className="w-3 h-3" /> },
+    ];
+
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-                
-                {/* Cookie Consent Banner */}
+        <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8">
+            {/* Cookie Consent Banner - Dark Theme */}
+            <AnimatePresence>
                 {showCookieConsent && (
-                    <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50 shadow-lg">
-                        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <p className="text-sm">
-                                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-                            </p>
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 100, opacity: 0 }}
+                        className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 to-gray-950 border-t border-gray-800 shadow-2xl"
+                    >
+                        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-[#1EB97A]/20 rounded-xl">
+                                    <Cookie className="w-5 h-5 text-[#1EB97A]" />
+                                </div>
+                                <p className="text-sm text-gray-300">
+                                    We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+                                </p>
+                            </div>
                             <div className="flex gap-3">
                                 <button
                                     onClick={handleAcceptCookies}
-                                    className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition"
+                                    className="bg-gradient-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 px-5 py-2 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg shadow-[#1EB97A]/20"
                                 >
                                     Accept
                                 </button>
-                                <Link href="/privacy#cookies" className="text-gray-300 hover:text-white text-sm">
+                                <Link href="#cookies" className="text-gray-400 hover:text-white text-sm transition-colors px-3 py-2">
                                     Learn More
                                 </Link>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 )}
+            </AnimatePresence>
 
+            <div className="max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-                        <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center mb-10"
+                >
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                        <Shield className="w-3 h-3" />
+                        Privacy & Security
                     </div>
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-                    <p className="text-lg text-gray-600">Your privacy matters to us</p>
-                    <p className="text-sm text-gray-500 mt-2">Last Updated: {lastUpdated}</p>
-                </div>
+                    {/* <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-2xl mb-4 shadow-lg shadow-[#1EB97A]/20">
+                        <Lock className="w-8 h-8 text-white" />
+                    </div> */}
+                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-2">
+                        Privacy Policy
+                    </h1>
+                    <p className="text-gray-400 text-base">Your privacy matters to us</p>
+                    <div className="flex items-center justify-center gap-2 mt-3">
+                        <Clock className="w-3 h-3 text-gray-500" />
+                        <p className="text-xs text-gray-500">Last Updated: {lastUpdated}</p>
+                    </div>
+                </motion.div>
 
-                {/* Quick Navigation */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
-                    <p className="text-sm font-medium text-gray-700 mb-2">Quick Navigation:</p>
+                {/* Quick Navigation - Dark Theme */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-5 mb-6 shadow-xl"
+                >
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <Globe className="w-3 h-3" />
+                        Quick Navigation
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                        {["information", "usage", "cookies", "sharing", "rights", "security", "children", "contact"].map((section) => (
+                        {sections.map((section) => (
                             <a
-                                key={section}
-                                href={`#${section}`}
-                                className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full transition"
+                                key={section.id}
+                                href={`#${section.id}`}
+                                className="inline-flex items-center gap-1.5 text-xs bg-gray-800 hover:bg-[#1EB97A]/20 text-gray-300 hover:text-[#1EB97A] px-3 py-1.5 rounded-full transition-all duration-200"
                             >
-                                {section.charAt(0).toUpperCase() + section.slice(1)}
+                                {section.icon}
+                                {section.label}
                             </a>
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
-                {/* Privacy Policy Content */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-8">
+                {/* Privacy Policy Content - Dark Theme */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-xl overflow-hidden mb-8"
+                >
                     <div className="p-6 md:p-8 space-y-8">
                         
                         {/* Introduction */}
-                        <section id="introduction">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">Introduction</h2>
-                            <p className="text-gray-700 mb-3">
-                                Welcome to Film Festival Platform ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our film submission platform.
+                        <section id="introduction" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-[#1EB97A]/20 rounded-xl">
+                                    <FileText className="w-5 h-5 text-[#1EB97A]" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">Introduction</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3 leading-relaxed">
+                                Welcome to NYBFF ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our film submission platform.
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-gray-400 leading-relaxed">
                                 Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site or use our services.
                             </p>
                         </section>
 
                         {/* Information We Collect */}
-                        <section id="information">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">1. Information We Collect</h2>
+                        <section id="information" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-blue-500/20 rounded-xl">
+                                    <Database className="w-5 h-5 text-blue-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">1. Information We Collect</h2>
+                            </div>
                             <div className="space-y-4">
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Personal Information You Provide</h3>
-                                    <ul className="list-disc list-inside space-y-1 text-gray-700 ml-4">
-                                        <li>Name, email address, phone number, and mailing address</li>
-                                        <li>Professional credentials and filmmaking experience</li>
-                                        <li>Payment information (processed securely through third-party providers)</li>
-                                        <li>Film submissions, including trailers, posters, and synopses</li>
-                                        <li>Communication preferences and feedback</li>
-                                        <li>Account login credentials</li>
+                                    <h3 className="text-lg font-semibold text-gray-300 mb-2">Personal Information You Provide</h3>
+                                    <ul className="space-y-1 text-gray-400 ml-4">
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Name, email address, phone number, and mailing address</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Professional credentials and filmmaking experience</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Payment information (processed securely through third-party providers)</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Film submissions, including trailers, posters, and synopses</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Communication preferences and feedback</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Account login credentials</li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Information Automatically Collected</h3>
-                                    <ul className="list-disc list-inside space-y-1 text-gray-700 ml-4">
-                                        <li>IP address and device information</li>
-                                        <li>Browser type and version</li>
-                                        <li>Pages visited and time spent on our platform</li>
-                                        <li>Referring website addresses</li>
-                                        <li>Cookies and similar tracking technologies</li>
+                                    <h3 className="text-lg font-semibold text-gray-300 mb-2">Information Automatically Collected</h3>
+                                    <ul className="space-y-1 text-gray-400 ml-4">
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> IP address and device information</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Browser type and version</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Pages visited and time spent on our platform</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Referring website addresses</li>
+                                        <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Cookies and similar tracking technologies</li>
                                     </ul>
                                 </div>
                             </div>
                         </section>
 
                         {/* How We Use Your Information */}
-                        <section id="usage">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">2. How We Use Your Information</h2>
-                            <p className="text-gray-700 mb-3">We use the information we collect for various purposes, including:</p>
-                            <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
-                                <li>Process and evaluate film submissions for festivals and awards</li>
-                                <li>Communicate with you about submission status, deadlines, and festival updates</li>
-                                <li>Personalize your experience and recommend relevant opportunities</li>
-                                <li>Improve our platform, services, and user experience</li>
-                                <li>Process payments and prevent fraudulent transactions</li>
-                                <li>Comply with legal obligations and enforce our terms</li>
-                                <li>Send you marketing communications (with your consent)</li>
-                                <li>Analyze usage patterns and optimize our website performance</li>
+                        <section id="usage" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-purple-500/20 rounded-xl">
+                                    <Users className="w-5 h-5 text-purple-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">2. How We Use Your Information</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3">We use the information we collect for various purposes, including:</p>
+                            <ul className="space-y-2 text-gray-400 ml-4">
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Process and evaluate film submissions for festivals and awards</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Communicate with you about submission status, deadlines, and festival updates</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Personalize your experience and recommend relevant opportunities</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Improve our platform, services, and user experience</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Process payments and prevent fraudulent transactions</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Comply with legal obligations and enforce our terms</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Send you marketing communications (with your consent)</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Analyze usage patterns and optimize our website performance</li>
                             </ul>
                         </section>
 
                         {/* Cookies & Tracking */}
-                        <section id="cookies">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">3. Cookies & Tracking Technologies</h2>
-                            <p className="text-gray-700 mb-3">
+                        <section id="cookies" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-amber-500/20 rounded-xl">
+                                    <Cookie className="w-5 h-5 text-amber-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">3. Cookies & Tracking Technologies</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3 leading-relaxed">
                                 We use cookies and similar tracking technologies to track activity on our platform and store certain information. Cookies are files with small amounts of data that may include an anonymous unique identifier.
                             </p>
-                            <div className="bg-gray-50 rounded-lg p-4 mt-3">
-                                <h3 className="font-semibold text-gray-800 mb-2">Types of Cookies We Use:</h3>
-                                <ul className="space-y-2 text-sm text-gray-700">
-                                    <li><span className="font-medium">Essential Cookies:</span> Required for basic platform functionality</li>
-                                    <li><span className="font-medium">Preference Cookies:</span> Remember your settings and preferences</li>
-                                    <li><span className="font-medium">Analytics Cookies:</span> Help us understand how users interact with our platform</li>
-                                    <li><span className="font-medium">Marketing Cookies:</span> Used to deliver relevant advertisements</li>
+                            <div className="bg-gray-800/50 rounded-xl p-4 mt-3 border border-gray-700">
+                                <h3 className="font-semibold text-gray-300 mb-2">Types of Cookies We Use:</h3>
+                                <ul className="space-y-2 text-sm text-gray-400">
+                                    <li className="flex items-start gap-2"><span className="text-[#1EB97A]">▹</span> <span className="font-medium">Essential Cookies:</span> Required for basic platform functionality</li>
+                                    <li className="flex items-start gap-2"><span className="text-[#1EB97A]">▹</span> <span className="font-medium">Preference Cookies:</span> Remember your settings and preferences</li>
+                                    <li className="flex items-start gap-2"><span className="text-[#1EB97A]">▹</span> <span className="font-medium">Analytics Cookies:</span> Help us understand how users interact with our platform</li>
+                                    <li className="flex items-start gap-2"><span className="text-[#1EB97A]">▹</span> <span className="font-medium">Marketing Cookies:</span> Used to deliver relevant advertisements</li>
                                 </ul>
                             </div>
-                            <p className="text-gray-700 mt-3">
+                            <p className="text-gray-400 mt-3 leading-relaxed">
                                 You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our platform.
                             </p>
                         </section>
 
                         {/* Information Sharing */}
-                        <section id="sharing">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">4. How We Share Your Information</h2>
-                            <p className="text-gray-700 mb-3">We may share your information in the following situations:</p>
-                            <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
-                                <li><span className="font-medium">With Festival Partners:</span> Your submission materials may be shared with festival judges and selection committees</li>
-                                <li><span className="font-medium">Service Providers:</span> Third-party vendors who assist with payment processing, hosting, and analytics</li>
-                                <li><span className="font-medium">Legal Requirements:</span> When required by law or to protect our rights</li>
-                                <li><span className="font-medium">Business Transfers:</span> In connection with a merger, acquisition, or sale of assets</li>
-                                <li><span className="font-medium">With Your Consent:</span> When you have given us explicit permission to share your information</li>
+                        <section id="sharing" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-red-500/20 rounded-xl">
+                                    <Globe className="w-5 h-5 text-red-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">4. How We Share Your Information</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3">We may share your information in the following situations:</p>
+                            <ul className="space-y-2 text-gray-400 ml-4">
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> <span className="font-medium">With Festival Partners:</span> Your submission materials may be shared with festival judges and selection committees</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> <span className="font-medium">Service Providers:</span> Third-party vendors who assist with payment processing, hosting, and analytics</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> <span className="font-medium">Legal Requirements:</span> When required by law or to protect our rights</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> <span className="font-medium">Business Transfers:</span> In connection with a merger, acquisition, or sale of assets</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> <span className="font-medium">With Your Consent:</span> When you have given us explicit permission to share your information</li>
                             </ul>
-                            <div className="bg-blue-50 rounded-lg p-4 mt-4">
-                                <p className="text-sm text-blue-800">
+                            <div className="bg-[#1EB97A]/10 rounded-xl p-4 mt-4 border border-[#1EB97A]/20">
+                                <p className="text-sm text-[#1EB97A] flex items-center gap-2">
+                                    <Shield className="w-4 h-4" />
                                     <span className="font-semibold">Important:</span> We never sell your personal information to third parties for marketing purposes.
                                 </p>
                             </div>
                         </section>
 
                         {/* Your Rights */}
-                        <section id="rights">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">5. Your Privacy Rights</h2>
-                            <p className="text-gray-700 mb-3">Depending on your location, you may have the following rights:</p>
+                        <section id="rights" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-green-500/20 rounded-xl">
+                                    <Shield className="w-5 h-5 text-green-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">5. Your Privacy Rights</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3">Depending on your location, you may have the following rights:</p>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <div className="border border-gray-200 rounded-lg p-3">
+                                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="font-semibold">Right to Access</span>
+                                        <Eye className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-semibold text-white">Right to Access</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">Request a copy of your personal data</p>
+                                    <p className="text-sm text-gray-400">Request a copy of your personal data</p>
                                 </div>
-                                <div className="border border-gray-200 rounded-lg p-3">
+                                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                        </svg>
-                                        <span className="font-semibold">Right to Rectification</span>
+                                        <FileText className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-semibold text-white">Right to Rectification</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">Correct inaccurate or incomplete data</p>
+                                    <p className="text-sm text-gray-400">Correct inaccurate or incomplete data</p>
                                 </div>
-                                <div className="border border-gray-200 rounded-lg p-3">
+                                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                        <span className="font-semibold">Right to Deletion</span>
+                                        <Trash2 className="w-4 h-4 text-red-400" />
+                                        <span className="font-semibold text-white">Right to Deletion</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">Request deletion of your personal data</p>
+                                    <p className="text-sm text-gray-400">Request deletion of your personal data</p>
                                 </div>
-                                <div className="border border-gray-200 rounded-lg p-3">
+                                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span className="font-semibold">Right to Data Portability</span>
+                                        <Download className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-semibold text-white">Right to Data Portability</span>
                                     </div>
-                                    <p className="text-sm text-gray-600">Receive your data in a structured format</p>
+                                    <p className="text-sm text-gray-400">Receive your data in a structured format</p>
                                 </div>
                             </div>
-                            <p className="text-gray-700">
-                                To exercise any of these rights, please contact us at <a href="mailto:privacy@filmfestival.com" className="text-blue-600 hover:underline">privacy@filmfestival.com</a>
+                            <p className="text-gray-400">
+                                To exercise any of these rights, please contact us at <a href="mailto:privacy@nybff.com" className="text-[#1EB97A] hover:text-emerald-400 transition-colors">privacy@nybff.com</a>
                             </p>
                         </section>
 
                         {/* Data Security */}
-                        <section id="security">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">6. Data Security</h2>
-                            <p className="text-gray-700 mb-3">
+                        <section id="security" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-cyan-500/20 rounded-xl">
+                                    <Lock className="w-5 h-5 text-cyan-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">6. Data Security</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3 leading-relaxed">
                                 We implement appropriate technical and organizational security measures to protect your personal information. These include:
                             </p>
-                            <ul className="list-disc list-inside space-y-1 text-gray-700 ml-4">
-                                <li>SSL/TLS encryption for data transmission</li>
-                                <li>Secure servers with firewall protection</li>
-                                <li>Regular security audits and vulnerability assessments</li>
-                                <li>Access controls and authentication protocols</li>
-                                <li>Employee training on data protection practices</li>
+                            <ul className="space-y-1 text-gray-400 ml-4">
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> SSL/TLS encryption for data transmission</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Secure servers with firewall protection</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Regular security audits and vulnerability assessments</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Access controls and authentication protocols</li>
+                                <li className="flex items-start gap-2"><span className="text-[#1EB97A]">•</span> Employee training on data protection practices</li>
                             </ul>
-                            <p className="text-gray-700 mt-3">
+                            <p className="text-gray-400 mt-3 leading-relaxed">
                                 While we strive to protect your personal information, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security.
                             </p>
                         </section>
 
-                        {/* Children's Privacy */}
-                        <section id="children">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">7. Children's Privacy</h2>
-                            <p className="text-gray-700">
-                                Our platform is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.
-                            </p>
-                        </section>
-
-                        {/* International Data Transfers */}
-                        <section id="international">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">8. International Data Transfers</h2>
-                            <p className="text-gray-700">
-                                Your information may be transferred to and maintained on computers located outside of your state, province, country, or other governmental jurisdiction where data protection laws may differ. By submitting your information, you consent to this transfer.
-                            </p>
-                        </section>
-
-                        {/* Data Retention */}
-                        <section id="retention">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">9. Data Retention</h2>
-                            <p className="text-gray-700">
-                                We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required by law. Submission materials may be retained for archival and historical purposes.
-                            </p>
-                        </section>
-
-                        {/* Third-Party Links */}
-                        <section id="thirdparty">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">10. Third-Party Links</h2>
-                            <p className="text-gray-700">
-                                Our platform may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites. We encourage you to review the privacy policies of any third-party sites you visit.
-                            </p>
-                        </section>
-
-                        {/* Updates to This Policy */}
-                        <section id="updates">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">11. Updates to This Policy</h2>
-                            <p className="text-gray-700">
-                                We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.
-                            </p>
-                        </section>
-
                         {/* Contact Us */}
-                        <section id="contact">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-3">12. Contact Us</h2>
-                            <p className="text-gray-700 mb-3">
+                        <section id="contact" className="scroll-mt-20">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="p-2 bg-orange-500/20 rounded-xl">
+                                    <Mail className="w-5 h-5 text-orange-400" />
+                                </div>
+                                <h2 className="text-2xl font-bold text-white">7. Contact Us</h2>
+                            </div>
+                            <p className="text-gray-400 mb-3 leading-relaxed">
                                 If you have questions or concerns about this Privacy Policy or our data practices, please contact us at:
                             </p>
-                            <div className="bg-gray-50 rounded-lg p-4">
-                                <p className="text-gray-700">
-                                    <span className="font-semibold">Email:</span> privacy@filmfestival.com<br />
-                                    <span className="font-semibold">Phone:</span> +1 (555) 123-4567<br />
-                                    <span className="font-semibold">Address:</span> 123 Film District, Los Angeles, CA 90001<br />
-                                    <span className="font-semibold">Data Protection Officer:</span> dpo@filmfestival.com
-                                </p>
+                            <div className="bg-gray-800/50 rounded-xl p-5 border border-gray-700">
+                                <div className="space-y-2">
+                                    <p className="text-gray-300 flex items-center gap-2">
+                                        <Mail className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-medium">Email:</span> privacy@nybff.com
+                                    </p>
+                                    <p className="text-gray-300 flex items-center gap-2">
+                                        <Phone className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-medium">Phone:</span> +1 (555) 123-4567
+                                    </p>
+                                    <p className="text-gray-300 flex items-center gap-2">
+                                        <MapPin className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-medium">Address:</span> 123 Film District, Los Angeles, CA 90001
+                                    </p>
+                                    <p className="text-gray-300 flex items-center gap-2">
+                                        <Shield className="w-4 h-4 text-[#1EB97A]" />
+                                        <span className="font-medium">Data Protection Officer:</span> dpo@nybff.com
+                                    </p>
+                                </div>
                             </div>
                         </section>
 
                         {/* Summary Box */}
-                        <div className="bg-linear-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-100">
-                            <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                        <div className="bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-6 border border-[#1EB97A]/20">
+                            <h3 className="font-bold text-white mb-3 flex items-center gap-2">
+                                <Shield className="w-5 h-5 text-[#1EB97A]" />
                                 Privacy Policy Summary
                             </h3>
-                            <ul className="space-y-2 text-sm text-gray-700">
-                                <li>✓ We collect only necessary information for film submissions</li>
-                                <li>✓ Your personal data is never sold to third parties</li>
-                                <li>✓ You have control over your personal information</li>
-                                <li>✓ We use industry-standard security measures</li>
-                                <li>✓ You can request data deletion at any time</li>
+                            <ul className="space-y-2 text-sm text-gray-300">
+                                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#1EB97A]" /> We collect only necessary information for film submissions</li>
+                                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#1EB97A]" /> Your personal data is never sold to third parties</li>
+                                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#1EB97A]" /> You have control over your personal information</li>
+                                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#1EB97A]" /> We use industry-standard security measures</li>
+                                <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-[#1EB97A]" /> You can request data deletion at any time</li>
                             </ul>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                {/* Acceptance Section */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky bottom-4">
+                {/* Acceptance Section - Dark Theme */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-xl p-6 sticky bottom-4 backdrop-blur-sm"
+                >
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div className="flex items-start gap-3">
                             <input
                                 type="checkbox"
                                 id="acceptPrivacy"
-                                className="mt-1 w-4 h-4 text-blue-600 rounded"
+                                checked={accepted}
+                                onChange={(e) => setAccepted(e.target.checked)}
+                                className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-[#1EB97A] focus:ring-[#1EB97A] focus:ring-offset-0 cursor-pointer"
                             />
-                            <label htmlFor="acceptPrivacy" className="text-gray-700">
-                                I have read and understand the <span className="font-semibold">Privacy Policy</span>
+                            <label htmlFor="acceptPrivacy" className="text-gray-300 text-sm cursor-pointer">
+                                I have read and understand the <span className="font-semibold text-[#1EB97A]">Privacy Policy</span>
                             </label>
                         </div>
                         <Link
-                            href="/project/drop-project"
-                            className="bg-[#1EB97A] hover:bg-[#189663] text-white px-6 py-2 rounded-lg font-semibold text-center transition whitespace-nowrap"
+                            href="/projects/drop-project"
+                            onClick={(e) => {
+                                if (!accepted) {
+                                    e.preventDefault();
+                                    const checkbox = document.getElementById('acceptPrivacy');
+                                    checkbox?.scrollIntoView({ behavior: 'smooth' });
+                                    checkbox?.classList.add('ring-2', 'ring-red-500');
+                                    setTimeout(() => {
+                                        checkbox?.classList.remove('ring-2', 'ring-red-500');
+                                    }, 1000);
+                                }
+                            }}
+                            className={`px-6 py-2.5 rounded-xl font-semibold text-center transition-all duration-200 ${
+                                accepted
+                                    ? "bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white hover:from-[#189663] hover:to-emerald-700 shadow-lg shadow-[#1EB97A]/20 hover:shadow-xl transform hover:scale-105"
+                                    : "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"
+                            }`}
                         >
                             Continue to Submission
                         </Link>
                     </div>
-                </div>
+                    {!accepted && (
+                        <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">
+                            <AlertCircle className="w-3 h-3" />
+                            Please accept the Privacy Policy to continue
+                        </p>
+                    )}
+                </motion.div>
 
                 {/* Footer */}
-                <div className="text-center mt-8 pt-6 border-t border-gray-200">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="text-center mt-8 pt-6 border-t border-gray-800"
+                >
                     <p className="text-xs text-gray-500">
                         This Privacy Policy is compliant with GDPR, CCPA, and other applicable privacy regulations.
                     </p>
                     <div className="flex justify-center gap-4 mt-3">
-                        <Link href="/terms" className="text-xs text-gray-500 hover:text-gray-700">Terms of Service</Link>
-                        <span className="text-gray-300">|</span>
-                        <Link href="/cookies" className="text-xs text-gray-500 hover:text-gray-700">Cookie Policy</Link>
-                        <span className="text-gray-300">|</span>
-                        <Link href="/gdpr" className="text-xs text-gray-500 hover:text-gray-700">GDPR Compliance</Link>
+                        <Link href="/terms" className="text-xs text-gray-500 hover:text-[#1EB97A] transition-colors">Terms of Service</Link>
+                        <span className="text-gray-600">|</span>
+                        <Link href="#cookies" className="text-xs text-gray-500 hover:text-[#1EB97A] transition-colors">Cookie Policy</Link>
+                        <span className="text-gray-600">|</span>
+                        <Link href="/gdpr" className="text-xs text-gray-500 hover:text-[#1EB97A] transition-colors">GDPR Compliance</Link>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

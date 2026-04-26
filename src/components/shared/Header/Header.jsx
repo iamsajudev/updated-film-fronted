@@ -4,9 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import AvatarDropdown from "./AvatarDropdown";
 
-// Create local versions of auth functions that don't log to console
+// Local auth functions
 const getLocalUser = () => {
   if (typeof window !== "undefined") {
     try {
@@ -30,6 +31,7 @@ const isLocalAuthenticated = () => {
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [userName, setUserName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
@@ -40,7 +42,16 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Get user data from localStorage and listen for updates
+  // Handle scroll effect for glass morphism
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Get user data from localStorage
   useEffect(() => {
     const loadUserData = () => {
       try {
@@ -54,7 +65,6 @@ const Header = () => {
           const name = userData.fullName || userData.name || '';
           const avatar = userData.avatar || userData.profileImage || '';
 
-          // Calculate initials
           let initials = 'U';
           if (name) {
             const parts = name.trim().split(' ');
@@ -76,7 +86,6 @@ const Header = () => {
           setUserInitials("U");
         }
       } catch (error) {
-        console.error('Error getting user data:', error);
         setUserRole(null);
         setIsLoggedIn(false);
       } finally {
@@ -86,7 +95,6 @@ const Header = () => {
 
     loadUserData();
 
-    // Listen for storage events
     const handleStorageChange = (e) => {
       if (e.key === 'user' || e.key === 'token') {
         loadUserData();
@@ -94,42 +102,28 @@ const Header = () => {
     };
 
     window.addEventListener('storage', handleStorageChange);
-
-    // Custom event for auth changes
-    const handleAuthChange = () => {
-      loadUserData();
-    };
-
-    window.addEventListener('authChanged', handleAuthChange);
-    window.addEventListener('authCleared', handleAuthChange);
+    window.addEventListener('authChanged', loadUserData);
+    window.addEventListener('authCleared', loadUserData);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('authChanged', handleAuthChange);
-      window.removeEventListener('authCleared', handleAuthChange);
+      window.removeEventListener('authChanged', loadUserData);
+      window.removeEventListener('authCleared', loadUserData);
     };
   }, []);
 
-  // Handle navigation with auth check
   const handleNavigation = (e, href) => {
-    // Public routes that anyone can access
     const publicRoutes = ['/', '/projects', '/projects/drop-project'];
-
-    // Check if the route is public
     const isPublicRoute = publicRoutes.some(route => href.startsWith(route));
 
-    // If route requires auth and user is not logged in, redirect to login
     if (!isPublicRoute && !isLoggedIn) {
       e.preventDefault();
       router.push(`/login?redirect=${encodeURIComponent(href)}`);
       return;
     }
-
-    // Otherwise, allow navigation
     setIsMenuOpen(false);
   };
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -150,14 +144,12 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
-  // Close menu on escape key press
   useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === "Escape" && isMenuOpen) {
         setIsMenuOpen(false);
       }
     };
-
     document.addEventListener("keydown", handleEscKey);
     return () => document.removeEventListener("keydown", handleEscKey);
   }, [isMenuOpen]);
@@ -166,56 +158,41 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Get navigation links based on auth status
   const getNavLinks = () => {
-    // Base links that everyone sees (public)
     const links = [
-      { name: "All Projects", href: "/projects", public: true },
-      // { name: "Drop Project", href: "/projects/drop-project", public: true }
+      { name: "All Projects", href: "/projects", public: true }
     ];
 
-    // If logged in, show additional protected links
     if (isLoggedIn) {
       const isAdmin = userRole === 'admin' || userRole === 'Administrator';
 
       if (isAdmin) {
         links.push(
-          { name: "Dashboard", href: "/admin/dashboard", public: false },
-          { name: "Users", href: "/admin/all-users", public: false },
-          { name: "Submissions", href: "/admin/all-submissions", public: false }
+          { name: "Dashboard", href: "/admin/dashboard", public: false, icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
+          { name: "Users", href: "/admin/all-users", public: false, icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" },
+          { name: "Submissions", href: "/admin/all-submissions", public: false, icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" }
         );
       } else {
-        // Regular user additional links
         links.push(
-          { name: "Dashboard", href: "/dashboard", public: false },
-          // { name: "My Submissions", href: "/projects/my-submissions", public: false }
+          { name: "Dashboard", href: "/dashboard", public: false, icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" }
         );
       }
     }
-
     return links;
   };
 
   const navLinks = getNavLinks();
 
-  // Show loading state
   if (isLoading) {
     return (
-      <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50 max-w-7xl mx-auto">
-        <div className="flex flex-wrap items-center justify-between gap-5 w-full ">
-          <Link href="/projects" className="max-sm:hidden" aria-label="Home">
-            <Image
-              src="/assets/logo-final.webp"
-              alt="Company Logo"
-              width={144}
-              height={36}
-              className="w-36"
-              priority
-            />
-          </Link>
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
-            <div className="w-20 h-8 bg-gray-200 rounded animate-pulse"></div>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="w-36 h-10 bg-white/5 rounded-xl animate-pulse" />
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-8 bg-white/5 rounded-lg animate-pulse" />
+              <div className="w-8 h-8 bg-white/5 rounded-full animate-pulse" />
+            </div>
           </div>
         </div>
       </header>
@@ -223,241 +200,317 @@ const Header = () => {
   }
 
   return (
-    <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white min-h-[70px] tracking-wide relative z-50 ">
-      <div className="flex flex-wrap items-center justify-between gap-5 w-full max-w-7xl mx-auto">
-
-        {/* Logo Section - Links to Projects */}
-        <Link href="/projects" className="max-sm:hidden" aria-label="Projects">
-          <Image
-            src="/assets/logo-final.webp"
-            alt="Company Logo"
-            width={144}
-            height={36}
-            className="w-36 hover:opacity-80 transition-opacity"
-            priority
-          />
-        </Link>
-        <Link href="/projects" className="hidden max-sm:block" aria-label="Projects">
-          <Image
-            src="/assets/logo-final.webp"
-            alt="Company Logo"
-            width={36}
-            height={36}
-            className="w-9 hover:opacity-80 transition-opacity"
-            priority
-          />
-        </Link>
-
-        {/* Mobile Menu Overlay */}
-        {isMenuOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300"
-            onClick={toggleMenu}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Navigation Menu */}
-        <div
-          ref={menuRef}
-          className={`
-            lg:static lg:flex lg:items-center lg:justify-between lg:w-auto lg:h-auto lg:bg-transparent lg:shadow-none lg:translate-x-0
-            max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-3/4 max-lg:min-w-[280px] max-lg:max-w-[400px]
-            max-lg:h-full max-lg:bg-white max-lg:z-50 max-lg:shadow-xl
-            transition-transform duration-300 ease-out
-            ${isMenuOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"}
-          `}
-        >
-          {/* Mobile Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-100 lg:hidden">
-            <Image src="/assets/logo-final.webp" alt="Logo" width={120} height={30} className="w-28" />
-            <button onClick={toggleMenu} aria-label="Close menu" className="hover:bg-gray-100 p-2 rounded-lg transition-colors">
-              <svg className="w-5 h-5 fill-black" viewBox="0 0 320.591 320.591">
-                <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z" />
-                <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Mobile User Profile Preview - Only show if logged in */}
-          {isLoggedIn && (
-            <div className="px-6 pt-4 pb-2 lg:hidden flex items-center gap-3 border-b border-gray-100">
-              <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md">
-                {userAvatar ? (
-                  <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
-                ) : (
-                  <span className="text-lg">{userInitials}</span>
-                )}
+    <>
+      <header
+        className={`
+          fixed top-0 left-0 right-0 z-50 transition-all duration-500
+          ${isScrolled 
+            ? "bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-2xl" 
+            : "bg-black/80 backdrop-blur-md border-b border-white/5"
+          }
+        `}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            
+            {/* Logo */}
+            <Link 
+              href="/projects" 
+              className="group relative flex items-center gap-2"
+              aria-label="Home"
+            >
+              <div className="relative">
+                <Image
+                  src="/assets/logo-white.webp"
+                  alt="NYBFF"
+                  width={140}
+                  height={40}
+                  className="w-32 lg:w-36 transition-all duration-300 group-hover:scale-105"
+                  priority
+                />
               </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-900">{userName || 'User'}</p>
-                <p className="text-xs text-gray-500">{userRole === 'admin' ? 'Administrator' : 'Member'}</p>
-              </div>
-            </div>
-          )}
+              <div className="hidden lg:block h-6 w-px bg-white/20 mx-2" />
+              <span className="hidden lg:block text-xs text-white/40 font-mono tracking-wider">EST. 2024</span>
+            </Link>
 
-          {/* Navigation Links */}
-          <ul className="lg:flex lg:gap-x-2 max-lg:p-6 max-lg:space-y-2">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href || pathname?.startsWith(link.href + '/');
-              const isClickable = link.public || isLoggedIn;
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href || pathname?.startsWith(link.href + '/');
+                const isClickable = link.public || isLoggedIn;
 
-              if (!isClickable) {
-                return (
-                  <li key={link.name}>
+                if (!isClickable) {
+                  return (
                     <button
+                      key={link.name}
                       onClick={(e) => handleNavigation(e, link.href)}
                       className={`
-                        block w-full text-left font-semibold text-[15px] py-2.5 px-4 rounded-lg transition-all
-                        text-slate-700 hover:text-blue-700 hover:bg-gray-50
+                        relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200
+                        text-gray-300 hover:text-white hover:bg-white/5
                       `}
                     >
                       {link.name}
                     </button>
-                  </li>
-                );
-              }
+                  );
+                }
 
-              return (
-                <li key={link.name}>
+                return (
                   <Link
+                    key={link.name}
                     href={link.href}
                     onClick={(e) => {
                       if (!link.public && !isLoggedIn) {
                         handleNavigation(e, link.href);
-                      } else {
-                        setIsMenuOpen(false);
                       }
                     }}
                     className={`
-                      block font-semibold text-[15px] py-2.5 px-4 rounded-lg transition-all
-                      ${isActive && isLoggedIn
-                        ? "text-blue-700 bg-blue-50/80 lg:bg-blue-50"
-                        : "text-slate-700 hover:text-blue-700 hover:bg-gray-50"
+                      relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200
+                      ${isActive
+                        ? "text-white bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30"
+                        : "text-gray-300 hover:text-white hover:bg-white/5"
                       }
                     `}
                   >
                     {link.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNav"
+                        className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-[#1EB97A] to-emerald-500 rounded-full"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
                   </Link>
-                </li>
-              );
-            })}
-          </ul>
+                );
+              })}
+            </nav>
 
-          {/* Mobile Auth Links (Login/Register) - Only show when not logged in */}
-          {!isLoggedIn && (
-            <div className="border-t border-gray-100 mt-4 pt-4 px-6 lg:hidden">
-              <div className="space-y-2">
-                <Link
-                  href="/login"
-                  className="block text-sm font-semibold text-blue-600 hover:text-blue-700 py-2 px-2 rounded-lg hover:bg-blue-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+            {/* Right Section */}
+            <div className="flex items-center gap-3 lg:gap-4">
+              {/* Welcome Text - Desktop */}
+              {isLoggedIn && userName && (
+                <motion.div 
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="hidden lg:block text-sm"
                 >
-                  Sign In
-                </Link>
-                <Link
-                  href="/register"
-                  className="block text-sm text-gray-600 hover:text-gray-700 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Create Account
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {/* Admin Quick Links for Mobile */}
-          {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
-            <div className="border-t border-gray-100 mt-4 pt-4 px-6 lg:hidden">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
-                Quick Actions
-              </p>
-              <div className="space-y-2">
-                <Link
-                  href="/admin/all-users/create"
-                  className="block text-sm text-gray-600 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  + Create New User
-                </Link>
-                <Link
-                  href="/admin/festivals/create"
-                  className="block text-sm text-gray-600 hover:text-blue-600 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  + Add Festival
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Right Side Actions - Avatar Dropdown or Auth Buttons */}
-        <div className="flex items-center space-x-4">
-          {/* Welcome Text for Desktop - Only show when logged in */}
-          {isLoggedIn && userName && (
-            <div className="hidden lg:block text-sm text-gray-600">
-              <span className="font-medium">Welcome,</span>{" "}
-              <span className="text-gray-800">{userName.split(' ')[0]}</span>
-            </div>
-          )}
-
-          {/* Admin Badge for Desktop */}
-          {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
-            <div className="hidden lg:block">
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                <span className="mr-1">👑</span>
-                Admin
-              </span>
-            </div>
-          )}
-
-          {/* Avatar Dropdown or Auth Buttons */}
-          {isLoggedIn ? (
-            <AvatarDropdown
-              userAvatar={userAvatar}
-              userName={userName}
-              userInitials={userInitials}
-            />
-          ) : (
-            <div className="hidden lg:flex items-center space-x-3">
-              <Link
-                href="/login"
-                className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/register"
-                className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-              >
-                Get Started
-              </Link>
-            </div>
-          )}
-
-          {/* Mobile Hamburger Toggle */}
-          <button
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors"
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <span className="text-gray-400">Welcome back,</span>
+                  <span className="text-white font-semibold ml-1 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                    {userName.split(' ')[0]}
+                  </span>
+                </motion.div>
               )}
-            </svg>
-          </button>
+
+              {/* Admin Badge - Desktop */}
+              {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
+                <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
+                  <span className="text-sm">👑</span>
+                  <span className="text-xs font-medium text-purple-300">Admin</span>
+                </div>
+              )}
+
+              {/* Avatar or Auth Buttons */}
+              {isLoggedIn ? (
+                <AvatarDropdown
+                  userAvatar={userAvatar}
+                  userName={userName}
+                  userInitials={userInitials}
+                />
+              ) : (
+                <div className="hidden lg:flex items-center gap-2">
+                  <Link
+                    href="/login"
+                    className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors rounded-xl hover:bg-white/5"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="px-5 py-2 text-sm font-semibold bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-[#1EB97A]/25 transition-all duration-300 hover:scale-105"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              )}
+
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:bg-white/10"
+                onClick={toggleMenu}
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              >
+                <div className="relative w-5 h-5">
+                  <span className={`
+                    absolute h-0.5 bg-white rounded-full transition-all duration-300 ease-out
+                    ${isMenuOpen ? 'rotate-45 top-2' : 'rotate-0 top-0'}
+                  `} style={{ width: '20px', left: 0 }} />
+                  <span className={`
+                    absolute h-0.5 bg-white rounded-full transition-all duration-300 ease-out top-2
+                    ${isMenuOpen ? 'opacity-0' : 'opacity-100'}
+                  `} style={{ width: '20px', left: 0 }} />
+                  <span className={`
+                    absolute h-0.5 bg-white rounded-full transition-all duration-300 ease-out
+                    ${isMenuOpen ? '-rotate-45 top-2' : 'rotate-0 top-4'}
+                  `} style={{ width: '20px', left: 0 }} />
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden"
+              onClick={toggleMenu}
+            />
+            
+            <motion.div
+              ref={menuRef}
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 left-0 bottom-0 w-[280px] max-w-[85vw] bg-gradient-to-b from-gray-900 to-black z-50 shadow-2xl lg:hidden"
+            >
+              {/* Mobile Menu Header */}
+              <div className="flex items-center justify-between p-5 border-b border-white/10">
+                <Image src="/assets/logo-final.webp" alt="NYBFF" width={100} height={28} className="w-24" />
+                <button
+                  onClick={toggleMenu}
+                  className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* User Profile Preview */}
+              {isLoggedIn && (
+                <div className="p-5 border-b border-white/10 flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold text-lg shadow-lg overflow-hidden">
+                    {userAvatar ? (
+                      <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
+                    ) : (
+                      <span>{userInitials}</span>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{userName || 'User'}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      {userRole === 'admin' ? 'Administrator' : 'Member'}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Navigation Links */}
+              <nav className="flex-1 py-4 overflow-y-auto">
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href || pathname?.startsWith(link.href + '/');
+                  const isClickable = link.public || isLoggedIn;
+
+                  if (!isClickable) {
+                    return (
+                      <button
+                        key={link.name}
+                        onClick={(e) => handleNavigation(e, link.href)}
+                        className="w-full text-left px-5 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                      >
+                        <span className="text-sm font-medium">{link.name}</span>
+                      </button>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`
+                        flex items-center gap-3 px-5 py-3 transition-all duration-200
+                        ${isActive
+                          ? "bg-gradient-to-r from-[#1EB97A]/10 to-transparent border-l-2 border-[#1EB97A] text-white"
+                          : "text-gray-300 hover:text-white hover:bg-white/5"
+                        }
+                      `}
+                    >
+                      {link.icon && (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={link.icon} />
+                        </svg>
+                      )}
+                      <span className="text-sm font-medium">{link.name}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+
+              {/* Admin Quick Actions */}
+              {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
+                <div className="p-5 border-t border-white/10">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Quick Actions</p>
+                  <div className="space-y-2">
+                    <Link
+                      href="/admin/all-users/create"
+                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#1EB97A] py-2 px-3 rounded-lg hover:bg-white/5 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                      Create New User
+                    </Link>
+                    <Link
+                      href="/admin/festivals/create"
+                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#1EB97A] py-2 px-3 rounded-lg hover:bg-white/5 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                      Add Festival
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Auth Links for Mobile */}
+              {!isLoggedIn && (
+                <div className="p-5 border-t border-white/10">
+                  <div className="space-y-3">
+                    <Link
+                      href="/login"
+                      className="block text-center py-2.5 text-sm font-medium text-white bg-white/10 rounded-xl hover:bg-white/20 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="block text-center py-2.5 text-sm font-semibold bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Create Account
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+            <div className="h-16 lg:h-20" />
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Spacer to prevent content hiding under fixed header */}
+    </>
   );
 };
 

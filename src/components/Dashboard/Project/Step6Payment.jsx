@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { motion, AnimatePresence } from "framer-motion";
-import { CreditCard, Shield, Lock, Zap, AlertCircle, CheckCircle, Sparkles, TrendingUp, Award, Clock, Loader2 } from "lucide-react";
+import { CreditCard, Shield, Lock, Sparkles, AlertCircle, CheckCircle, TrendingUp, Clock, Loader2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -129,7 +129,6 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 router.push('/projects');
             }, 2000);
         } catch (err) {
-            console.error("Demo submission error:", err);
             toast.error(err.message || "Demo submission failed. Please try again.", { id: loadingToast });
             setError(err.message || "Demo submission failed. Please try again.");
             setProcessing(false);
@@ -281,14 +280,14 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl"
+                    className="w-24 h-24 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-[#1EB97A]/30"
                 >
                     <CheckCircle className="w-12 h-12 text-white" />
                 </motion.div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-3">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-[#1EB97A] to-emerald-500 bg-clip-text text-transparent mb-3">
                     {isDemoMode ? "Demo Submission Successful!" : "Payment Successful!"}
                 </h3>
-                <p className="text-gray-600 mb-2">
+                <p className="text-gray-400 mb-2">
                     {isDemoMode 
                         ? "Your demo submission has been received successfully." 
                         : "Your project has been submitted and account has been created!"}
@@ -299,16 +298,16 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         : "You will receive a confirmation email shortly."}
                 </p>
                 
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 max-w-md mx-auto">
+                <div className="bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-5 max-w-md mx-auto border border-[#1EB97A]/20">
                     <div className="flex items-center justify-center gap-2 mb-3">
-                        <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
-                        <p className="text-sm text-blue-800">
+                        <Loader2 className="w-5 h-5 text-[#1EB97A] animate-spin" />
+                        <p className="text-sm text-[#1EB97A]">
                             Redirecting to your projects page...
                         </p>
                     </div>
-                    <div className="w-full bg-blue-200 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
                         <motion.div
-                            className="bg-gradient-to-r from-blue-600 to-indigo-600 h-1.5 rounded-full"
+                            className="bg-gradient-to-r from-[#1EB97A] to-emerald-500 h-1.5 rounded-full"
                             animate={{ width: "100%" }}
                             transition={{ duration: 2, ease: "linear" }}
                         />
@@ -326,14 +325,14 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 animate={{ opacity: 1, y: 0 }}
                 className="relative"
             >
-                <div className="bg-white rounded-2xl p-1 shadow-sm border border-gray-100 flex">
+                <div className="bg-gray-800 rounded-2xl p-1 border border-gray-700 flex">
                     <button
                         type="button"
                         onClick={() => setIsDemoMode(false)}
                         className={`flex-1 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
                             !isDemoMode
-                                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-md'
-                                : 'text-gray-500 hover:text-gray-700'
+                                ? 'bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white shadow-md'
+                                : 'text-gray-400 hover:text-gray-300'
                         }`}
                     >
                         <Lock className="w-4 h-4" />
@@ -345,7 +344,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         className={`flex-1 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
                             isDemoMode
                                 ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
-                                : 'text-gray-500 hover:text-gray-700'
+                                : 'text-gray-400 hover:text-gray-300'
                         }`}
                     >
                         <Sparkles className="w-4 h-4" />
@@ -362,18 +361,18 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm"
+                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl"
                 >
-                    <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
+                    <div className="px-6 py-4 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700">
                         <div className="flex items-center gap-2">
-                            <CreditCard className="w-5 h-5 text-green-600" />
-                            <h3 className="text-lg font-semibold text-gray-900">Card Details</h3>
+                            <CreditCard className="w-5 h-5 text-[#1EB97A]" />
+                            <h3 className="text-lg font-semibold text-white">Card Details</h3>
                         </div>
                     </div>
                     <div className="p-6">
                         <div 
-                            className={`border rounded-xl p-4 transition-all duration-300 ${
-                                focusedCard ? 'border-green-500 ring-2 ring-green-100 shadow-md' : 'border-gray-200'
+                            className={`bg-gray-800 border rounded-xl p-4 transition-all duration-300 ${
+                                focusedCard ? 'border-[#1EB97A] ring-2 ring-[#1EB97A]/20 shadow-md' : 'border-gray-700'
                             }`}
                         >
                             <CardElement
@@ -381,12 +380,13 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                                     style: {
                                         base: {
                                             fontSize: "16px",
-                                            color: "#1f2937",
-                                            "::placeholder": { color: "#9ca3af" },
+                                            color: "#ffffff",
+                                            "::placeholder": { color: "#6b7280" },
                                             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                                            backgroundColor: "#1f2937",
                                         },
                                         invalid: {
-                                            color: "#dc2626",
+                                            color: "#ef4444",
                                         },
                                     },
                                     hidePostalCode: true,
@@ -399,11 +399,11 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         {/* Security Badges */}
                         <div className="flex items-center justify-center gap-4 mt-4">
                             <div className="flex items-center gap-1 text-xs text-gray-500">
-                                <Shield className="w-3 h-3" />
+                                <Shield className="w-3 h-3 text-[#1EB97A]" />
                                 <span>PCI Compliant</span>
                             </div>
                             <div className="flex items-center gap-1 text-xs text-gray-500">
-                                <Lock className="w-3 h-3" />
+                                <Lock className="w-3 h-3 text-[#1EB97A]" />
                                 <span>256-bit SSL</span>
                             </div>
                         </div>
@@ -411,12 +411,12 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         {/* Test Card Info */}
                         {process.env.NODE_ENV === 'development' &&
                             process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith('pk_test') && (
-                                <div className="mt-4 bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                    <p className="text-xs font-semibold text-gray-500 mb-2">Test Card</p>
+                                <div className="mt-4 bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+                                    <p className="text-xs font-semibold text-gray-400 mb-2">Test Card</p>
                                     <div className="flex flex-wrap gap-2 text-xs">
-                                        <code className="px-2 py-1 bg-white border border-gray-200 rounded font-mono">4242 4242 4242 4242</code>
-                                        <code className="px-2 py-1 bg-white border border-gray-200 rounded font-mono">12/30</code>
-                                        <code className="px-2 py-1 bg-white border border-gray-200 rounded font-mono">123</code>
+                                        <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">4242 4242 4242 4242</code>
+                                        <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">12/30</code>
+                                        <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">123</code>
                                     </div>
                                 </div>
                             )}
@@ -426,17 +426,17 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 text-center border-2 border-purple-200 border-dashed"
+                    className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl p-8 text-center border-2 border-purple-500/30 border-dashed"
                 >
                     <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                         <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-purple-900 mb-2">Demo Mode</h3>
-                    <p className="text-purple-600 text-sm mb-4">
+                    <h3 className="text-xl font-bold text-purple-400 mb-2">Demo Mode</h3>
+                    <p className="text-purple-300 text-sm mb-4">
                         Testing the submission process without any payment
                     </p>
-                    <div className="bg-white/50 rounded-xl p-3 border border-purple-200">
-                        <p className="text-xs font-mono text-purple-600">
+                    <div className="bg-gray-800/50 rounded-xl p-3 border border-purple-500/20">
+                        <p className="text-xs font-mono text-purple-400">
                             Demo ID: demo_[timestamp]_[random]
                         </p>
                     </div>
@@ -447,20 +447,20 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-r from-gray-50 to-white rounded-2xl p-6 border border-gray-100"
+                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700"
             >
                 <div className="flex justify-between items-center mb-3">
-                    <span className="text-gray-600">Submission Fee</span>
-                    <span className="text-2xl font-bold text-gray-900">$25.00</span>
+                    <span className="text-gray-400">Submission Fee</span>
+                    <span className="text-2xl font-bold text-white">$25.00</span>
                 </div>
                 <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
                     <span>Processing Fee</span>
                     <span>Included</span>
                 </div>
-                <div className="border-t border-gray-200 pt-3 mt-2">
+                <div className="border-t border-gray-700 pt-3 mt-2">
                     <div className="flex justify-between items-center font-semibold">
-                        <span>Total</span>
-                        <span className="text-xl bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">$25.00 USD</span>
+                        <span className="text-gray-300">Total</span>
+                        <span className="text-xl bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">$25.00 USD</span>
                     </div>
                 </div>
             </motion.div>
@@ -472,11 +472,11 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="bg-red-50 border border-red-200 rounded-xl p-4"
+                        className="bg-red-500/10 border border-red-500/30 rounded-xl p-4"
                     >
                         <div className="flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4 text-red-500" />
-                            <p className="text-red-600 text-sm">{error}</p>
+                            <AlertCircle className="w-4 h-4 text-red-400" />
+                            <p className="text-red-400 text-sm">{error}</p>
                         </div>
                     </motion.div>
                 )}
@@ -490,7 +490,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                     type="button"
                     onClick={onPrev}
                     disabled={processing}
-                    className="px-8 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 hover:shadow-md transition-all duration-300 disabled:opacity-50"
+                    className="px-8 py-3 bg-gray-800 border border-gray-700 text-gray-300 rounded-xl font-semibold hover:border-gray-600 hover:bg-gray-700 transition-all duration-300 disabled:opacity-50"
                 >
                     ← Back
                 </motion.button>
@@ -502,8 +502,8 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                     disabled={(!isDemoMode && (!stripe || processing)) || processing || isSubmitting}
                     className={`group px-8 py-3 rounded-xl font-semibold transition-all duration-300 shadow-md flex items-center gap-2 ${
                         isDemoMode 
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg' 
-                            : 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:shadow-lg'
+                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg shadow-purple-500/25' 
+                            : 'bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white hover:shadow-lg shadow-[#1EB97A]/25'
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                     {processing || isSubmitting ? (
@@ -536,6 +536,8 @@ export default function Step6Payment({ formData, updateFormData, onSubmit, onPre
     const [isDemoMode, setIsDemoMode] = useState(false);
     const [processing, setProcessing] = useState(false);
 
+    const getGradient = () => "from-[#1EB97A] to-emerald-600";
+
     return (
         <>
             <Toaster 
@@ -543,7 +545,7 @@ export default function Step6Payment({ formData, updateFormData, onSubmit, onPre
                 toastOptions={{
                     duration: 4000,
                     style: {
-                        background: '#363636',
+                        background: '#1f2937',
                         color: '#fff',
                         borderRadius: '12px',
                     },
@@ -574,45 +576,45 @@ export default function Step6Payment({ formData, updateFormData, onSubmit, onPre
             >
                 {/* Header Section */}
                 <div className="text-center md:text-left">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-xs font-semibold mb-4">
-                        <span className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span>
-                        Final Step
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                        <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
+                        Final Step - Step 7 of 7
                     </div>
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
+                        <div className={`w-14 h-14 bg-gradient-to-br ${getGradient()} rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20`}>
                             <CreditCard className="w-7 h-7 text-white" />
                         </div>
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                                 Complete Payment
                             </h2>
-                            <p className="text-gray-500 mt-1">Secure checkout to submit your project</p>
+                            <p className="text-gray-400 mt-1">Secure checkout to submit your project</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Info Cards Row */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                    <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-4 border border-blue-500/20">
                         <div className="flex items-center gap-2 mb-2">
-                            <Shield className="w-4 h-4 text-blue-600" />
-                            <span className="text-sm font-semibold text-blue-800">Secure Payment</span>
+                            <Shield className="w-4 h-4 text-blue-400" />
+                            <span className="text-sm font-semibold text-blue-400">Secure Payment</span>
                         </div>
-                        <p className="text-xs text-blue-600">256-bit SSL encryption</p>
+                        <p className="text-xs text-blue-300">256-bit SSL encryption</p>
                     </div>
-                    <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
+                    <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20">
                         <div className="flex items-center gap-2 mb-2">
-                            <Clock className="w-4 h-4 text-purple-600" />
-                            <span className="text-sm font-semibold text-purple-800">Quick Review</span>
+                            <Clock className="w-4 h-4 text-purple-400" />
+                            <span className="text-sm font-semibold text-purple-400">Quick Review</span>
                         </div>
-                        <p className="text-xs text-purple-600">5-7 business days</p>
+                        <p className="text-xs text-purple-300">5-7 business days</p>
                     </div>
-                    <div className="bg-amber-50 rounded-xl p-4 border border-amber-100">
+                    <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-xl p-4 border border-amber-500/20">
                         <div className="flex items-center gap-2 mb-2">
-                            <TrendingUp className="w-4 h-4 text-amber-600" />
-                            <span className="text-sm font-semibold text-amber-800">Global Exposure</span>
+                            <TrendingUp className="w-4 h-4 text-amber-400" />
+                            <span className="text-sm font-semibold text-amber-400">Global Exposure</span>
                         </div>
-                        <p className="text-xs text-amber-600">Reach wider audience</p>
+                        <p className="text-xs text-amber-300">Reach wider audience</p>
                     </div>
                 </div>
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     User,
     Settings,
@@ -11,7 +12,10 @@ import {
     Award,
     Film,
     Heart,
-    ChevronDown
+    ChevronDown,
+    Calendar,
+    Mail,
+    UserCheck
 } from "lucide-react";
 import { clearAuthData, getUser, subscribeToUserUpdates } from "@/utils/auth";
 
@@ -22,7 +26,6 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
     const router = useRouter();
 
     useEffect(() => {
-        // Load user data
         const loadUser = () => {
             const userData = getUser();
             setUser(userData);
@@ -30,12 +33,10 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
 
         loadUser();
 
-        // Subscribe to user updates
         const unsubscribe = subscribeToUserUpdates((updatedUser) => {
             setUser(updatedUser);
         });
 
-        // Handle click outside
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
@@ -116,135 +117,151 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
                 aria-expanded={isOpen}
             >
                 <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md transition-all duration-200 group-hover:shadow-lg group-hover:scale-105">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md transition-all duration-200 group-hover:shadow-lg group-hover:scale-105">
                         {getAvatarContent()}
                     </div>
                     {/* Online indicator */}
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-black animate-pulse"></div>
                 </div>
                 
                 {/* Dropdown arrow indicator */}
                 <ChevronDown 
-                    className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                    className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                 />
             </button>
 
-            {/* Dropdown Menu */}
-            {isOpen && (
-                <div className="absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-in slide-in-from-top-2 fade-in duration-200">
-                    {/* User Info Header */}
-                    <div className="p-4 bg-linear-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden shadow-md">
-                                {userAvatar ? (
-                                    <img src={userAvatar} alt={getDisplayName()} className="w-full h-full object-cover" />
-                                ) : (
-                                    <span>{userInitials || 'U'}</span>
-                                )}
-                            </div>
-                            <div className="flex-1">
-                                <p className="font-semibold text-gray-900">{getDisplayName()}</p>
-                                <p className="text-xs text-gray-500 break-all">{getDisplayEmail()}</p>
-                                <div className="flex items-center gap-1 mt-1">
-                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                                        {getRoleIcon()}
-                                        <span>{user?.role === 'admin' ? 'Administrator' : 'Member'}</span>
-                                    </span>
+            {/* Dropdown Menu - Dark Theme */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 mt-3 w-80 bg-gradient-to-br from-gray-900 to-gray-950 rounded-xl border border-gray-800 overflow-hidden z-50 shadow-2xl"
+                    >
+                        {/* User Info Header - Dark Theme */}
+                        <div className="p-4 bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 border-b border-gray-800">
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden shadow-lg">
+                                    {userAvatar ? (
+                                        <img src={userAvatar} alt={getDisplayName()} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <span>{userInitials || 'U'}</span>
+                                    )}
+                                </div>
+                                <div className="flex-1">
+                                    <p className="font-semibold text-white">{getDisplayName()}</p>
+                                    <div className="flex items-center gap-1 mt-0.5">
+                                        <Mail className="w-3 h-3 text-gray-500" />
+                                        <p className="text-xs text-gray-400 break-all">{getDisplayEmail()}</p>
+                                    </div>
+                                    <div className="flex items-center gap-1 mt-1.5">
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#1EB97A]/20 text-[#1EB97A] border border-[#1EB97A]/30">
+                                            {getRoleIcon()}
+                                            <span>{user?.role === 'admin' ? 'Administrator' : 'Member'}</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+                            {getMemberSince() && (
+                                <div className="flex items-center gap-1 mt-3 pt-3 border-t border-gray-800">
+                                    <Calendar className="w-3 h-3 text-gray-500" />
+                                    <p className="text-xs text-gray-500">
+                                        Member since {getMemberSince()}
+                                    </p>
+                                </div>
+                            )}
                         </div>
-                        {getMemberSince() && (
-                            <p className="text-xs text-gray-500 mt-3 pt-2 border-t border-gray-200">
-                                Member since {getMemberSince()}
-                            </p>
-                        )}
-                    </div>
 
-                    {/* Menu Items */}
-                    <div className="py-2">
-                        <Link
-                            href="/profile"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <User className="w-4 h-4 text-gray-400" />
-                            <span>Your Profile</span>
-                        </Link>
+                        {/* Menu Items - Dark Theme */}
+                        <div className="py-2">
+                            <Link
+                                href="/profile"
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <User className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
+                                <span className="group-hover:text-white">Your Profile</span>
+                            </Link>
 
-                        <Link
-                            href="/dashboard"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <Film className="w-4 h-4 text-gray-400" />
-                            <span>Dashboard</span>
-                        </Link>
+                            <Link
+                                href="/dashboard"
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <Film className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
+                                <span className="group-hover:text-white">Dashboard</span>
+                            </Link>
 
-                        <Link
-                            href="/projects"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <Award className="w-4 h-4 text-gray-400" />
-                            <span>My Submissions</span>
-                        </Link>
+                            <Link
+                                href="/projects"
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <Award className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
+                                <span className="group-hover:text-white">My Submissions</span>
+                            </Link>
 
-                        {/* <Link
-                            href="/submissions"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <Heart className="w-4 h-4 text-gray-400" />
-                            <span>Submissions</span>
-                        </Link> */}
+                            <Link
+                                href="/settings"
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <Settings className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
+                                <span className="group-hover:text-white">Settings</span>
+                            </Link>
+                        </div>
 
-                        <Link
-                            href="/settings"
-                            className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <Settings className="w-4 h-4 text-gray-400" />
-                            <span>Settings</span>
-                        </Link>
-                    </div>
-
-                    {/* Admin Section (if admin) */}
-                    {user?.role === 'admin' && (
-                        <div className="border-t border-gray-100 py-2">
-                            <div className="px-4 py-1">
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Admin</p>
+                        {/* Admin Section (if admin) - Dark Theme */}
+                        {user?.role === 'admin' && (
+                            <div className="border-t border-gray-800 py-2">
+                                <div className="px-4 py-1">
+                                    <p className="text-xs font-semibold text-purple-400 uppercase tracking-wider flex items-center gap-1">
+                                        <Shield className="w-3 h-3" />
+                                        Admin Panel
+                                    </p>
+                                </div>
+                                <Link
+                                    href="/admin/dashboard"
+                                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <Shield className="w-4 h-4 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                                    <span className="group-hover:text-white">Admin Dashboard</span>
+                                </Link>
+                                <Link
+                                    href="/admin/all-users"
+                                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <UsersIcon className="w-4 h-4 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                                    <span className="group-hover:text-white">Manage Users</span>
+                                </Link>
+                                <Link
+                                    href="/admin/all-submissions"
+                                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:bg-gray-800 transition-colors group"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <Film className="w-4 h-4 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                                    <span className="group-hover:text-white">All Submissions</span>
+                                </Link>
                             </div>
-                            <Link
-                                href="/admin/dashboard"
-                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <Shield className="w-4 h-4 text-purple-500" />
-                                <span>Admin Dashboard</span>
-                            </Link>
-                            <Link
-                                href="/admin/all-users"
-                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <UsersIcon className="w-4 h-4 text-purple-500" />
-                                <span>Manage Users</span>
-                            </Link>
-                        </div>
-                    )}
+                        )}
 
-                    {/* Logout Button */}
-                    <div className="border-t border-gray-100 py-2">
-                        <button
-                            onClick={handleLogout}
-                            className="w-full flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                        >
-                            <LogOut className="w-4 h-4" />
-                            <span>Logout</span>
-                        </button>
-                    </div>
-                </div>
-            )}
+                        {/* Logout Button - Dark Theme */}
+                        <div className="border-t border-gray-800 py-2">
+                            <button
+                                onClick={handleLogout}
+                                className="w-full flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 transition-colors group"
+                            >
+                                <LogOut className="w-4 h-4 group-hover:text-red-300" />
+                                <span className="group-hover:text-red-300">Logout</span>
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

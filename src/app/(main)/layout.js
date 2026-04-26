@@ -185,7 +185,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return <main className="flex-grow">
     <Header />
+
     {children}
+
     <Footer />
   </main>;
 }

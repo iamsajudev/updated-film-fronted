@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     Camera,
     Mail,
@@ -29,6 +30,12 @@ import {
 } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaVimeo, FaGithub, FaYoutube } from 'react-icons/fa';
 import { getToken, getUser, updateUserProfile, subscribeToUserUpdates } from '@/utils/auth';
+
+const Trophy = ({ className }) => (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+    </svg>
+);
 
 const Profile = () => {
     const router = useRouter();
@@ -94,15 +101,13 @@ const Profile = () => {
         confirmPassword: ''
     });
 
-    // Helper function to safely get image source
     const getImageSrc = (src, fallbackName = 'User') => {
         if (src && typeof src === 'string' && src.trim() !== '' && src !== 'null' && src !== 'undefined') {
             return src;
         }
-        return `https://ui-avatars.com/api/?name=${encodeURIComponent(fallbackName)}&background=3b82f6&color=fff&rounded=true&bold=true&size=128`;
+        return `https://ui-avatars.com/api/?name=${encodeURIComponent(fallbackName)}&background=1EB97A&color=fff&rounded=true&bold=true&size=128`;
     };
 
-    // Fetch user data on mount
     useEffect(() => {
         let isMounted = true;
         let abortController = new AbortController();
@@ -169,7 +174,6 @@ const Profile = () => {
 
         fetchUserProfile();
 
-        // Subscribe to profile updates from other components
         const unsubscribe = subscribeToUserUpdates((updatedUser) => {
             console.log('Profile updated from another component:', updatedUser);
             if (isMounted) {
@@ -394,7 +398,6 @@ const Profile = () => {
                 throw new Error(data.message || 'Failed to update profile');
             }
 
-            // Update localStorage with new data
             const updatedUserData = {
                 ...getUser(),
                 id: data.data?.id || data.user?.id,
@@ -415,8 +418,6 @@ const Profile = () => {
             };
 
             updateUserProfile(updatedUserData);
-
-            // Refresh local state
             processUserData(updatedUserData);
 
             setSuccessMessage('Profile updated successfully!');
@@ -473,45 +474,59 @@ const Profile = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+            <div className="min-h-screen bg-black flex items-center justify-center">
                 <div className="text-center">
                     <div className="relative">
-                        <Loader2 className="w-16 h-16 text-blue-600 animate-spin mx-auto" />
+                        <Loader2 className="w-16 h-16 text-[#1EB97A] animate-spin mx-auto" />
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-8 h-8 bg-blue-100 rounded-full animate-pulse"></div>
+                            <div className="w-8 h-8 bg-[#1EB97A]/20 rounded-full animate-pulse"></div>
                         </div>
                     </div>
-                    <p className="mt-4 text-gray-600 font-medium">Loading your profile...</p>
+                    <p className="mt-4 text-gray-400 font-medium">Loading your profile...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="bg-linear-to-br from-gray-50 via-white to-gray-50 min-h-screen pb-20">
+        <div className="bg-black min-h-screen pb-20">
             {/* Success Message Toast */}
-            {showSuccessMessage && (
-                <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300">
-                    <div className="bg-linear-to-r from-green-500 to-green-600 rounded-lg shadow-lg p-4 flex items-center gap-3 text-white">
-                        <CheckCircle className="w-5 h-5" />
-                        <p className="font-medium">{successMessage}</p>
-                    </div>
-                </div>
-            )}
+            <AnimatePresence>
+                {showSuccessMessage && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 50 }}
+                        className="fixed top-4 right-4 z-50"
+                    >
+                        <div className="bg-gradient-to-r from-[#1EB97A] to-emerald-600 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
+                            <CheckCircle className="w-5 h-5" />
+                            <p className="font-medium">{successMessage}</p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Error Message */}
-            {error && (
-                <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 fade-in duration-300">
-                    <div className="bg-linear-to-r from-red-500 to-red-600 rounded-lg shadow-lg p-4 flex items-center gap-3 text-white">
-                        <AlertCircle className="w-5 h-5" />
-                        <p className="font-medium">{error}</p>
-                    </div>
-                </div>
-            )}
+            <AnimatePresence>
+                {error && (
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 50 }}
+                        className="fixed top-4 right-4 z-50"
+                    >
+                        <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
+                            <AlertCircle className="w-5 h-5" />
+                            <p className="font-medium">{error}</p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Cover Photo Section */}
-            <div className="relative h-80 lg:h-96 bg-linear-to-r from-slate-900 via-slate-800 to-slate-900 overflow-hidden rounded-2xl">
-                <div className="absolute inset-0 bg-black/30"></div>
+            <div className="relative h-80 lg:h-96 overflow-hidden rounded-2xl shadow-2xl">
+                <div className="absolute inset-0 bg-black/40 z-10"></div>
                 
                 {(() => {
                     const coverSrc = isEditing ? editForm.coverPhoto : user.coverPhoto;
@@ -520,27 +535,25 @@ const Profile = () => {
                             <img
                                 src={coverSrc}
                                 alt="Cover"
-                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 "
+                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                             />
                         );
                     }
                     return (
-                        <div className="w-full h-full bg-linear-to-r from-blue-900 via-purple-900 to-pink-900">
+                        <div className="w-full h-full bg-gradient-to-r from-[#1EB97A]/30 via-emerald-500/20 to-teal-500/30">
                             <div className="absolute inset-0 animate-pulse" style={{
-                                background: 'linear-gradient(45deg, rgba(59,130,246,0.3), rgba(147,51,234,0.3), rgba(236,72,153,0.3))',
+                                background: 'linear-gradient(45deg, rgba(30,185,122,0.3), rgba(16,185,129,0.3), rgba(20,184,166,0.3))',
                                 backgroundSize: '200% 200%',
                                 animation: 'gradient 15s ease infinite'
                             }}></div>
                         </div>
                     );
                 })()}
-                
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent "></div>
 
                 {isEditing && (
                     <button
                         onClick={() => coverInputRef.current?.click()}
-                        className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg p-2 hover:bg-black/70 transition-all duration-200 z-20 text-white"
+                        className="absolute top-4 left-4 z-20 bg-black/50 backdrop-blur-sm rounded-xl p-2 hover:bg-black/70 transition-all duration-200 text-white"
                     >
                         <Camera className="w-5 h-5" />
                     </button>
@@ -554,21 +567,25 @@ const Profile = () => {
                 />
 
                 {/* Edit/Save Buttons */}
-                <div className="absolute top-4 right-4 flex gap-2 z-20">
+                <div className="absolute top-4 right-4 flex gap-3 z-20">
                     {isEditing ? (
                         <>
-                            <button
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={handleCancel}
                                 disabled={submitting}
-                                className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg text-gray-700 hover:bg-white transition-all duration-200 flex items-center gap-2 text-sm font-medium"
+                                className="px-5 py-2.5 bg-gray-800/90 backdrop-blur-sm rounded-xl text-gray-300 hover:bg-gray-700 transition-all duration-200 flex items-center gap-2 text-sm font-medium border border-gray-700"
                             >
                                 <X className="w-4 h-4" />
                                 Cancel
-                            </button>
-                            <button
+                            </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={handleSave}
                                 disabled={submitting}
-                                className="px-4 py-2 bg-linear-to-r from-blue-600 to-blue-700 rounded-lg text-white hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center gap-2 text-sm font-medium shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-5 py-2.5 bg-gradient-to-r from-[#1EB97A] to-emerald-600 rounded-xl text-white hover:from-[#189663] hover:to-emerald-700 transition-all duration-200 flex items-center gap-2 text-sm font-medium shadow-lg shadow-[#1EB97A]/20 disabled:opacity-50"
                             >
                                 {submitting ? (
                                     <>
@@ -581,35 +598,41 @@ const Profile = () => {
                                         Save Changes
                                     </>
                                 )}
-                            </button>
+                            </motion.button>
                         </>
                     ) : (
-                        <button
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => setIsEditing(true)}
-                            className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg text-gray-700 hover:bg-white transition-all duration-200 flex items-center gap-2 text-sm font-medium"
+                            className="px-5 py-2.5 bg-gray-800/90 backdrop-blur-sm rounded-xl text-gray-300 hover:bg-gray-700 transition-all duration-200 flex items-center gap-2 text-sm font-medium border border-gray-700"
                         >
                             <Edit2 className="w-4 h-4" />
                             Edit Profile
-                        </button>
+                        </motion.button>
                     )}
                 </div>
             </div>
 
             {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-4 md:px-8 mt-24">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 -mt-24 relative z-20">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Column - Profile Info */}
                     <div className="lg:col-span-1 space-y-6">
                         {/* Profile Card with Avatar */}
-                        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden transform transition-all duration-300 hover:shadow-2xl">
-                            {/* Avatar Section - Centered */}
-                            <div className="relative flex justify-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-2xl"
+                        >
+                            <div className="relative flex justify-center mt-16">
                                 <div className="relative group">
-                                    <div className="absolute -inset-1 bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl opacity-75 blur-md group-hover:opacity-100 transition duration-300"></div>
-                                    <div className="relative rounded-2xl border-4 border-white shadow-2xl overflow-hidden bg-linear-to-br from-gray-50 to-gray-100">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-[#1EB97A] via-emerald-500 to-teal-500 rounded-2xl opacity-75 blur-md group-hover:opacity-100 transition duration-300"></div>
+                                    <div className="relative rounded-2xl border-4 border-gray-800 shadow-2xl overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 w-32 h-32">
                                         {isUploading ? (
-                                            <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-50">
-                                                <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                                            <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                                                <Loader2 className="w-6 h-6 text-[#1EB97A] animate-spin" />
                                             </div>
                                         ) : (
                                             <img
@@ -622,13 +645,9 @@ const Profile = () => {
                                     {isEditing && (
                                         <button
                                             onClick={() => fileInputRef.current?.click()}
-                                            className="absolute bottom-2 right-2 bg-white rounded-full p-2.5 shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
-                                            style={{
-                                                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-                                                border: '1px solid rgba(255,255,255,0.5)'
-                                            }}
+                                            className="absolute bottom-0 right-0 bg-gray-800 rounded-full p-2 shadow-lg hover:bg-gray-700 transition-all duration-300 border border-gray-600"
                                         >
-                                            <Camera className="w-4 h-4 text-gray-600 transition-transform duration-300 group-hover/btn:scale-110" />
+                                            <Camera className="w-3.5 h-3.5 text-[#1EB97A]" />
                                         </button>
                                     )}
                                     <input
@@ -641,7 +660,6 @@ const Profile = () => {
                                 </div>
                             </div>
 
-                            {/* Profile Info */}
                             <div className="p-6 pt-4 text-center">
                                 {isEditing ? (
                                     <>
@@ -650,7 +668,7 @@ const Profile = () => {
                                             name="fullName"
                                             value={editForm.fullName}
                                             onChange={handleInputChange}
-                                            className="text-2xl font-bold text-gray-900 w-full mb-2 text-center border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="text-2xl font-bold text-white w-full mb-2 text-center bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
                                             placeholder="Full Name"
                                         />
                                         <input
@@ -658,42 +676,47 @@ const Profile = () => {
                                             name="title"
                                             value={editForm.title}
                                             onChange={handleInputChange}
-                                            className="text-sm text-blue-600 font-medium w-full mb-4 text-center border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="text-sm text-[#1EB97A] font-medium w-full mb-4 text-center bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
                                             placeholder="Professional Title"
                                         />
                                     </>
                                 ) : (
                                     <>
-                                        <h1 className="text-2xl font-bold text-gray-900 mb-1">{user.fullName || user.name}</h1>
-                                        <p className="text-sm text-blue-600 font-medium mb-4">{user.title || 'Creative Professional'}</p>
+                                        <h1 className="text-2xl font-bold text-white mb-1">{user.fullName || user.name}</h1>
+                                        <p className="text-sm text-[#1EB97A] font-medium mb-4">{user.title || 'Creative Professional'}</p>
                                     </>
                                 )}
 
-                                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-full text-xs text-gray-500 mb-4">
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-800 rounded-full text-xs text-gray-400 mb-4">
                                     <Calendar className="w-3 h-3" />
                                     <span className="font-medium">Member since {user.joined}</span>
                                 </div>
 
                                 {user.bio && !isEditing && (
-                                    <div className="mt-4 pt-4 border-t border-gray-100">
-                                        <p className="text-sm text-gray-600 line-clamp-2">{user.bio}</p>
+                                    <div className="mt-4 pt-4 border-t border-gray-800">
+                                        <p className="text-sm text-gray-400 leading-relaxed">{user.bio}</p>
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Contact Details Card */}
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 transform transition-all duration-300 hover:shadow-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-6 shadow-xl"
+                        >
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg">
+                                <div className="p-2 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-lg">
                                     <AtSign className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Contact Details</h3>
                             </div>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3 text-sm group">
-                                    <div className="p-1.5 bg-gray-100 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                        <Mail className="w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-colors" />
+                                    <div className="p-1.5 bg-gray-800 rounded-lg group-hover:bg-[#1EB97A]/20 transition-colors">
+                                        <Mail className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
                                     </div>
                                     {isEditing ? (
                                         <input
@@ -701,17 +724,17 @@ const Profile = () => {
                                             name="email"
                                             value={editForm.email}
                                             onChange={handleInputChange}
-                                            className="flex-1 text-gray-600 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="flex-1 text-white bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
                                             placeholder="Email address"
                                         />
                                     ) : (
-                                        <span className="text-gray-600 break-all">{user.email}</span>
+                                        <span className="text-gray-400 break-all">{user.email}</span>
                                     )}
                                 </div>
 
                                 <div className="flex items-center gap-3 text-sm group">
-                                    <div className="p-1.5 bg-gray-100 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                        <Phone className="w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-colors" />
+                                    <div className="p-1.5 bg-gray-800 rounded-lg group-hover:bg-[#1EB97A]/20 transition-colors">
+                                        <Phone className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
                                     </div>
                                     {isEditing ? (
                                         <input
@@ -719,17 +742,17 @@ const Profile = () => {
                                             name="phone"
                                             value={editForm.phone}
                                             onChange={handleInputChange}
-                                            className="flex-1 text-gray-600 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="flex-1 text-white bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
                                             placeholder="Phone number"
                                         />
                                     ) : (
-                                        <span className="text-gray-600">{user.phone || 'Not provided'}</span>
+                                        <span className="text-gray-400">{user.phone || 'Not provided'}</span>
                                     )}
                                 </div>
 
                                 <div className="flex items-center gap-3 text-sm group">
-                                    <div className="p-1.5 bg-gray-100 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                        <MapPin className="w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-colors" />
+                                    <div className="p-1.5 bg-gray-800 rounded-lg group-hover:bg-[#1EB97A]/20 transition-colors">
+                                        <MapPin className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
                                     </div>
                                     {isEditing ? (
                                         <input
@@ -737,17 +760,17 @@ const Profile = () => {
                                             name="location"
                                             value={editForm.location}
                                             onChange={handleInputChange}
-                                            className="flex-1 text-gray-600 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="flex-1 text-white bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
                                             placeholder="Location"
                                         />
                                     ) : (
-                                        <span className="text-gray-600">{user.location || 'Not provided'}</span>
+                                        <span className="text-gray-400">{user.location || 'Not provided'}</span>
                                     )}
                                 </div>
 
                                 <div className="flex items-center gap-3 text-sm group">
-                                    <div className="p-1.5 bg-gray-100 rounded-lg group-hover:bg-blue-50 transition-colors">
-                                        <LinkIcon className="w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-colors" />
+                                    <div className="p-1.5 bg-gray-800 rounded-lg group-hover:bg-[#1EB97A]/20 transition-colors">
+                                        <LinkIcon className="w-4 h-4 text-gray-500 group-hover:text-[#1EB97A] transition-colors" />
                                     </div>
                                     {isEditing ? (
                                         <input
@@ -755,26 +778,31 @@ const Profile = () => {
                                             name="website"
                                             value={editForm.website}
                                             onChange={handleInputChange}
-                                            className="flex-1 text-gray-600 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            className="flex-1 text-white bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
                                             placeholder="Website URL"
                                         />
                                     ) : (
                                         user.website ? (
-                                            <a href={`https://${user.website}`} className="text-blue-600 hover:underline break-all" target="_blank" rel="noopener noreferrer">
+                                            <a href={`https://${user.website}`} className="text-[#1EB97A] hover:text-emerald-400 break-all" target="_blank" rel="noopener noreferrer">
                                                 {user.website}
                                             </a>
                                         ) : (
-                                            <span className="text-gray-600">Not provided</span>
+                                            <span className="text-gray-400">Not provided</span>
                                         )
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Skills Section Card */}
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 transform transition-all duration-300 hover:shadow-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-6 shadow-xl"
+                        >
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-linear-to-br from-purple-500 to-purple-600 rounded-lg">
+                                <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
                                     <TrendingUp className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Skills & Expertise</h3>
@@ -787,21 +815,21 @@ const Profile = () => {
                                             value={newSkill}
                                             onChange={(e) => setNewSkill(e.target.value)}
                                             onKeyPress={(e) => e.key === 'Enter' && addSkill()}
-                                            className="flex-1 text-gray-600 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            placeholder="Add a skill (e.g., React, Design)"
+                                            className="flex-1 text-white bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent"
+                                            placeholder="Add a skill"
                                         />
                                         <button
                                             onClick={addSkill}
-                                            className="px-4 py-2 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-medium whitespace-nowrap"
+                                            className="px-4 py-2 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:from-[#189663] hover:to-emerald-700 transition-all duration-200 font-medium whitespace-nowrap"
                                         >
                                             Add
                                         </button>
                                     </div>
                                     <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto">
                                         {editForm.skills.map((skill, index) => (
-                                            <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 bg-linear-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-medium rounded-full border border-blue-100">
+                                            <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#1EB97A]/10 text-[#1EB97A] text-xs font-medium rounded-full border border-[#1EB97A]/30">
                                                 {skill}
-                                                <button onClick={() => removeSkill(skill)} className="hover:text-red-600 ml-1 transition-colors">
+                                                <button onClick={() => removeSkill(skill)} className="hover:text-red-400 ml-1 transition-colors">
                                                     <X className="w-3 h-3" />
                                                 </button>
                                             </span>
@@ -812,27 +840,32 @@ const Profile = () => {
                                 <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto">
                                     {user.skills.length > 0 ? (
                                         user.skills.map((skill, index) => (
-                                            <span key={index} className="px-3 py-1.5 bg-linear-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-medium rounded-full border border-blue-100">
+                                            <span key={index} className="px-3 py-1.5 bg-[#1EB97A]/10 text-[#1EB97A] text-xs font-medium rounded-full border border-[#1EB97A]/30">
                                                 {skill}
                                             </span>
                                         ))
                                     ) : (
-                                        <p className="text-gray-400 text-sm text-center py-4">No skills added yet</p>
+                                        <p className="text-gray-500 text-sm text-center py-4">No skills added yet</p>
                                     )}
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Right Column - Main Content */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Biography Card */}
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 transform transition-all duration-300 hover:shadow-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                        >
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-linear-to-br from-green-500 to-green-600 rounded-lg">
+                                <div className="p-2 bg-gradient-to-br from-green-500 to-green-600 rounded-lg">
                                     <User className="w-4 h-4 text-white" />
                                 </div>
-                                <h2 className="text-lg font-bold text-gray-800">Biography</h2>
+                                <h2 className="text-lg font-bold text-white">Biography</h2>
                             </div>
                             {isEditing ? (
                                 <textarea
@@ -840,192 +873,115 @@ const Profile = () => {
                                     value={editForm.bio}
                                     onChange={handleInputChange}
                                     rows={6}
-                                    className="w-full text-gray-600 leading-relaxed text-sm border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                    className="w-full text-gray-300 leading-relaxed text-sm bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent resize-none"
                                     placeholder="Tell us about yourself, your journey, achievements, and what drives you..."
                                 />
                             ) : (
-                                <p className="text-gray-600 leading-relaxed text-sm">
+                                <p className="text-gray-400 leading-relaxed text-sm">
                                     {user.bio || 'No biography provided yet. Click edit to share your story.'}
                                 </p>
                             )}
-                        </div>
+                        </motion.div>
 
                         {/* Statistics Dashboard */}
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
-                            <div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
-                                <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
-                                    <Film className="w-5 h-5" />
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                            className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+                        >
+                            {[
+                                { key: 'projects', icon: Film, gradient: 'from-[#1EB97A] to-emerald-600', label: 'Projects' },
+                                { key: 'submissions', icon: Users, gradient: 'from-purple-500 to-pink-500', label: 'Submissions' },
+                                { key: 'selections', icon: Award, gradient: 'from-amber-500 to-orange-500', label: 'Selections' },
+                                { key: 'awards', icon: Trophy, gradient: 'from-yellow-500 to-orange-500', label: 'Awards' },
+                                { key: 'followers', icon: Users, gradient: 'from-pink-500 to-rose-500', label: 'Followers' },
+                                { key: 'following', icon: Users, gradient: 'from-indigo-500 to-purple-500', label: 'Following' }
+                            ].map((stat) => (
+                                <div key={stat.key} className={`bg-gradient-to-br ${stat.gradient} rounded-2xl p-4 text-center text-white shadow-xl transform transition-all duration-300 hover:scale-105 cursor-pointer`}>
+                                    <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
+                                        <stat.icon className="w-5 h-5" />
+                                    </div>
+                                    {isEditing ? (
+                                        <input
+                                            type="number"
+                                            value={editForm.stats[stat.key]}
+                                            onChange={(e) => setEditForm(prev => ({
+                                                ...prev,
+                                                stats: { ...prev.stats, [stat.key]: parseInt(e.target.value) || 0 }
+                                            }))}
+                                            className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
+                                        />
+                                    ) : (
+                                        <p className="text-2xl font-bold">{user.stats[stat.key] || 0}</p>
+                                    )}
+                                    <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">{stat.label}</p>
                                 </div>
-                                {isEditing ? (
-                                    <input
-                                        type="number"
-                                        value={editForm.stats.projects}
-                                        onChange={(e) => setEditForm(prev => ({
-                                            ...prev,
-                                            stats: { ...prev.stats, projects: parseInt(e.target.value) || 0 }
-                                        }))}
-                                        className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
-                                    />
-                                ) : (
-                                    <p className="text-2xl font-bold">{user.stats.projects}</p>
-                                )}
-                                <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Projects</p>
-                            </div>
-
-                            <div className="bg-linear-to-br from-purple-500 to-purple-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
-                                <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
-                                    <Users className="w-5 h-5" />
-                                </div>
-                                {isEditing ? (
-                                    <input
-                                        type="number"
-                                        value={editForm.stats.submissions}
-                                        onChange={(e) => setEditForm(prev => ({
-                                            ...prev,
-                                            stats: { ...prev.stats, submissions: parseInt(e.target.value) || 0 }
-                                        }))}
-                                        className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
-                                    />
-                                ) : (
-                                    <p className="text-2xl font-bold">{user.stats.submissions}</p>
-                                )}
-                                <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Submissions</p>
-                            </div>
-
-                            <div className="bg-linear-to-br from-green-500 to-green-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
-                                <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
-                                    <Award className="w-5 h-5" />
-                                </div>
-                                {isEditing ? (
-                                    <input
-                                        type="number"
-                                        value={editForm.stats.selections}
-                                        onChange={(e) => setEditForm(prev => ({
-                                            ...prev,
-                                            stats: { ...prev.stats, selections: parseInt(e.target.value) || 0 }
-                                        }))}
-                                        className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
-                                    />
-                                ) : (
-                                    <p className="text-2xl font-bold">{user.stats.selections}</p>
-                                )}
-                                <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Selections</p>
-                            </div>
-
-                            <div className="bg-linear-to-br from-yellow-500 to-orange-500 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
-                                <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
-                                    <Trophy className="w-5 h-5" />
-                                </div>
-                                {isEditing ? (
-                                    <input
-                                        type="number"
-                                        value={editForm.stats.awards}
-                                        onChange={(e) => setEditForm(prev => ({
-                                            ...prev,
-                                            stats: { ...prev.stats, awards: parseInt(e.target.value) || 0 }
-                                        }))}
-                                        className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
-                                    />
-                                ) : (
-                                    <p className="text-2xl font-bold">{user.stats.awards}</p>
-                                )}
-                                <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Awards</p>
-                            </div>
-
-                            <div className="bg-linear-to-br from-pink-500 to-rose-500 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
-                                <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
-                                    <Users className="w-5 h-5" />
-                                </div>
-                                {isEditing ? (
-                                    <input
-                                        type="number"
-                                        value={editForm.stats.followers}
-                                        onChange={(e) => setEditForm(prev => ({
-                                            ...prev,
-                                            stats: { ...prev.stats, followers: parseInt(e.target.value) || 0 }
-                                        }))}
-                                        className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
-                                    />
-                                ) : (
-                                    <p className="text-2xl font-bold">{user.stats.followers || 0}</p>
-                                )}
-                                <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Followers</p>
-                            </div>
-
-                            <div className="bg-linear-to-br from-indigo-500 to-indigo-600 rounded-2xl p-4 text-center text-white shadow-lg transform transition-all duration-300 hover:scale-105 cursor-pointer">
-                                <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
-                                    <Users className="w-5 h-5" />
-                                </div>
-                                {isEditing ? (
-                                    <input
-                                        type="number"
-                                        value={editForm.stats.following}
-                                        onChange={(e) => setEditForm(prev => ({
-                                            ...prev,
-                                            stats: { ...prev.stats, following: parseInt(e.target.value) || 0 }
-                                        }))}
-                                        className="text-2xl font-bold w-full text-center bg-white/20 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
-                                    />
-                                ) : (
-                                    <p className="text-2xl font-bold">{user.stats.following || 0}</p>
-                                )}
-                                <p className="text-xs font-medium uppercase tracking-wider opacity-90 mt-1">Following</p>
-                            </div>
-                        </div>
+                            ))}
+                        </motion.div>
 
                         {/* Password Change Section */}
                         {isEditing && (
-                            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-                                <h2 className="text-lg font-bold text-gray-800 mb-4">Change Password</h2>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                            >
+                                <h2 className="text-lg font-bold text-white mb-4">Change Password</h2>
                                 <p className="text-sm text-gray-500 mb-4">Leave blank to keep current password</p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                                        <label className="block text-sm font-medium text-gray-400 mb-2">New Password</label>
                                         <input
                                             type="password"
                                             name="password"
                                             value={passwordData.password}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                            className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent outline-none transition"
                                             placeholder="Enter new password"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                                        <label className="block text-sm font-medium text-gray-400 mb-2">Confirm New Password</label>
                                         <input
                                             type="password"
                                             name="confirmPassword"
                                             value={passwordData.confirmPassword}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                                            className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent outline-none transition"
                                             placeholder="Confirm new password"
                                         />
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         )}
 
                         {/* Experience Section */}
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-                            <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-                                <Briefcase className="w-5 h-5 text-blue-600" />
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.5 }}
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                        >
+                            <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                                <Briefcase className="w-5 h-5 text-[#1EB97A]" />
                                 Work Experience
                             </h2>
                             {isEditing && (
                                 <div className="mb-6">
                                     {!showAddExperience ? (
-                                        <button onClick={() => setShowAddExperience(true)} className="text-sm text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1">
+                                        <button onClick={() => setShowAddExperience(true)} className="text-sm text-[#1EB97A] hover:text-emerald-400 font-medium inline-flex items-center gap-1">
                                             + Add Experience
                                         </button>
                                     ) : (
-                                        <div className="space-y-3 p-4 bg-linear-to-r from-gray-50 to-blue-50 rounded-xl">
-                                            <input type="text" placeholder="Job Title" value={newExperience.title} onChange={(e) => setNewExperience({ ...newExperience, title: e.target.value })} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-                                            <input type="text" placeholder="Company" value={newExperience.company} onChange={(e) => setNewExperience({ ...newExperience, company: e.target.value })} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-                                            <input type="text" placeholder="Period (e.g., 2020 - Present)" value={newExperience.period} onChange={(e) => setNewExperience({ ...newExperience, period: e.target.value })} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-                                            <textarea placeholder="Description" value={newExperience.description} onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })} rows={2} className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" />
+                                        <div className="space-y-3 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
+                                            <input type="text" placeholder="Job Title" value={newExperience.title} onChange={(e) => setNewExperience({ ...newExperience, title: e.target.value })} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent" />
+                                            <input type="text" placeholder="Company" value={newExperience.company} onChange={(e) => setNewExperience({ ...newExperience, company: e.target.value })} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent" />
+                                            <input type="text" placeholder="Period (e.g., 2020 - Present)" value={newExperience.period} onChange={(e) => setNewExperience({ ...newExperience, period: e.target.value })} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent" />
+                                            <textarea placeholder="Description" value={newExperience.description} onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })} rows={2} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent resize-none" />
                                             <div className="flex gap-2">
-                                                <button onClick={addExperience} className="px-3 py-1 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200">Add</button>
-                                                <button onClick={() => setShowAddExperience(false)} className="px-3 py-1 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-all duration-200">Cancel</button>
+                                                <button onClick={addExperience} className="px-3 py-1 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-lg hover:from-[#189663] hover:to-emerald-700 transition-all duration-200">Add</button>
+                                                <button onClick={() => setShowAddExperience(false)} className="px-3 py-1 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-all duration-200">Cancel</button>
                                             </div>
                                         </div>
                                     )}
@@ -1033,50 +989,33 @@ const Profile = () => {
                             )}
                             <div className="space-y-6">
                                 {(isEditing ? editForm.experience : user.experience).map((exp, index) => (
-                                    <div key={index} className="border-l-2 border-blue-200 pl-4 relative group">
+                                    <div key={index} className="border-l-2 border-[#1EB97A]/50 pl-4 relative group">
                                         {isEditing && (
-                                            <button onClick={() => removeExperience(index)} className="absolute -top-2 -right-2 text-red-500 hover:text-red-700 transition-colors opacity-0 group-hover:opacity-100">
+                                            <button onClick={() => removeExperience(index)} className="absolute -top-2 -right-2 text-red-500 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100">
                                                 <X className="w-4 h-4" />
                                             </button>
                                         )}
-                                        <h3 className="font-semibold text-gray-800">{exp.title}</h3>
-                                        <p className="text-sm text-blue-600 mb-1">{exp.company}</p>
-                                        <p className="text-xs text-gray-400 mb-2">{exp.period}</p>
-                                        <p className="text-sm text-gray-600">{exp.description}</p>
+                                        <h3 className="font-semibold text-white">{exp.title}</h3>
+                                        <p className="text-sm text-[#1EB97A] mb-1">{exp.company}</p>
+                                        <p className="text-xs text-gray-500 mb-2">{exp.period}</p>
+                                        <p className="text-sm text-gray-400">{exp.description}</p>
                                     </div>
                                 ))}
                                 {(!isEditing && user.experience.length === 0) && (
                                     <p className="text-gray-500 text-sm">No experience added yet</p>
                                 )}
                             </div>
-                        </div>
-
-                        {/* Education Section */}
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-                            <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-                                <GraduationCap className="w-5 h-5 text-blue-600" />
-                                Education
-                            </h2>
-                            <div className="space-y-4">
-                                {user.education && user.education.length > 0 ? (
-                                    user.education.map((edu, index) => (
-                                        <div key={index} className="border-l-2 border-green-200 pl-4">
-                                            <h3 className="font-semibold text-gray-800">{edu.degree}</h3>
-                                            <p className="text-sm text-green-600 mb-1">{edu.institution}</p>
-                                            <p className="text-xs text-gray-400">{edu.year}</p>
-                                            {edu.description && <p className="text-sm text-gray-600 mt-1">{edu.description}</p>}
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p className="text-gray-500 text-sm">No education added yet</p>
-                                )}
-                            </div>
-                        </div>
+                        </motion.div>
 
                         {/* Social Links */}
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-                            <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-                                <Globe className="w-5 h-5 text-blue-600" />
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                        >
+                            <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                                <Globe className="w-5 h-5 text-[#1EB97A]" />
                                 Connect & Follow
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1084,16 +1023,16 @@ const Profile = () => {
                                     link !== undefined && (
                                         <div key={platform} className="group">
                                             {isEditing ? (
-                                                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border-2 border-gray-200 hover:border-blue-300 transition-all duration-200">
+                                                <div className="flex items-center gap-3 p-3 bg-gray-800 rounded-xl border border-gray-700 hover:border-[#1EB97A]/50 transition-all duration-200">
                                                     {getSocialIcon(platform)}
-                                                    <input type="text" value={link} onChange={(e) => handleSocialChange(platform, e.target.value)} className="flex-1 text-sm bg-transparent focus:outline-none text-gray-700" placeholder={`${platform} username/url`} />
+                                                    <input type="text" value={link} onChange={(e) => handleSocialChange(platform, e.target.value)} className="flex-1 text-sm bg-transparent focus:outline-none text-white placeholder-gray-500" placeholder={`${platform} username/url`} />
                                                 </div>
                                             ) : (
                                                 link && link.trim() !== '' && (
-                                                    <a href={link.startsWith('http') ? link : `https://${link}`} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-between p-3 bg-gray-50 rounded-xl border-2 border-gray-200 hover:border-transparent transition-all duration-300 ${getSocialColor(platform)} group-hover:text-white`}>
+                                                    <a href={link.startsWith('http') ? link : `https://${link}`} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-between p-3 bg-gray-800 rounded-xl border border-gray-700 hover:border-transparent transition-all duration-300 ${getSocialColor(platform)} group-hover:text-white`}>
                                                         <div className="flex items-center gap-3">
                                                             {getSocialIcon(platform)}
-                                                            <span className="text-sm font-medium capitalize text-gray-700 group-hover:text-white transition-colors">{platform}</span>
+                                                            <span className="text-sm font-medium capitalize text-gray-400 group-hover:text-white transition-colors">{platform}</span>
                                                         </div>
                                                         <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-300 text-white" />
                                                     </a>
@@ -1103,18 +1042,23 @@ const Profile = () => {
                                     )
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                @keyframes gradient {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                .animate-shimmer {
+                    animation: shimmer 2s infinite;
+                }
+            `}</style>
         </div>
     );
 };
-
-const Trophy = ({ className }) => (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-    </svg>
-);
 
 export default Profile;

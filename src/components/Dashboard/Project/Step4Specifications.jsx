@@ -37,7 +37,6 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
         { code: "nl", name: "Dutch" }, { code: "other", name: "Other" }
     ];
 
-    // Set default language to English on component mount
     useEffect(() => {
         if (!formData.language) {
             updateFormData({ language: "en" });
@@ -86,10 +85,26 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
         }
     };
 
-    // Get language display name
     const getLanguageDisplay = (code) => {
         const lang = languageOptions.find(l => l.code === code);
         return lang ? lang.name : code;
+    };
+
+    const getGradient = (section) => {
+        const gradients = {
+            projectTypes: "from-[#1EB97A] to-emerald-600",
+            genres: "from-blue-500 to-cyan-500",
+            runtime: "from-purple-500 to-pink-500",
+            completion: "from-cyan-500 to-blue-500",
+            budget: "from-emerald-500 to-teal-500",
+            language: "from-amber-500 to-orange-500",
+            format: "from-slate-500 to-gray-500",
+            aspect: "from-teal-500 to-cyan-500",
+            color: "from-rose-500 to-pink-500",
+            student: "from-indigo-500 to-purple-500",
+            firstTime: "from-orange-500 to-red-500"
+        };
+        return gradients[section] || "from-gray-500 to-gray-600";
     };
 
     return (
@@ -101,23 +116,23 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
         >
             {/* Header Section */}
             <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-semibold mb-4">
-                    <span className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></span>
-                    Step 4 of 6
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                    <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
+                    Step 5 of 7
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                    <div className="w-12 h-12 bg-linear-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${getGradient("projectTypes")} rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20`}>
                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                             Technical Specifications
                         </h2>
                     </div>
                 </div>
-                <p className="text-gray-500 mt-2 max-w-2xl">
+                <p className="text-gray-400 mt-2 max-w-2xl">
                     Provide detailed technical information about your project.
                 </p>
             </div>
@@ -128,17 +143,17 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
-                    <div className="px-6 py-4 bg-linear-to-r from-yellow-50 to-orange-50 border-b border-gray-100">
+                    <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("projectTypes")} bg-opacity-10 border-b border-gray-800`}>
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-linear-to-br from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                            <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("projectTypes")} rounded-lg flex items-center justify-center`}>
                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                                 </svg>
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-900">Project Type(s)</h3>
-                            <span className="text-red-500 text-sm">*</span>
+                            <h3 className="text-lg font-semibold text-white">Project Type(s)</h3>
+                            <span className="text-[#1EB97A] text-sm">*</span>
                         </div>
                     </div>
                     <div className="p-6">
@@ -151,17 +166,17 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     transition={{ delay: idx * 0.03 }}
                                     className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-200 ${
                                         formData.projectTypes.includes(type)
-                                            ? 'bg-linear-to-r from-yellow-50 to-orange-50 border border-yellow-300 shadow-sm'
-                                            : 'hover:bg-gray-50 border border-transparent'
+                                            ? 'bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 shadow-sm'
+                                            : 'hover:bg-gray-800 border border-transparent'
                                     }`}
                                 >
                                     <input
                                         type="checkbox"
                                         checked={formData.projectTypes.includes(type)}
                                         onChange={() => handleProjectTypeToggle(type)}
-                                        className="w-4 h-4 text-yellow-600 rounded focus:ring-yellow-500"
+                                        className="w-4 h-4 text-[#1EB97A] rounded focus:ring-[#1EB97A] bg-gray-800 border-gray-700"
                                     />
-                                    <span className="text-sm text-gray-700">{type}</span>
+                                    <span className="text-sm text-gray-300">{type}</span>
                                 </motion.label>
                             ))}
                         </div>
@@ -171,7 +186,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-500 text-sm mt-3 flex items-center gap-1"
+                                    className="text-red-400 text-sm mt-3 flex items-center gap-1"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -190,17 +205,17 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-green-50 to-emerald-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("genres")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("genres")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                                     </svg>
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Genre</h3>
-                                <span className="text-red-500 text-sm">*</span>
+                                <h3 className="text-lg font-semibold text-white">Genre</h3>
+                                <span className="text-[#1EB97A] text-sm">*</span>
                             </div>
                         </div>
                         <div className="p-6">
@@ -212,15 +227,15 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 }}
                                 onFocus={() => setFocusedField('genres')}
                                 onBlur={() => setFocusedField(null)}
-                                className={`w-full px-4 py-2.5 text-gray-900 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer ${
+                                className={`w-full px-4 py-2.5 bg-gray-800 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer text-white ${
                                     focusedField === 'genres'
-                                        ? 'border-green-500 ring-2 ring-green-100 shadow-md'
-                                        : errors.genres ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-blue-500 ring-2 ring-blue-500/20 shadow-md'
+                                        : errors.genres ? 'border-red-500' : 'border-gray-700 hover:border-gray-600'
                                 }`}
                             >
-                                <option value="">Select primary genre</option>
+                                <option value="" className="bg-gray-800">Select primary genre</option>
                                 {genreOptions.map((genre) => (
-                                    <option key={genre} value={genre}>{genre}</option>
+                                    <option key={genre} value={genre} className="bg-gray-800">{genre}</option>
                                 ))}
                             </select>
                             <AnimatePresence>
@@ -229,7 +244,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
-                                        className="text-red-500 text-sm mt-2 flex items-center gap-1"
+                                        className="text-red-400 text-sm mt-2 flex items-center gap-1"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -246,16 +261,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-purple-50 to-pink-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("runtime")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("runtime")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Runtime</h3>
+                                <h3 className="text-lg font-semibold text-white">Runtime</h3>
                             </div>
                         </div>
                         <div className="p-6">
@@ -265,7 +280,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     <select
                                         value={formData.runtimeHours}
                                         onChange={(e) => handleRuntimeChange('runtimeHours', e.target.value)}
-                                        className="w-full px-3 py-2 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-white"
                                     >
                                         {Array.from({ length: 24 }, (_, i) => (
                                             <option key={i} value={i.toString().padStart(2, '0')}>
@@ -279,7 +294,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     <select
                                         value={formData.runtimeMinutes}
                                         onChange={(e) => handleRuntimeChange('runtimeMinutes', e.target.value)}
-                                        className="w-full px-3 py-2 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-white"
                                     >
                                         {Array.from({ length: 60 }, (_, i) => (
                                             <option key={i} value={i.toString().padStart(2, '0')}>
@@ -293,7 +308,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     <select
                                         value={formData.runtimeSeconds}
                                         onChange={(e) => handleRuntimeChange('runtimeSeconds', e.target.value)}
-                                        className="w-full px-3 py-2 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                                        className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-white"
                                     >
                                         {Array.from({ length: 60 }, (_, i) => (
                                             <option key={i} value={i.toString().padStart(2, '0')}>
@@ -314,16 +329,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-blue-50 to-cyan-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("completion")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("completion")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Completion Date</h3>
+                                <h3 className="text-lg font-semibold text-white">Completion Date</h3>
                             </div>
                         </div>
                         <div className="p-6">
@@ -331,7 +346,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 type="date"
                                 value={formData.completionDate}
                                 onChange={(e) => updateFormData({ completionDate: e.target.value })}
-                                className="w-full px-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-white [color-scheme:dark]"
                             />
                         </div>
                     </motion.div>
@@ -341,16 +356,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-emerald-50 to-teal-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("budget")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("budget")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Production Budget</h3>
+                                <h3 className="text-lg font-semibold text-white">Production Budget</h3>
                             </div>
                         </div>
                         <div className="p-6">
@@ -358,7 +373,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 type="text"
                                 value={formData.productionBudget}
                                 onChange={(e) => updateFormData({ productionBudget: e.target.value })}
-                                className="w-full px-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 transition-all"
+                                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-white placeholder-gray-500"
                                 placeholder="$50,000"
                             />
                         </div>
@@ -368,7 +383,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                 {/* Countries Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-300 mb-2">
                             Country of Origin
                         </label>
                         <CountrySelect
@@ -376,13 +391,13 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                             onChange={(country) => updateFormData({ countryOfOrigin: country })}
                             placeholder="Select country of origin"
                             required={false}
-                            className="w-full"
+                            className="w-full bg-gray-800 border-gray-700 text-white"
                         />
                         <p className="text-xs text-gray-500 mt-2">Where was this film produced?</p>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        <label className="block text-sm font-semibold text-gray-300 mb-2">
                             Country of Filming
                         </label>
                         <CountrySelect
@@ -390,7 +405,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                             onChange={(country) => updateFormData({ countryOfFilming: country })}
                             placeholder="Select country of filming"
                             required={false}
-                            className="w-full"
+                            className="w-full bg-gray-800 border-gray-700 text-white"
                         />
                         <p className="text-xs text-gray-500 mt-2">Where was this film shot?</p>
                     </div>
@@ -403,17 +418,17 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.45 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-amber-50 to-yellow-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("language")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-amber-500 to-yellow-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("language")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                                     </svg>
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Primary Language</h3>
-                                <span className="text-red-500 text-sm">*</span>
+                                <h3 className="text-lg font-semibold text-white">Primary Language</h3>
+                                <span className="text-[#1EB97A] text-sm">*</span>
                             </div>
                         </div>
                         <div className="p-6">
@@ -425,15 +440,15 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 }}
                                 onFocus={() => setFocusedField('language')}
                                 onBlur={() => setFocusedField(null)}
-                                className={`w-full px-4 py-2.5 text-gray-900 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer ${
+                                className={`w-full px-4 py-2.5 bg-gray-800 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer text-white ${
                                     focusedField === 'language'
-                                        ? 'border-amber-500 ring-2 ring-amber-100 shadow-md'
-                                        : errors.language ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-amber-500 ring-2 ring-amber-500/20 shadow-md'
+                                        : errors.language ? 'border-red-500' : 'border-gray-700 hover:border-gray-600'
                                 }`}
                             >
-                                <option value="">Select primary language</option>
+                                <option value="" className="bg-gray-800">Select primary language</option>
                                 {languageOptions.map((lang) => (
-                                    <option key={lang.code} value={lang.code}>{lang.name}</option>
+                                    <option key={lang.code} value={lang.code} className="bg-gray-800">{lang.name}</option>
                                 ))}
                             </select>
                             <AnimatePresence>
@@ -442,7 +457,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
-                                        className="text-red-500 text-sm mt-2 flex items-center gap-1"
+                                        className="text-red-400 text-sm mt-2 flex items-center gap-1"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -452,7 +467,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 )}
                             </AnimatePresence>
                             <p className="text-xs text-gray-500 mt-2">
-                                Selected: <span className="font-medium text-gray-700">{getLanguageDisplay(formData.language)}</span>
+                                Selected: <span className="font-medium text-gray-300">{getLanguageDisplay(formData.language)}</span>
                             </p>
                         </div>
                     </motion.div>
@@ -462,16 +477,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-slate-50 to-gray-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("format")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-slate-500 to-gray-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("format")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Shooting Format</h3>
+                                <h3 className="text-lg font-semibold text-white">Shooting Format</h3>
                             </div>
                         </div>
                         <div className="p-6">
@@ -480,15 +495,15 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 onChange={(e) => updateFormData({ shootingFormat: e.target.value })}
                                 onFocus={() => setFocusedField('shootingFormat')}
                                 onBlur={() => setFocusedField(null)}
-                                className={`w-full px-4 py-2.5 text-gray-900 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer ${
+                                className={`w-full px-4 py-2.5 bg-gray-800 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer text-white ${
                                     focusedField === 'shootingFormat'
-                                        ? 'border-slate-500 ring-2 ring-slate-100 shadow-md'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-slate-500 ring-2 ring-slate-500/20 shadow-md'
+                                        : 'border-gray-700 hover:border-gray-600'
                                 }`}
                             >
-                                <option value="">Select format</option>
+                                <option value="" className="bg-gray-800">Select format</option>
                                 {formatOptions.map((format) => (
-                                    <option key={format} value={format}>{format}</option>
+                                    <option key={format} value={format} className="bg-gray-800">{format}</option>
                                 ))}
                             </select>
                         </div>
@@ -501,16 +516,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.55 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-cyan-50 to-sky-50 border-b border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900">Aspect Ratio</h3>
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("aspect")} bg-opacity-10 border-b border-gray-800`}>
+                            <h3 className="text-lg font-semibold text-white">Aspect Ratio</h3>
                         </div>
                         <div className="p-6">
                             <select
                                 value={formData.aspectRatio}
                                 onChange={(e) => updateFormData({ aspectRatio: e.target.value })}
-                                className="w-full px-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 transition-all"
+                                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all text-white"
                             >
                                 {aspectRatios.map((ratio) => (
                                     <option key={ratio} value={ratio}>{ratio}</option>
@@ -523,16 +538,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-pink-50 to-rose-50 border-b border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900">Film Color</h3>
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("color")} bg-opacity-10 border-b border-gray-800`}>
+                            <h3 className="text-lg font-semibold text-white">Film Color</h3>
                         </div>
                         <div className="p-6">
                             <select
                                 value={formData.filmColor}
                                 onChange={(e) => updateFormData({ filmColor: e.target.value })}
-                                className="w-full px-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-100 transition-all"
+                                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all text-white"
                             >
                                 <option value="Color">Color</option>
                                 <option value="Black and White">Black and White</option>
@@ -545,16 +560,16 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.65 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-teal-50 to-emerald-50 border-b border-gray-100">
-                            <h3 className="text-lg font-semibold text-gray-900">Student Project?</h3>
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("student")} bg-opacity-10 border-b border-gray-800`}>
+                            <h3 className="text-lg font-semibold text-white">Student Project?</h3>
                         </div>
                         <div className="p-6">
                             <select
                                 value={formData.studentProject}
                                 onChange={(e) => updateFormData({ studentProject: e.target.value })}
-                                className="w-full px-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100 transition-all"
+                                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-white"
                             >
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
@@ -568,18 +583,18 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="bg-linear-to-r from-orange-50 to-red-50 rounded-2xl p-6 border border-orange-100"
+                    className={`bg-gradient-to-r ${getGradient("firstTime")} bg-opacity-10 rounded-2xl p-6 border border-orange-500/20`}
                 >
                     <div className="flex items-center justify-between flex-wrap gap-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                            <div className={`w-10 h-10 bg-gradient-to-br ${getGradient("firstTime")} rounded-xl flex items-center justify-center`}>
                                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold text-gray-900">First Time Filmmaker?</h3>
-                                <p className="text-sm text-gray-500">Is this your first film project?</p>
+                                <h3 className="text-lg font-semibold text-white">First Time Filmmaker?</h3>
+                                <p className="text-sm text-gray-400">Is this your first film project?</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -588,8 +603,8 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 onClick={() => updateFormData({ firstTimeFilmmaker: "No" })}
                                 className={`px-6 py-2 rounded-xl font-medium transition-all ${
                                     formData.firstTimeFilmmaker === "No"
-                                        ? 'bg-linear-to-r from-gray-600 to-gray-700 text-white shadow-md'
-                                        : 'bg-white border border-gray-200 text-gray-700 hover:border-gray-300'
+                                        ? 'bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-md'
+                                        : 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600'
                                 }`}
                             >
                                 No
@@ -599,8 +614,8 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 onClick={() => updateFormData({ firstTimeFilmmaker: "Yes" })}
                                 className={`px-6 py-2 rounded-xl font-medium transition-all ${
                                     formData.firstTimeFilmmaker === "Yes"
-                                        ? 'bg-linear-to-r from-orange-600 to-red-600 text-white shadow-md'
-                                        : 'bg-white border border-gray-200 text-gray-700 hover:border-gray-300'
+                                        ? 'bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-md'
+                                        : 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600'
                                 }`}
                             >
                                 Yes
@@ -615,13 +630,13 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.75 }}
-                className="flex justify-between pt-6 border-t border-gray-100"
+                className="flex justify-between pt-6 border-t border-gray-800"
             >
                 <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onPrev}
-                    className="group relative px-8 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 hover:shadow-md transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-gray-800 border border-gray-700 text-gray-300 rounded-xl font-semibold hover:border-gray-600 hover:bg-gray-700 transition-all duration-300 overflow-hidden"
                 >
                     <span className="relative flex items-center gap-2">
                         <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -635,9 +650,9 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleNext}
-                    className="group relative px-8 py-3 bg-linear-to-r from-yellow-600 to-orange-600 text-white rounded-xl font-semibold shadow-lg shadow-yellow-500/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative flex items-center gap-2">
                         Next Step
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

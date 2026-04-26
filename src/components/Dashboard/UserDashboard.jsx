@@ -181,54 +181,64 @@ export default function UserDashboard() {
         { id: 'overview', name: 'Dashboard Overview', icon: '📊', href: '/dashboard' },
         { id: 'projects', name: 'My Projects', icon: '🎬', href: '/projects' },
         { id: 'settings', name: 'Settings', icon: '⚙️', href: '/settings' },
-        { id: 'profile', name: 'Profile', icon: '⚙️', href: '/profile' }
+        { id: 'profile', name: 'Profile', icon: '👤', href: '/profile' }
     ];
+
+    const getGradient = (type) => {
+        const gradients = {
+            projects: "from-[#1EB97A] to-emerald-600",
+            submissions: "from-blue-500 to-cyan-500",
+            selections: "from-amber-500 to-orange-500",
+            awards: "from-purple-500 to-pink-500"
+        };
+        return gradients[type] || "from-gray-500 to-gray-600";
+    };
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-50">
+            <div className="min-h-screen bg-black">
                 <div className="mx-auto py-8 max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-8">
-                        <div className="h-10 w-64 bg-linear-to-r from-gray-200 to-gray-100 rounded-xl animate-pulse mb-3"></div>
-                        <div className="h-5 w-96 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
+                        <div className="h-10 w-64 bg-linear-to-r from-gray-800 to-gray-700 rounded-xl animate-pulse mb-3"></div>
+                        <div className="h-5 w-96 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse"></div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                         {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div key={i} className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
                                 <div className="flex items-center justify-between mb-4">
-                                    <div className="w-12 h-12 bg-linear-to-br from-gray-200 to-gray-100 rounded-xl animate-pulse"></div>
-                                    <div className="w-16 h-6 bg-linear-to-r from-gray-200 to-gray-100 rounded-full animate-pulse"></div>
+                                    <div className="w-12 h-12 bg-linear-to-br from-gray-800 to-gray-700 rounded-xl animate-pulse"></div>
+                                    <div className="w-16 h-6 bg-linear-to-r from-gray-800 to-gray-700 rounded-full animate-pulse"></div>
                                 </div>
-                                <div className="h-8 w-20 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse mb-2"></div>
-                                <div className="h-4 w-32 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
+                                <div className="h-8 w-20 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse mb-2"></div>
+                                <div className="h-4 w-32 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse"></div>
                             </div>
                         ))}
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-1 space-y-6">
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-linear-to-br from-gray-200 to-gray-100 rounded-full animate-pulse"></div>
+                                    <div className="w-16 h-16 bg-linear-to-br from-gray-800 to-gray-700 rounded-full animate-pulse"></div>
                                     <div className="flex-1">
-                                        <div className="h-5 w-32 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse mb-2"></div>
-                                        <div className="h-4 w-24 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
+                                        <div className="h-5 w-32 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse mb-2"></div>
+                                        <div className="h-4 w-24 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse"></div>
                                     </div>
                                 </div>
                                 <div className="space-y-3">
-                                    <div className="h-4 w-full bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
-                                    <div className="h-4 w-3/4 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
-                                    <div className="h-4 w-1/2 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse"></div>
+                                    <div className="h-4 w-full bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse"></div>
+                                    <div className="h-4 w-3/4 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse"></div>
+                                    <div className="h-4 w-1/2 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
                         <div className="lg:col-span-2 space-y-6">
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                                <div className="h-6 w-40 bg-linear-to-r from-gray-200 to-gray-100 rounded-lg animate-pulse mb-4"></div>
+                            <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
+                                <div className="h-6 w-40 bg-linear-to-r from-gray-800 to-gray-700 rounded-lg animate-pulse mb-4"></div>
                                 <div className="space-y-3">
-                                    <div className="h-20 bg-linear-to-r from-gray-200 to-gray-100 rounded-xl animate-pulse"></div>
-                                    <div className="h-20 bg-linear-to-r from-gray-200 to-gray-100 rounded-xl animate-pulse"></div>
+                                    <div className="h-20 bg-linear-to-r from-gray-800 to-gray-700 rounded-xl animate-pulse"></div>
+                                    <div className="h-20 bg-linear-to-r from-gray-800 to-gray-700 rounded-xl animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +249,7 @@ export default function UserDashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-50">
+        <div className="min-h-screen bg-black ">
             {/* Connection Warning Banner */}
             <AnimatePresence>
                 {connectionError && (
@@ -247,23 +257,23 @@ export default function UserDashboard() {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="bg-amber-50 border-b border-amber-200"
+                        className="bg-amber-500/10 border-b border-amber-500/20 backdrop-blur-sm"
                     >
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
-                                        <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center">
+                                        <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                         </svg>
                                     </div>
-                                    <span className="text-sm text-amber-700">
+                                    <span className="text-sm text-amber-400">
                                         Using cached data. Unable to connect to server.
                                     </span>
                                 </div>
                                 <button
                                     onClick={() => window.location.reload()}
-                                    className="text-sm text-amber-700 hover:text-amber-900 font-medium underline"
+                                    className="text-sm text-amber-400 hover:text-amber-300 font-medium underline"
                                 >
                                     Retry
                                 </button>
@@ -273,7 +283,7 @@ export default function UserDashboard() {
                 )}
             </AnimatePresence>
 
-            <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto py-8">
                 <div className="grid grid-cols-12 gap-8">
                     {/* Left Sidebar */}
                     <motion.div
@@ -282,11 +292,11 @@ export default function UserDashboard() {
                         transition={{ duration: 0.4 }}
                         className="col-span-12 md:col-span-3"
                     >
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-8">
+                        <div className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl sticky top-8">
                             {/* Profile Section */}
-                            <div className="p-6 text-center bg-linear-to-br from-blue-50 to-indigo-50">
+                            <div className="p-6 text-center bg-linear-to-br from-[#1EB97A]/10 to-emerald-500/10 border-b border-gray-800">
                                 <div className="relative inline-block">
-                                    <div className="w-24 h-24 mx-auto bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-white">
+                                    <div className="w-24 h-24 mx-auto bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-gray-800">
                                         {user?.avatar ? (
                                             <img
                                                 src={user.avatar}
@@ -306,20 +316,20 @@ export default function UserDashboard() {
                                             </span>
                                         )}
                                     </div>
-                                    <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+                                    <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-900 animate-pulse"></div>
                                 </div>
 
-                                <h3 className="mt-4 text-gray-900 font-bold text-lg">
+                                <h3 className="mt-4 text-white font-bold text-lg">
                                     {user?.fullName || user?.name || 'User'}
                                 </h3>
-                                <p className="text-gray-500 text-sm mt-1">
+                                <p className="text-gray-400 text-sm mt-1">
                                     {user?.title || 'Creative Professional'}
                                 </p>
-                                <p className="text-gray-400 text-xs mt-1 break-all">
+                                <p className="text-gray-500 text-xs mt-1 break-all">
                                     {user?.email || 'user@example.com'}
                                 </p>
 
-                                <div className="mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-linear-to-r from-blue-100 to-indigo-100 text-blue-700">
+                                <div className="mt-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 text-[#1EB97A] border border-[#1EB97A]/30">
                                     {user?.role === 'admin' ? '👑 Administrator' : (user?.role === 'user' ? '🎬 Filmmaker' : (user?.role || 'User'))}
                                 </div>
                             </div>
@@ -332,8 +342,8 @@ export default function UserDashboard() {
                                         href={item.href}
                                         onClick={() => setActiveTab(item.id)}
                                         className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${activeTab === item.id
-                                            ? 'bg-linear-to-r from-blue-50 to-indigo-50 text-blue-700 shadow-sm'
-                                            : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                                            ? 'bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 text-[#1EB97A] border border-[#1EB97A]/30'
+                                            : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                                             }`}
                                     >
                                         <span className="text-xl">{item.icon}</span>
@@ -343,7 +353,7 @@ export default function UserDashboard() {
                                         {activeTab === item.id && (
                                             <motion.div
                                                 layoutId="activeTab"
-                                                className="w-1 h-6 bg-linear-to-b from-blue-500 to-purple-600 rounded-full"
+                                                className="w-1 h-6 bg-linear-to-b from-[#1EB97A] to-emerald-500 rounded-full"
                                             ></motion.div>
                                         )}
                                     </Link>
@@ -351,10 +361,10 @@ export default function UserDashboard() {
                             </nav>
 
                             {/* Logout Button */}
-                            <div className="p-4 border-t border-gray-100">
+                            <div className="p-4 border-t border-gray-800">
                                 <button
                                     onClick={handleLogout}
-                                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 transition-all duration-200 w-full group"
+                                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full group hover:text-red-300"
                                 >
                                     <span className="text-xl">🚪</span>
                                     <span className="text-sm font-medium flex-1 text-left">
@@ -375,14 +385,14 @@ export default function UserDashboard() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 }}
-                            className="bg-linear-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-xl shadow-purple-500/20"
+                            className="bg-linear-to-r from-[#1EB97A] to-emerald-600 rounded-2xl p-6 text-white shadow-xl shadow-[#1EB97A]/20"
                         >
                             <div className="flex items-center justify-between flex-wrap gap-4">
                                 <div>
                                     <h1 className="text-2xl font-bold mb-1">
                                         Welcome back, {user?.name?.split(' ')[0] || 'User'}! 👋
                                     </h1>
-                                    <p className="text-blue-100 text-sm">
+                                    <p className="text-emerald-100 text-sm">
                                         Here's what's happening with your account today.
                                     </p>
                                 </div>
@@ -406,21 +416,66 @@ export default function UserDashboard() {
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
                         >
                             {[
-                                { label: 'Projects', value: user?.stats?.projects || 0, icon: '🎬', color: 'from-blue-500 to-cyan-500' },
-                                { label: 'Submissions', value: user?.stats?.submissions || 0, icon: '📄', color: 'from-purple-500 to-pink-500' },
-                                { label: 'Selections', value: user?.stats?.selections || 0, icon: '🏆', color: 'from-amber-500 to-orange-500' },
-                                { label: 'Awards', value: user?.stats?.awards || 0, icon: '⭐', color: 'from-emerald-500 to-teal-500' }
+                                { label: 'Projects', value: user?.stats?.projects || 0, icon: '🎬', type: 'projects' },
+                                { label: 'Submissions', value: user?.stats?.submissions || 0, icon: '📄', type: 'submissions' },
+                                { label: 'Selections', value: user?.stats?.selections || 0, icon: '🏆', type: 'selections' },
+                                { label: 'Awards', value: user?.stats?.awards || 0, icon: '⭐', type: 'awards' }
                             ].map((stat, idx) => (
-                                <div key={idx} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                                <div key={idx} className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl p-5 border border-gray-800 hover:border-gray-700 transition-all duration-300 hover:shadow-xl">
                                     <div className="flex items-center justify-between mb-3">
-                                        <div className={`w-10 h-10 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center text-xl`}>
+                                        <div className={`w-10 h-10 bg-linear-to-br ${getGradient(stat.type)} rounded-xl flex items-center justify-center text-xl shadow-lg`}>
                                             {stat.icon}
                                         </div>
-                                        <span className="text-2xl font-bold text-gray-800">{stat.value}</span>
+                                        <span className="text-2xl font-bold text-white">{stat.value}</span>
                                     </div>
-                                    <p className="text-gray-600 text-sm font-medium">{stat.label}</p>
+                                    <p className="text-gray-400 text-sm font-medium">{stat.label}</p>
                                 </div>
                             ))}
+                        </motion.div>
+
+                        {/* Quick Actions Card */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.4 }}
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden"
+                        >
+                            <div className="px-6 py-4 border-b border-gray-800 bg-linear-to-r from-gray-900 to-gray-950">
+                                <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-[#1EB97A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                    Quick Actions
+                                </h2>
+                            </div>
+                            <div className="p-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <button
+                                        onClick={() => router.push('/profile')}
+                                        className="group p-5 bg-linear-to-br from-gray-800 to-gray-900 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:scale-105 border border-gray-700 hover:border-[#1EB97A]/30"
+                                    >
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">👤</div>
+                                        <p className="font-semibold text-white">My Profile</p>
+                                        <p className="text-xs text-gray-500 mt-1">View and edit your profile</p>
+                                    </button>
+                                    <button
+                                        onClick={() => router.push('/projects')}
+                                        className="group p-5 bg-linear-to-br from-gray-800 to-gray-900 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:scale-105 border border-gray-700 hover:border-[#1EB97A]/30"
+                                    >
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">🎬</div>
+                                        <p className="font-semibold text-white">My Projects</p>
+                                        <p className="text-xs text-gray-500 mt-1">Manage your projects</p>
+                                    </button>
+                                    <button
+                                        onClick={() => router.push('/submissions')}
+                                        className="group p-5 bg-linear-to-br from-gray-800 to-gray-900 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:scale-105 border border-gray-700 hover:border-[#1EB97A]/30"
+                                    >
+                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">📄</div>
+                                        <p className="font-semibold text-white">Submissions</p>
+                                        <p className="text-xs text-gray-500 mt-1">View your submissions</p>
+                                    </button>
+                                </div>
+                            </div>
                         </motion.div>
 
                         {/* Account Information Card */}
@@ -428,12 +483,12 @@ export default function UserDashboard() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.3 }}
-                            className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300"
                         >
-                            <div className="px-6 py-5 border-b border-gray-100 bg-linear-to-r from-blue-50 via-indigo-50 to-purple-50">
+                            <div className="px-6 py-5 border-b border-gray-800 bg-linear-to-r from-gray-900 to-gray-950">
                                 <div className="flex items-center justify-between">
-                                    <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                        <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-sm">
+                                    <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                                        <div className="w-8 h-8 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-sm">
                                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
@@ -441,7 +496,7 @@ export default function UserDashboard() {
                                         Account Information
                                     </h2>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <div className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></div>
                                         <span className="text-xs text-gray-500">Active</span>
                                     </div>
                                 </div>
@@ -452,16 +507,16 @@ export default function UserDashboard() {
                                     {/* User ID */}
                                     <div className="group">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">User ID</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100 group-hover:border-blue-200 transition-colors">
-                                            <code className="text-sm font-mono text-gray-900">{user?.id?.slice(-12) || 'N/A'}</code>
+                                        <div className="bg-gray-800/50 rounded-xl p-3 border border-gray-700 group-hover:border-[#1EB97A]/30 transition-colors">
+                                            <code className="text-sm font-mono text-gray-300">{user?.id?.slice(-12) || 'N/A'}</code>
                                             <button
                                                 onClick={() => navigator.clipboard.writeText(user?.id)}
-                                                className="ml-2 text-gray-400 hover:text-blue-600 transition-colors"
+                                                className="ml-2 text-gray-500 hover:text-[#1EB97A] transition-colors"
                                                 title="Copy ID"
                                             >
                                                 <svg className="w-3.5 h-3.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -474,44 +529,44 @@ export default function UserDashboard() {
                                     {/* Full Name */}
                                     <div className="group">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Full Name</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
-                                            <p className="text-sm font-semibold text-gray-900">{user?.fullName || user?.name || 'N/A'}</p>
+                                        <div className="bg-gray-800/50 rounded-xl p-3 border border-gray-700">
+                                            <p className="text-sm font-semibold text-white">{user?.fullName || user?.name || 'N/A'}</p>
                                         </div>
                                     </div>
 
                                     {/* Professional Title */}
                                     <div className="group">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Professional Title</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
-                                            <p className="text-sm text-gray-700">{user?.title || 'Not specified'}</p>
+                                        <div className="bg-gray-800/50 rounded-xl p-3 border border-gray-700">
+                                            <p className="text-sm text-gray-300">{user?.title || 'Not specified'}</p>
                                         </div>
                                     </div>
 
                                     {/* Email Address */}
                                     <div className="group">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Email Address</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100 group-hover:border-blue-200 transition-colors">
+                                        <div className="bg-gray-800/50 rounded-xl p-3 border border-gray-700 group-hover:border-[#1EB97A]/30 transition-colors">
                                             <div className="flex items-center justify-between">
-                                                <p className="text-sm text-gray-900 break-all">{user?.email || 'N/A'}</p>
+                                                <p className="text-sm text-gray-300 break-all">{user?.email || 'N/A'}</p>
                                                 {user?.email && (
                                                     <button
                                                         onClick={() => navigator.clipboard.writeText(user.email)}
-                                                        className="text-gray-400 hover:text-blue-600 transition-colors ml-2 shrink-0"
+                                                        className="text-gray-500 hover:text-[#1EB97A] transition-colors ml-2 shrink-0"
                                                         title="Copy Email"
                                                     >
                                                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -526,32 +581,32 @@ export default function UserDashboard() {
                                     {/* Location */}
                                     <div className="group">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Location</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
-                                            <p className="text-sm text-gray-700">{user?.location || 'Not specified'}</p>
+                                        <div className="bg-gray-800/50 rounded-xl p-3 border border-gray-700">
+                                            <p className="text-sm text-gray-300">{user?.location || 'Not specified'}</p>
                                         </div>
                                     </div>
 
                                     {/* Member Since */}
                                     <div className="group">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Member Since</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-gray-50 to-white rounded-xl p-3 border border-gray-100">
+                                        <div className="bg-gray-800/50 rounded-xl p-3 border border-gray-700">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-sm font-medium text-gray-900">
+                                                <span className="text-sm font-medium text-gray-300">
                                                     {user?.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
                                                 </span>
                                                 {user?.createdAt && (
-                                                    <span className="text-xs text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
+                                                    <span className="text-xs text-[#1EB97A] bg-[#1EB97A]/10 px-2 py-0.5 rounded-full">
                                                         {Math.floor((new Date() - new Date(user.createdAt)) / (1000 * 60 * 60 * 24 * 30))}+ months
                                                     </span>
                                                 )}
@@ -562,90 +617,45 @@ export default function UserDashboard() {
 
                                 {/* Bio Section - Full Width */}
                                 {user?.bio && (
-                                    <div className="mt-5 pt-4 border-t border-gray-100">
+                                    <div className="mt-5 pt-4 border-t border-gray-800">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                                             </svg>
                                             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Bio / About</label>
                                         </div>
-                                        <div className="bg-linear-to-r from-blue-50/30 to-purple-50/30 rounded-xl p-4 border border-blue-100">
-                                            <p className="text-sm text-gray-700 leading-relaxed">{user.bio}</p>
+                                        <div className="bg-linear-to-r from-[#1EB97A]/5 to-emerald-500/5 rounded-xl p-4 border border-[#1EB97A]/20">
+                                            <p className="text-sm text-gray-300 leading-relaxed">{user.bio}</p>
                                         </div>
                                     </div>
                                 )}
 
                                 {/* Verification Badge */}
-                                <div className="mt-5 pt-4 border-t border-gray-100">
+                                <div className="mt-5 pt-4 border-t border-gray-800">
                                     <div className="flex items-center justify-between flex-wrap gap-3">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                                                <svg className="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div className="w-6 h-6 bg-[#1EB97A]/20 rounded-full flex items-center justify-center">
+                                                <svg className="w-3.5 h-3.5 text-[#1EB97A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </div>
-                                            <span className="text-xs text-gray-600">Email Verified</span>
+                                            <span className="text-xs text-gray-400">Email Verified</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center">
-                                                <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div className="w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center">
+                                                <svg className="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                                 </svg>
                                             </div>
-                                            <span className="text-xs text-gray-600">2FA Optional</span>
+                                            <span className="text-xs text-gray-400">2FA Optional</span>
                                         </div>
-                                        <Link href="/profile/edit" className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+                                        <Link href="/settings" className="text-xs text-[#1EB97A] hover:text-emerald-400 font-medium flex items-center gap-1">
                                             Edit Profile
                                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                             </svg>
                                         </Link>
                                     </div>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        {/* Quick Actions Card */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.4 }}
-                            className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
-                        >
-                            <div className="px-6 py-4 border-b border-gray-100 bg-linear-to-r from-gray-50 to-white">
-                                <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                    Quick Actions
-                                </h2>
-                            </div>
-                            <div className="p-6">
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <button
-                                        onClick={() => router.push('/profile')}
-                                        className="group p-5 bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105"
-                                    >
-                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">👤</div>
-                                        <p className="font-semibold text-gray-900">My Profile</p>
-                                        <p className="text-xs text-gray-600 mt-1">View and edit your profile</p>
-                                    </button>
-                                    <button
-                                        onClick={() => router.push('/projects')}
-                                        className="group p-5 bg-linear-to-br from-purple-50 to-pink-50 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105"
-                                    >
-                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">🎬</div>
-                                        <p className="font-semibold text-gray-900">My Projects</p>
-                                        <p className="text-xs text-gray-600 mt-1">Manage your projects</p>
-                                    </button>
-                                    <button
-                                        onClick={() => router.push('/submissions')}
-                                        className="group p-5 bg-linear-to-br from-emerald-50 to-teal-50 rounded-xl text-center hover:shadow-md transition-all duration-300 hover:scale-105"
-                                    >
-                                        <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">📄</div>
-                                        <p className="font-semibold text-gray-900">Submissions</p>
-                                        <p className="text-xs text-gray-600 mt-1">View your submissions</p>
-                                    </button>
                                 </div>
                             </div>
                         </motion.div>

@@ -26,16 +26,14 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
     const [activeTab, setActiveTab] = useState("screenings");
 
     const addScreening = () => {
-        // Check if required fields are filled
         if (newScreening.festivalName && newScreening.date) {
             updateFormData({
                 screenings: [...formData.screenings, { 
                     ...newScreening, 
                     id: Date.now(),
-                    city: newScreening.city || "" // Add city if needed
+                    city: newScreening.city || ""
                 }]
             });
-            // Reset form
             setNewScreening({
                 festivalName: "",
                 date: "",
@@ -76,25 +74,24 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
     const getStatusBadgeColor = (status) => {
         switch (status) {
             case "selected":
-                return "bg-linear-to-r from-green-100 to-emerald-100 text-green-700 border-green-200";
+                return "bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30";
             case "pending":
-                return "bg-linear-to-r from-yellow-100 to-amber-100 text-yellow-700 border-yellow-200";
+                return "bg-gradient-to-r from-yellow-500/20 to-amber-500/20 text-yellow-400 border-yellow-500/30";
             case "screened":
-                return "bg-linear-to-r from-blue-100 to-cyan-100 text-blue-700 border-blue-200";
+                return "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-400 border-blue-500/30";
             case "rejected":
-                return "bg-linear-to-r from-red-100 to-rose-100 text-red-700 border-red-200";
+                return "bg-gradient-to-r from-red-500/20 to-rose-500/20 text-red-400 border-red-500/30";
             default:
-                return "bg-linear-to-r from-gray-100 to-slate-100 text-gray-700 border-gray-200";
+                return "bg-gradient-to-r from-gray-500/20 to-slate-500/20 text-gray-400 border-gray-500/30";
         }
     };
 
-    const getStatusIcon = (status) => {
-        switch (status) {
-            case "selected": return <Award className="w-3 h-3" />;
-            case "screened": return <Film className="w-3 h-3" />;
-            case "rejected": return <Trash2 className="w-3 h-3" />;
-            default: return <Calendar className="w-3 h-3" />;
-        }
+    const getGradient = (section) => {
+        const gradients = {
+            screenings: "from-purple-500 to-pink-500",
+            distributors: "from-blue-500 to-cyan-500"
+        };
+        return gradients[section] || "from-gray-500 to-gray-600";
     };
 
     return (
@@ -106,33 +103,33 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
         >
             {/* Header Section */}
             <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold mb-4">
-                    <span className="w-2 h-2 bg-purple-600 rounded-full animate-pulse"></span>
-                    Step 5 of 6
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                    <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
+                    Step 6 of 7
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                    <div className="w-12 h-12 bg-linear-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${getGradient("screenings")} rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/20`}>
                         <Ticket className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                             Screenings & Distribution
                         </h2>
                     </div>
                 </div>
-                <p className="text-gray-500 mt-2 max-w-2xl">
+                <p className="text-gray-400 mt-2 max-w-2xl">
                     Tell us about past/future screenings and distribution partners.
                 </p>
             </div>
 
             {/* Tab Navigation */}
-            <div className="flex gap-2 border-b border-gray-200">
+            <div className="flex gap-2 border-b border-gray-800">
                 <button
                     onClick={() => setActiveTab("screenings")}
                     className={`px-6 py-3 rounded-t-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
                         activeTab === "screenings"
-                            ? "bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                            : "text-gray-600 hover:text-purple-600 hover:bg-purple-50"
+                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
+                            : "text-gray-400 hover:text-purple-400 hover:bg-gray-800"
                     }`}
                 >
                     <Calendar className="w-4 h-4" />
@@ -147,8 +144,8 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                     onClick={() => setActiveTab("distributors")}
                     className={`px-6 py-3 rounded-t-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
                         activeTab === "distributors"
-                            ? "bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                            : "text-gray-600 hover:text-purple-600 hover:bg-purple-50"
+                            ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg"
+                            : "text-gray-400 hover:text-blue-400 hover:bg-gray-800"
                     }`}
                 >
                     <Building className="w-4 h-4" />
@@ -170,14 +167,14 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-purple-50 to-pink-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("screenings")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("screenings")} rounded-lg flex items-center justify-center`}>
                                     <Calendar className="w-4 h-4 text-white" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Festival Screenings</h3>
+                                <h3 className="text-lg font-semibold text-white">Festival Screenings</h3>
                             </div>
                         </div>
 
@@ -185,7 +182,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                             {/* Existing Screenings */}
                             {formData.screenings.length > 0 && (
                                 <div className="space-y-3 mb-6">
-                                    <h4 className="text-sm font-medium text-gray-700">Added Screenings</h4>
+                                    <h4 className="text-sm font-medium text-gray-400">Added Screenings</h4>
                                     <AnimatePresence>
                                         {formData.screenings.map((screening, index) => (
                                             <motion.div
@@ -194,35 +191,34 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: 20 }}
                                                 transition={{ delay: index * 0.05 }}
-                                                className="bg-linear-to-r from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-all"
+                                                className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition-all"
                                             >
                                                 <div className="flex justify-between items-start">
                                                     <div className="flex-1">
                                                         <div className="flex items-center gap-3 mb-2 flex-wrap">
-                                                            <h4 className="font-semibold text-gray-900 flex items-center gap-2">
-                                                                <Award className="w-4 h-4 text-purple-500" />
+                                                            <h4 className="font-semibold text-white flex items-center gap-2">
+                                                                <Award className="w-4 h-4 text-purple-400" />
                                                                 {screening.festivalName}
                                                             </h4>
                                                             <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusBadgeColor(screening.status)}`}>
-                                                                {getStatusIcon(screening.status)}
                                                                 {screening.status.charAt(0).toUpperCase() + screening.status.slice(1)}
                                                             </span>
                                                         </div>
                                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                                                            <p className="text-sm text-gray-600 flex items-center gap-2">
-                                                                <Calendar className="w-3 h-3 text-gray-400" />
-                                                                <span className="font-medium">Date:</span> {screening.date}
+                                                            <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                <Calendar className="w-3 h-3 text-gray-500" />
+                                                                <span className="font-medium text-gray-300">Date:</span> {screening.date}
                                                             </p>
                                                             {screening.venue && (
-                                                                <p className="text-sm text-gray-600 flex items-center gap-2">
-                                                                    <MapPin className="w-3 h-3 text-gray-400" />
-                                                                    <span className="font-medium">Venue:</span> {screening.venue}
+                                                                <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                    <MapPin className="w-3 h-3 text-gray-500" />
+                                                                    <span className="font-medium text-gray-300">Venue:</span> {screening.venue}
                                                                 </p>
                                                             )}
                                                             {screening.country && (
-                                                                <p className="text-sm text-gray-500 flex items-center gap-2">
-                                                                    <Globe className="w-3 h-3 text-gray-400" />
-                                                                    <span className="font-medium">Location:</span> {screening.country}
+                                                                <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                    <Globe className="w-3 h-3 text-gray-500" />
+                                                                    <span className="font-medium text-gray-300">Location:</span> {screening.country}
                                                                 </p>
                                                             )}
                                                         </div>
@@ -231,7 +227,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}
                                                         onClick={() => removeScreening(index)}
-                                                        className="text-red-400 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-red-50"
+                                                        className="text-red-400 hover:text-red-300 transition-colors p-1 rounded-lg hover:bg-red-500/10"
                                                         aria-label="Remove screening"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
@@ -245,13 +241,9 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
 
                             {/* Add New Screening */}
                             <div className="space-y-4">
-                                {/* <h4 className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                                    <Plus className="w-4 h-4 text-purple-500" />
-                                    Add New Screening
-                                </h4> */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <Award className="w-4 h-4" />
                                         </div>
                                         <input
@@ -259,24 +251,24 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Festival Name *"
                                             value={newScreening.festivalName}
                                             onChange={(e) => setNewScreening({ ...newScreening, festivalName: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <Calendar className="w-4 h-4" />
                                         </div>
                                         <input
                                             type="date"
                                             value={newScreening.date}
                                             onChange={(e) => setNewScreening({ ...newScreening, date: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-white [color-scheme:dark]"
                                         />
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <MapPin className="w-4 h-4" />
                                         </div>
                                         <input
@@ -284,26 +276,26 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Venue"
                                             value={newScreening.venue}
                                             onChange={(e) => setNewScreening({ ...newScreening, venue: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             🏷️
                                         </div>
                                         <select
                                             value={newScreening.status}
                                             onChange={(e) => setNewScreening({ ...newScreening, status: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition-all appearance-none cursor-pointer"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all appearance-none cursor-pointer text-white"
                                         >
-                                            <option value="pending">Pending</option>
-                                            <option value="selected">Selected</option>
-                                            <option value="screened">Screened</option>
-                                            <option value="rejected">Rejected</option>
+                                            <option value="pending" className="bg-gray-800">Pending</option>
+                                            <option value="selected" className="bg-gray-800">Selected</option>
+                                            <option value="screened" className="bg-gray-800">Screened</option>
+                                            <option value="rejected" className="bg-gray-800">Rejected</option>
                                         </select>
                                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </div>
@@ -315,7 +307,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             onChange={(country) => setNewScreening({ ...newScreening, country: country })}
                                             placeholder="Select country"
                                             required={false}
-                                            className="w-full"
+                                            className="w-full bg-gray-800 border-gray-700 text-white"
                                         />
                                     </div>
                                 </div>
@@ -326,7 +318,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                         type="button"
                                         onClick={addScreening}
                                         disabled={!newScreening.festivalName || !newScreening.date}
-                                        className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+                                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                                     >
                                         <Plus className="w-4 h-4" />
                                         Add Screening
@@ -345,14 +337,14 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className="px-6 py-4 bg-linear-to-r from-blue-50 to-cyan-50 border-b border-gray-100">
+                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("distributors")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("distributors")} rounded-lg flex items-center justify-center`}>
                                     <Building className="w-4 h-4 text-white" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900">Distributors</h3>
+                                <h3 className="text-lg font-semibold text-white">Distributors</h3>
                             </div>
                         </div>
 
@@ -360,7 +352,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                             {/* Existing Distributors */}
                             {formData.distributors.length > 0 && (
                                 <div className="space-y-3 mb-6">
-                                    <h4 className="text-sm font-medium text-gray-700">Added Distributors</h4>
+                                    <h4 className="text-sm font-medium text-gray-400">Added Distributors</h4>
                                     <AnimatePresence>
                                         {formData.distributors.map((distributor, index) => (
                                             <motion.div
@@ -369,37 +361,37 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: 20 }}
                                                 transition={{ delay: index * 0.05 }}
-                                                className="bg-linear-to-r from-gray-50 to-white rounded-xl p-4 border border-gray-100 hover:shadow-md transition-all"
+                                                className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition-all"
                                             >
                                                 <div className="flex justify-between items-start">
                                                     <div className="flex-1">
-                                                        <h4 className="font-semibold text-gray-900 flex items-center gap-2">
-                                                            <Building className="w-4 h-4 text-blue-500" />
+                                                        <h4 className="font-semibold text-white flex items-center gap-2">
+                                                            <Building className="w-4 h-4 text-blue-400" />
                                                             {distributor.company}
                                                         </h4>
                                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                                                            <p className="text-sm text-gray-600 flex items-center gap-2">
-                                                                <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                                                 </svg>
-                                                                <span className="font-medium">Contact:</span> {distributor.contactName}
+                                                                <span className="font-medium text-gray-300">Contact:</span> {distributor.contactName}
                                                             </p>
                                                             {distributor.email && (
-                                                                <p className="text-sm text-gray-600 flex items-center gap-2">
-                                                                    <Mail className="w-3 h-3 text-gray-400" />
-                                                                    <span className="font-medium">Email:</span> {distributor.email}
+                                                                <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                    <Mail className="w-3 h-3 text-gray-500" />
+                                                                    <span className="font-medium text-gray-300">Email:</span> {distributor.email}
                                                                 </p>
                                                             )}
                                                             {distributor.phone && (
-                                                                <p className="text-sm text-gray-600 flex items-center gap-2">
-                                                                    <Phone className="w-3 h-3 text-gray-400" />
-                                                                    <span className="font-medium">Phone:</span> {distributor.phone}
+                                                                <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                    <Phone className="w-3 h-3 text-gray-500" />
+                                                                    <span className="font-medium text-gray-300">Phone:</span> {distributor.phone}
                                                                 </p>
                                                             )}
                                                             {distributor.territory && (
-                                                                <p className="text-sm text-gray-600 flex items-center gap-2">
-                                                                    <Globe className="w-3 h-3 text-gray-400" />
-                                                                    <span className="font-medium">Territory:</span> {distributor.territory}
+                                                                <p className="text-sm text-gray-400 flex items-center gap-2">
+                                                                    <Globe className="w-3 h-3 text-gray-500" />
+                                                                    <span className="font-medium text-gray-300">Territory:</span> {distributor.territory}
                                                                 </p>
                                                             )}
                                                         </div>
@@ -408,7 +400,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}
                                                         onClick={() => removeDistributor(index)}
-                                                        className="text-red-400 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-red-50"
+                                                        className="text-red-400 hover:text-red-300 transition-colors p-1 rounded-lg hover:bg-red-500/10"
                                                         aria-label="Remove distributor"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
@@ -422,13 +414,9 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
 
                             {/* Add New Distributor */}
                             <div className="space-y-4">
-                                {/* <h4 className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                                    <Plus className="w-4 h-4 text-blue-500" />
-                                    Add New Distributor
-                                </h4> */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <Building className="w-4 h-4" />
                                         </div>
                                         <input
@@ -436,12 +424,12 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Company Name *"
                                             value={newDistributor.company}
                                             onChange={(e) => setNewDistributor({ ...newDistributor, company: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
@@ -451,12 +439,12 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Contact Name *"
                                             value={newDistributor.contactName}
                                             onChange={(e) => setNewDistributor({ ...newDistributor, contactName: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <Mail className="w-4 h-4" />
                                         </div>
                                         <input
@@ -464,12 +452,12 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Email"
                                             value={newDistributor.email}
                                             onChange={(e) => setNewDistributor({ ...newDistributor, email: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <Phone className="w-4 h-4" />
                                         </div>
                                         <input
@@ -477,12 +465,12 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Phone"
                                             value={newDistributor.phone}
                                             onChange={(e) => setNewDistributor({ ...newDistributor, phone: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
 
                                     <div className="md:col-span-2 relative">
-                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
                                             <Globe className="w-4 h-4" />
                                         </div>
                                         <input
@@ -490,7 +478,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                             placeholder="Territory (e.g., North America, Worldwide)"
                                             value={newDistributor.territory}
                                             onChange={(e) => setNewDistributor({ ...newDistributor, territory: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-2.5 text-gray-900 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-white placeholder-gray-500"
                                         />
                                     </div>
                                 </div>
@@ -501,7 +489,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                         type="button"
                                         onClick={addDistributor}
                                         disabled={!newDistributor.company || !newDistributor.contactName}
-                                        className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+                                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                                     >
                                         <Plus className="w-4 h-4" />
                                         Add Distributor
@@ -518,13 +506,13 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="flex justify-between pt-6 border-t border-gray-100"
+                className="flex justify-between pt-6 border-t border-gray-800"
             >
                 <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onPrev}
-                    className="group relative px-8 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 hover:shadow-md transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-gray-800 border border-gray-700 text-gray-300 rounded-xl font-semibold hover:border-gray-600 hover:bg-gray-700 transition-all duration-300 overflow-hidden"
                 >
                     <span className="relative flex items-center gap-2">
                         <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -538,9 +526,9 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onNext}
-                    className="group relative px-8 py-3 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative flex items-center gap-2">
                         Next Step
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
