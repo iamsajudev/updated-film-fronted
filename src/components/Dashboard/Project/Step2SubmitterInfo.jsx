@@ -116,7 +116,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     focusedField === 'email' && !isLoggedIn
                                         ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                         : 'border-gray-700 hover:border-gray-600'
-                                } ${errors.email ? 'border-red-500 bg-red-500/10' : ''}`}
+                                } ${errors.email ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                                 placeholder="you@example.com"
                             />
                             {isLoggedIn && (
@@ -133,7 +133,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                    className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -177,7 +177,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     focusedField === 'phone'
                                         ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                         : 'border-gray-700 hover:border-gray-600'
-                                } ${errors.phone ? 'border-red-500 bg-red-500/10' : ''}`}
+                                } ${errors.phone ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                                 placeholder="+1 234 567 8900"
                             />
                         </div>
@@ -187,7 +187,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                    className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -226,7 +226,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                 focusedField === 'address'
                                     ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                     : 'border-gray-700 hover:border-gray-600'
-                            } ${errors.address ? 'border-red-500 bg-red-500/10' : ''}`}
+                            } ${errors.address ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                             placeholder="Street address"
                         />
                     </div>
@@ -236,7 +236,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -274,7 +274,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     focusedField === 'city'
                                         ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                         : 'border-gray-700 hover:border-gray-600'
-                                } ${errors.city ? 'border-red-500 bg-red-500/10' : ''}`}
+                                } ${errors.city ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                                 placeholder="City"
                             />
                         </div>
@@ -284,7 +284,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                    className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -366,7 +366,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                             onChange={(country) => updateFormData({ country })}
                             required={true}
                             placeholder="Select a country"
-                            className={`w-full bg-gray-800 border-gray-700 text-white ${errors.country ? 'border-red-500' : ''}`}
+                            className={`w-full bg-gray-800 border-gray-700 text-white ${errors.country ? 'border-emerald-500' : ''}`}
                         />
                         <AnimatePresence>
                             {errors.country && (
@@ -374,7 +374,7 @@ export default function Step2SubmitterInfo({ formData, updateFormData, onNext, o
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                    className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -22,7 +22,7 @@ export default function AdminSubmissions() {
     inReview: 0
   });
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://server.nybff.us";
 
   // Get auth token
   const getToken = () => {
@@ -225,7 +225,7 @@ export default function AdminSubmissions() {
     const colors = {
       pending: "bg-yellow-100 text-yellow-700",
       approved: "bg-green-100 text-green-700",
-      rejected: "bg-red-100 text-red-700",
+      rejected: "bg-emerald-100 text-emerald-700",
       "in-review": "bg-blue-100 text-blue-700"
     };
     return colors[status] || "bg-gray-100 text-gray-700";
@@ -323,10 +323,10 @@ export default function AdminSubmissions() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm">Rejected</p>
-                <p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
+                <p className="text-2xl font-bold text-emerald-600">{stats.rejected}</p>
               </div>
-              <div className="bg-red-100 p-3 rounded-full">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="bg-emerald-100 p-3 rounded-full">
+                <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -418,7 +418,7 @@ export default function AdminSubmissions() {
                           <option value="pending" className="bg-yellow-100 text-yellow-700">Pending</option>
                           <option value="in-review" className="bg-blue-100 text-blue-700">In Review</option>
                           <option value="approved" className="bg-green-100 text-green-700">Approved</option>
-                          <option value="rejected" className="bg-red-100 text-red-700">Rejected</option>
+                          <option value="rejected" className="bg-emerald-100 text-emerald-700">Rejected</option>
                         </select>
                       </td>
                       <td className="px-6 py-4">
@@ -449,7 +449,7 @@ export default function AdminSubmissions() {
                           {/* Delete Button */}
                           <button
                             onClick={() => handleDelete(submission._id)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
                             title="Delete Submission"
                           >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -618,7 +618,7 @@ export default function AdminSubmissions() {
                   <button
                     onClick={() => updateSubmissionStatus(selectedSubmission._id, "rejected", adminNotes)}
                     disabled={updatingId === selectedSubmission._id}
-                    className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition disabled:opacity-50"
+                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition disabled:opacity-50"
                   >
                     {updatingId === selectedSubmission._id ? "Processing..." : "✗ Reject"}
                   </button>

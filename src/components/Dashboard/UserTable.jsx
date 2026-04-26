@@ -25,7 +25,7 @@ const UserTable = () => {
     const usersCacheRef = useRef(null);
     const filterTimeoutRef = useRef(null);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
     // Batch state update helper
     const updateState = useCallback((updates) => {
@@ -522,7 +522,7 @@ const FastUserRow = React.memo(({
                 {/* Status */}
                 <div className="min-w-20">
                     {isCurrentUser ? (
-                        <span className={`inline-flex px-2 py-0.5 text-xs font-medium rounded-full ${userStatus === "active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                        <span className={`inline-flex px-2 py-0.5 text-xs font-medium rounded-full ${userStatus === "active" ? "bg-green-100 text-green-700" : "bg-emerald-100 text-emerald-700"}`}>
                             {userStatus}
                         </span>
                     ) : (
@@ -531,7 +531,7 @@ const FastUserRow = React.memo(({
                             disabled={isUpdating}
                             className={`inline-flex px-2 py-0.5 text-xs font-medium rounded-full transition ${userStatus === "active"
                                 ? "bg-green-100 text-green-700 hover:bg-green-200"
-                                : "bg-red-100 text-red-700 hover:bg-red-200"
+                                : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
                                 } ${isUpdating ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
                         >
                             {isUpdating ? (
@@ -564,7 +564,7 @@ const FastUserRow = React.memo(({
                     <button
                         onClick={() => onDeleteUser(userId)}
                         disabled={isCurrentUser || isDeleting}
-                        className={`p-1.5 cursor-pointer text-red-600 hover:bg-red-50 rounded transition ${isCurrentUser || isDeleting ? "opacity-50 cursor-not-allowed" : ""}`}
+                        className={`p-1.5 cursor-pointer text-emerald-600 hover:bg-emerald-50 rounded transition ${isCurrentUser || isDeleting ? "opacity-50 cursor-not-allowed" : ""}`}
                         title={isCurrentUser ? "Cannot delete yourself" : "Delete"}
                     >
                         {isDeleting ? (

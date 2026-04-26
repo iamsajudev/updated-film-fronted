@@ -27,7 +27,7 @@ export default function UserDashboard() {
             console.log('=== Dashboard Debug Info ===');
             console.log('Token:', token ? 'Present' : 'Missing');
             console.log('User Data:', userData);
-            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
+            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us');
 
             if (!token || !userData) {
                 console.log('No auth data, redirecting to login');
@@ -43,7 +43,7 @@ export default function UserDashboard() {
             }
 
             try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
                 const timeoutId = setTimeout(() => {
                     if (abortControllerRef.current && isMounted) {
@@ -151,7 +151,7 @@ export default function UserDashboard() {
         try {
             const token = getToken();
             if (token) {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);
 
@@ -364,7 +364,7 @@ export default function UserDashboard() {
                             <div className="p-4 border-t border-gray-800">
                                 <button
                                     onClick={handleLogout}
-                                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full group hover:text-red-300"
+                                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-emerald-400 hover:bg-emerald-500/10 transition-all duration-200 w-full group hover:text-emerald-300"
                                 >
                                     <span className="text-xl">🚪</span>
                                     <span className="text-sm font-medium flex-1 text-left">

@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://server.nybff.us";
 
   // Get auth token with error handling
   const getToken = useCallback(() => {
@@ -359,14 +359,14 @@ export default function AdminDashboard() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4"
+            className="mb-6 bg-emerald-50 border border-emerald-200 rounded-lg p-4"
           >
             <div className="flex items-center gap-3">
-              <div className="text-red-500">⚠️</div>
-              <p className="text-sm text-red-700">{error}</p>
+              <div className="text-emerald-500">⚠️</div>
+              <p className="text-sm text-emerald-700">{error}</p>
               <button
                 onClick={handleRefresh}
-                className="ml-auto text-sm text-red-600 hover:text-red-700 font-medium"
+                className="ml-auto text-sm text-emerald-600 hover:text-emerald-700 font-medium"
               >
                 Retry
               </button>
@@ -494,7 +494,7 @@ const StatCard = React.memo(({ stat, index }) => {
           </div>
           <div className={`px-2 py-1 rounded-full text-xs font-medium ${
             stat.changeType === "positive" ? "bg-green-100 text-green-700" : 
-            stat.changeType === "negative" ? "bg-red-100 text-red-700" : 
+            stat.changeType === "negative" ? "bg-emerald-100 text-emerald-700" : 
             "bg-gray-100 text-gray-600"
           }`}>
             {stat.change}
@@ -634,7 +634,7 @@ RecentActivities.displayName = 'RecentActivities';
 // Pending Tasks Component
 const PendingTasks = React.memo(({ tasks }) => {
   const priorityColors = {
-    high: "bg-red-100 text-red-700 border-red-200",
+    high: "bg-emerald-100 text-emerald-700 border-emerald-200",
     medium: "bg-yellow-100 text-yellow-700 border-yellow-200",
     low: "bg-green-100 text-green-700 border-green-200"
   };
@@ -645,7 +645,7 @@ const PendingTasks = React.memo(({ tasks }) => {
         <span>⏰</span>
         Pending Tasks
         {tasks.length > 0 && (
-          <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full animate-pulse">
+          <span className="text-xs bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full animate-pulse">
             {tasks.length}
           </span>
         )}
@@ -747,7 +747,7 @@ PlatformAnalytics.displayName = 'PlatformAnalytics';
 const StatusRow = React.memo(({ label, value, isGood, icon }) => {
   const getStatusColor = () => {
     if (isGood === undefined) return "text-gray-900";
-    return isGood ? "text-green-600" : "text-red-600";
+    return isGood ? "text-green-600" : "text-emerald-600";
   };
 
   return (
@@ -757,7 +757,7 @@ const StatusRow = React.memo(({ label, value, isGood, icon }) => {
         <span className="text-sm text-gray-600">{label}</span>
       </div>
       <div className={`text-sm font-medium ${getStatusColor()} flex items-center gap-1`}>
-        <span className={`inline-block w-2 h-2 rounded-full ${isGood ? 'bg-green-500' : isGood === false ? 'bg-red-500' : 'bg-gray-400'}`} />
+        <span className={`inline-block w-2 h-2 rounded-full ${isGood ? 'bg-green-500' : isGood === false ? 'bg-emerald-500' : 'bg-gray-400'}`} />
         {value}
       </div>
     </div>

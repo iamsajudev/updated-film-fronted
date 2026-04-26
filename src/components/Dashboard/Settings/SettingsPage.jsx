@@ -83,7 +83,7 @@ const SettingsPage = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
             const response = await fetch(`${API_URL}/api/users/profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -218,7 +218,7 @@ const SettingsPage = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
             
             const submitData = {
                 fullName: `${editForm.firstName} ${editForm.lastName}`.trim(),
@@ -295,7 +295,7 @@ const SettingsPage = () => {
         
         try {
             const token = localStorage.getItem('token');
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
             
             const response = await fetch(`${API_URL}/api/users/change-password`, {
                 method: 'PUT',
@@ -334,7 +334,7 @@ const SettingsPage = () => {
         
         try {
             const token = localStorage.getItem('token');
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
             
             const response = await fetch(`${API_URL}/api/users/profile`, {
                 method: 'DELETE',
@@ -410,11 +410,11 @@ const SettingsPage = () => {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
+                            className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"
                         >
                             <div className="flex items-center gap-2">
-                                <AlertCircle className="w-5 h-5 text-red-400" />
-                                <p className="text-red-400 font-medium">{error}</p>
+                                <AlertCircle className="w-5 h-5 text-emerald-400" />
+                                <p className="text-emerald-400 font-medium">{error}</p>
                             </div>
                         </motion.div>
                     )}
@@ -704,7 +704,7 @@ const SettingsPage = () => {
                                     <button
                                         type="button"
                                         onClick={() => setShowDeleteModal(true)}
-                                        className="text-sm text-red-400 hover:text-red-300 w-fit flex items-center gap-2 transition-colors"
+                                        className="text-sm text-emerald-400 hover:text-emerald-300 w-fit flex items-center gap-2 transition-colors"
                                     >
                                         <Trash2 className="w-3.5 h-3.5" />
                                         Delete Account
@@ -826,12 +826,12 @@ const SettingsPage = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl shadow-2xl max-w-md w-full border border-red-500/30"
+                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl shadow-2xl max-w-md w-full border border-emerald-500/30"
                             onClick={e => e.stopPropagation()}
                         >
-                            <div className="p-6 border-b border-red-500/20">
+                            <div className="p-6 border-b border-emerald-500/20">
                                 <div className="flex justify-between items-center">
-                                    <h2 className="text-xl font-bold text-red-400">Delete Account</h2>
+                                    <h2 className="text-xl font-bold text-emerald-400">Delete Account</h2>
                                     <button
                                         onClick={() => setShowDeleteModal(false)}
                                         className="text-gray-400 hover:text-gray-300 transition-colors"
@@ -845,7 +845,7 @@ const SettingsPage = () => {
                                 <p className="text-gray-400 mb-2">
                                     Are you sure you want to delete your account? This action cannot be undone.
                                 </p>
-                                <p className="text-sm text-red-400">
+                                <p className="text-sm text-emerald-400">
                                     All your data will be permanently removed.
                                 </p>
                             </div>
@@ -854,7 +854,7 @@ const SettingsPage = () => {
                                 <button
                                     onClick={handleDeleteAccount}
                                     disabled={submitting}
-                                    className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-xl font-semibold transition disabled:opacity-50 flex items-center justify-center gap-2"
+                                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-semibold transition disabled:opacity-50 flex items-center justify-center gap-2"
                                 >
                                     {submitting ? (
                                         <>

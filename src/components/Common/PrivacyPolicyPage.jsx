@@ -246,8 +246,8 @@ const PrivacyPolicyPage = () => {
                         {/* Information Sharing */}
                         <section id="sharing" className="scroll-mt-20">
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="p-2 bg-red-500/20 rounded-xl">
-                                    <Globe className="w-5 h-5 text-red-400" />
+                                <div className="p-2 bg-emerald-500/20 rounded-xl">
+                                    <Globe className="w-5 h-5 text-emerald-400" />
                                 </div>
                                 <h2 className="text-2xl font-bold text-white">4. How We Share Your Information</h2>
                             </div>
@@ -293,7 +293,7 @@ const PrivacyPolicyPage = () => {
                                 </div>
                                 <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <Trash2 className="w-4 h-4 text-red-400" />
+                                        <Trash2 className="w-4 h-4 text-emerald-400" />
                                         <span className="font-semibold text-white">Right to Deletion</span>
                                     </div>
                                     <p className="text-sm text-gray-400">Request deletion of your personal data</p>
@@ -411,9 +411,9 @@ const PrivacyPolicyPage = () => {
                                     e.preventDefault();
                                     const checkbox = document.getElementById('acceptPrivacy');
                                     checkbox?.scrollIntoView({ behavior: 'smooth' });
-                                    checkbox?.classList.add('ring-2', 'ring-red-500');
+                                    checkbox?.classList.add('ring-2', 'ring-emerald-500');
                                     setTimeout(() => {
-                                        checkbox?.classList.remove('ring-2', 'ring-red-500');
+                                        checkbox?.classList.remove('ring-2', 'ring-emerald-500');
                                     }, 1000);
                                 }
                             }}

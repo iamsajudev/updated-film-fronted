@@ -80,7 +80,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
             case "screened":
                 return "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-400 border-blue-500/30";
             case "rejected":
-                return "bg-gradient-to-r from-red-500/20 to-rose-500/20 text-red-400 border-red-500/30";
+                return "bg-gradient-to-r from-emerald-500/20 to-rose-500/20 text-emerald-400 border-emerald-500/30";
             default:
                 return "bg-gradient-to-r from-gray-500/20 to-slate-500/20 text-gray-400 border-gray-500/30";
         }
@@ -227,7 +227,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}
                                                         onClick={() => removeScreening(index)}
-                                                        className="text-red-400 hover:text-red-300 transition-colors p-1 rounded-lg hover:bg-red-500/10"
+                                                        className="text-emerald-400 hover:text-emerald-300 transition-colors p-1 rounded-lg hover:bg-emerald-500/10"
                                                         aria-label="Remove screening"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
@@ -400,7 +400,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.95 }}
                                                         onClick={() => removeDistributor(index)}
-                                                        className="text-red-400 hover:text-red-300 transition-colors p-1 rounded-lg hover:bg-red-500/10"
+                                                        className="text-emerald-400 hover:text-emerald-300 transition-colors p-1 rounded-lg hover:bg-emerald-500/10"
                                                         aria-label="Remove distributor"
                                                     >
                                                         <Trash2 className="w-4 h-4" />

@@ -23,7 +23,7 @@ const Register = () => {
     const [focusedField, setFocusedField] = useState(null);
     const [passwordStrength, setPasswordStrength] = useState(0);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
     // Hide header and footer
     useEffect(() => {
@@ -171,7 +171,7 @@ const Register = () => {
 
     // Password strength color
     const getStrengthColor = () => {
-        const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-500'];
+        const colors = ['bg-emerald-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-500'];
         return colors[passwordStrength - 1] || 'bg-gray-500';
     };
 
@@ -317,16 +317,16 @@ const Register = () => {
                                     initial={{ opacity: 0, y: -10, scale: 0.95 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                    className="mb-6 bg-red-500/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-4"
+                                    className="mb-6 bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-4"
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="shrink-0">
-                                            <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-red-400 text-sm flex-1">{error}</p>
-                                        <button onClick={() => setError('')} className="text-red-400 hover:text-red-300">
+                                        <p className="text-emerald-400 text-sm flex-1">{error}</p>
+                                        <button onClick={() => setError('')} className="text-emerald-400 hover:text-emerald-300">
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                             </svg>
@@ -340,7 +340,7 @@ const Register = () => {
                             {/* Full Name Field */}
                             <motion.div variants={itemVariants}>
                                 <label className="text-gray-300 text-sm font-semibold mb-2 block">
-                                    Full Name <span className="text-red-400">*</span>
+                                    Full Name <span className="text-emerald-400">*</span>
                                 </label>
                                 <div className="relative group">
                                     <div className={`absolute inset-0 rounded-xl bg-linear-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${focusedField === 'name' ? 'opacity-100' : ''}`} />
@@ -366,7 +366,7 @@ const Register = () => {
                             {/* Email Field */}
                             <motion.div variants={itemVariants}>
                                 <label className="text-gray-300 text-sm font-semibold mb-2 block">
-                                    Email Address <span className="text-red-400">*</span>
+                                    Email Address <span className="text-emerald-400">*</span>
                                 </label>
                                 <div className="relative group">
                                     <div className={`absolute inset-0 rounded-xl bg-linear-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${focusedField === 'email' ? 'opacity-100' : ''}`} />
@@ -392,7 +392,7 @@ const Register = () => {
                             {/* Password Field */}
                             <motion.div variants={itemVariants}>
                                 <label className="text-gray-300 text-sm font-semibold mb-2 block">
-                                    Password <span className="text-red-400">*</span>
+                                    Password <span className="text-emerald-400">*</span>
                                 </label>
                                 <div className="relative group">
                                     <div className={`absolute inset-0 rounded-xl bg-linear-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${focusedField === 'password' ? 'opacity-100' : ''}`} />
@@ -461,7 +461,7 @@ const Register = () => {
                             {/* Confirm Password Field */}
                             <motion.div variants={itemVariants}>
                                 <label className="text-gray-300 text-sm font-semibold mb-2 block">
-                                    Confirm Password <span className="text-red-400">*</span>
+                                    Confirm Password <span className="text-emerald-400">*</span>
                                 </label>
                                 <div className="relative group">
                                     <div className={`absolute inset-0 rounded-xl bg-linear-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${focusedField === 'confirmPassword' ? 'opacity-100' : ''}`} />
@@ -504,7 +504,7 @@ const Register = () => {
                                     <motion.p
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="text-xs text-red-400 mt-1"
+                                        className="text-xs text-emerald-400 mt-1"
                                     >
                                         Passwords do not match
                                     </motion.p>

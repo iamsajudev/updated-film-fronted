@@ -246,7 +246,7 @@ export const refreshUserData = async () => {
   if (!token) return null;
   
   try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
     const response = await fetch(`${API_URL}/api/users/profile`, {
       headers: getAuthHeaders()
     });

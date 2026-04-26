@@ -129,7 +129,7 @@ export default function ProjectSubmissionForm() {
                 genre: formData.genres,
             };
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
             const response = await fetch(`${API_URL}/api/projects/submit`, {
                 method: "POST",

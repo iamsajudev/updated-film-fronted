@@ -123,7 +123,7 @@ const Profile = () => {
                     return;
                 }
 
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
                 const endpoint = `${API_URL}/api/users/profile`;
 
                 const timeoutId = setTimeout(() => {
@@ -343,7 +343,7 @@ const Profile = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
             const submitData = {
                 fullName: editForm.fullName || editForm.name,
@@ -516,7 +516,7 @@ const Profile = () => {
                         exit={{ opacity: 0, x: 50 }}
                         className="fixed top-4 right-4 z-50"
                     >
-                        <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
+                        <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
                             <AlertCircle className="w-5 h-5" />
                             <p className="font-medium">{error}</p>
                         </div>
@@ -829,7 +829,7 @@ const Profile = () => {
                                         {editForm.skills.map((skill, index) => (
                                             <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#1EB97A]/10 text-[#1EB97A] text-xs font-medium rounded-full border border-[#1EB97A]/30">
                                                 {skill}
-                                                <button onClick={() => removeSkill(skill)} className="hover:text-red-400 ml-1 transition-colors">
+                                                <button onClick={() => removeSkill(skill)} className="hover:text-emerald-400 ml-1 transition-colors">
                                                     <X className="w-3 h-3" />
                                                 </button>
                                             </span>
@@ -991,7 +991,7 @@ const Profile = () => {
                                 {(isEditing ? editForm.experience : user.experience).map((exp, index) => (
                                     <div key={index} className="border-l-2 border-[#1EB97A]/50 pl-4 relative group">
                                         {isEditing && (
-                                            <button onClick={() => removeExperience(index)} className="absolute -top-2 -right-2 text-red-500 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100">
+                                            <button onClick={() => removeExperience(index)} className="absolute -top-2 -right-2 text-emerald-500 hover:text-emerald-400 transition-colors opacity-0 group-hover:opacity-100">
                                                 <X className="w-4 h-4" />
                                             </button>
                                         )}

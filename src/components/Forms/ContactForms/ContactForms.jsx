@@ -8,7 +8,7 @@ const ContactForms = ({ handleSubmit, formData, handleChange, categories, isSubm
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name <span className="text-red-500">*</span>
+                        Full Name <span className="text-emerald-500">*</span>
                     </label>
                     <input
                         type="text"
@@ -22,7 +22,7 @@ const ContactForms = ({ handleSubmit, formData, handleChange, categories, isSubm
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address <span className="text-red-500">*</span>
+                        Email Address <span className="text-emerald-500">*</span>
                     </label>
                     <input
                         type="email"
@@ -39,7 +39,7 @@ const ContactForms = ({ handleSubmit, formData, handleChange, categories, isSubm
             {/* Subject */}
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject <span className="text-red-500">*</span>
+                    Subject <span className="text-emerald-500">*</span>
                 </label>
                 <input
                     type="text"
@@ -56,7 +56,7 @@ const ContactForms = ({ handleSubmit, formData, handleChange, categories, isSubm
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Category <span className="text-red-500">*</span>
+                        Category <span className="text-emerald-500">*</span>
                     </label>
                     <select
                         name="category"
@@ -91,7 +91,7 @@ const ContactForms = ({ handleSubmit, formData, handleChange, categories, isSubm
             {/* Message */}
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Message <span className="text-red-500">*</span>
+                    Message <span className="text-emerald-500">*</span>
                 </label>
                 <textarea
                     name="message"

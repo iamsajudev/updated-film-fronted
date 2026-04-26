@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const PendingTasks = React.memo(({ tasks }) => {
   const priorityColors = {
-    high: "bg-red-100 text-red-700 border-red-200",
+    high: "bg-emerald-100 text-emerald-700 border-emerald-200",
     medium: "bg-yellow-100 text-yellow-700 border-yellow-200",
     low: "bg-green-100 text-green-700 border-green-200"
   };
@@ -17,7 +17,7 @@ const PendingTasks = React.memo(({ tasks }) => {
         <span>⏰</span>
         Pending Tasks
         {tasks.length > 0 && (
-          <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full animate-pulse">
+          <span className="text-xs bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full animate-pulse">
             {tasks.length}
           </span>
         )}

@@ -79,7 +79,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                 focusedField === 'projectType'
                                     ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                     : 'border-gray-700 hover:border-gray-600'
-                            } ${errors.projectType ? 'border-red-500 bg-red-500/10' : ''}`}
+                            } ${errors.projectType ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                         >
                             {projectTypes.map((type) => (
                                 <option key={type.value} value={type.value} className="bg-gray-800">
@@ -99,7 +99,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -136,7 +136,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                 focusedField === 'projectTitle'
                                     ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                     : 'border-gray-700 hover:border-gray-600'
-                            } ${errors.projectTitle ? 'border-red-500 bg-red-500/10' : ''}`}
+                            } ${errors.projectTitle ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                             placeholder="Enter your project title"
                         />
                     </div>
@@ -146,7 +146,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                className="text-red-400 text-sm mt-1 flex items-center gap-1"
+                                className="text-emerald-400 text-sm mt-1 flex items-center gap-1"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -178,7 +178,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                 focusedField === 'briefSynopsis'
                                     ? 'border-[#1EB97A] shadow-lg shadow-[#1EB97A]/20'
                                     : 'border-gray-700 hover:border-gray-600'
-                            } ${errors.briefSynopsis ? 'border-red-500 bg-red-500/10' : ''}`}
+                            } ${errors.briefSynopsis ? 'border-emerald-500 bg-emerald-500/10' : ''}`}
                             placeholder="Provide a brief synopsis of your project (50-500 characters)..."
                         />
                         <div className="absolute bottom-3 right-3 text-xs text-gray-500 bg-gray-800/80 backdrop-blur-sm px-2 py-1 rounded-full">
@@ -196,7 +196,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                             formData.briefSynopsis.length >= threshold
                                                 ? formData.briefSynopsis.length <= 500
                                                     ? 'bg-gradient-to-r from-[#1EB97A] to-emerald-500'
-                                                    : 'bg-red-500'
+                                                    : 'bg-emerald-500'
                                                 : 'bg-gray-700'
                                         }`}
                                     />
@@ -209,7 +209,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-400 text-xs"
+                                    className="text-emerald-400 text-xs"
                                 >
                                     {errors.briefSynopsis}
                                 </motion.p>
@@ -222,7 +222,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                         </p>
                     )}
                     {formData.briefSynopsis.length > 500 && (
-                        <p className="text-red-400 text-xs mt-1">
+                        <p className="text-emerald-400 text-xs mt-1">
                             ⚠️ Exceeded 500 character limit
                         </p>
                     )}

@@ -56,7 +56,7 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/auth/logout`, {
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us'}/api/auth/logout`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -253,10 +253,10 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
                         <div className="border-t border-gray-800 py-2">
                             <button
                                 onClick={handleLogout}
-                                className="w-full flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 transition-colors group"
+                                className="w-full flex cursor-pointer items-center gap-3 px-4 py-2.5 text-sm text-emerald-400 hover:bg-emerald-500/10 transition-colors group"
                             >
-                                <LogOut className="w-4 h-4 group-hover:text-red-300" />
-                                <span className="group-hover:text-red-300">Logout</span>
+                                <LogOut className="w-4 h-4 group-hover:text-emerald-300" />
+                                <span className="group-hover:text-emerald-300">Logout</span>
                             </button>
                         </div>
                     </motion.div>

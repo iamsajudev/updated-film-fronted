@@ -30,13 +30,20 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
         setError("");
         setIsUploading(true);
 
-        // Convert to base64 for preview
+        // Convert to base64 for preview and storage
         const reader = new FileReader();
         reader.onloadend = () => {
-            setUploadedImage(reader.result);
+            const base64String = reader.result;
+            setUploadedImage(base64String);
             updateFormData({
-                uploadedImage: reader.result,
-                uploadedImageFile: file
+                uploadedImage: base64String,
+                uploadedImageFile: file,
+                posterMetadata: {
+                    fileName: file.name,
+                    fileSize: file.size,
+                    mimeType: file.type,
+                    uploadedAt: new Date().toISOString()
+                }
             });
             setIsUploading(false);
         };
@@ -49,7 +56,17 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
 
     const removeImage = () => {
         setUploadedImage(null);
-        updateFormData({ uploadedImage: null, uploadedImageFile: null });
+        updateFormData({ 
+            uploadedImage: "",  // Use empty string instead of null for consistency
+            uploadedImageFile: null,
+            posterMetadata: {}
+        });
+    };
+
+    const handleMediaLinkChange = (e) => {
+        const value = e.target.value;
+        setMediaLink(value);
+        updateFormData({ mediaLink: value });
     };
 
     const handleNext = () => {
@@ -59,14 +76,13 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
             return;
         }
 
-        // Optional: Validate YouTube/Vimeo URL format
+        // Validate YouTube/Vimeo URL format if provided
         if (mediaLink && !isValidMediaUrl(mediaLink)) {
             setError("Please enter a valid YouTube or Vimeo URL");
             return;
         }
 
         setError("");
-        updateFormData({ mediaLink, uploadedImage });
         onNext();
     };
 
@@ -106,7 +122,7 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                     <input
                         type="url"
                         value={mediaLink}
-                        onChange={(e) => setMediaLink(e.target.value)}
+                        onChange={handleMediaLinkChange}
                         placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."
                         className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1EB97A]/50 focus:border-[#1EB97A] transition-all"
                     />
@@ -185,7 +201,7 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                                 alt="Uploaded poster"
                                 className="w-full h-64 object-contain"
                             />
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                                 <button
                                     onClick={removeImage}
                                     className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-all duration-200"
@@ -194,7 +210,7 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                                 </button>
                                 <label
                                     htmlFor="image-upload-replace"
-                                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium cursor-pointer transition-all duration-200"
+                                    className="px-4 py-2 bg-[#1EB97A] hover:bg-emerald-700 text-white rounded-lg font-medium cursor-pointer transition-all duration-200"
                                 >
                                     Replace
                                 </label>
@@ -230,7 +246,14 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                                 </svg>
                                 <span className="text-gray-400">Media link added:</span>
-                                <span className="text-white truncate max-w-[200px]">{mediaLink}</span>
+                                <a 
+                                    href={mediaLink} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-[#1EB97A] hover:text-emerald-400 truncate max-w-[200px] transition-colors"
+                                >
+                                    {mediaLink.length > 40 ? mediaLink.substring(0, 40) + '...' : mediaLink}
+                                </a>
                             </div>
                         )}
                         {uploadedImage && (
@@ -239,6 +262,12 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                                 <span className="text-gray-400">Poster image uploaded</span>
+                                <button
+                                    onClick={() => window.open(uploadedImage, '_blank')}
+                                    className="text-xs text-[#1EB97A] hover:text-emerald-400 transition-colors"
+                                >
+                                    View
+                                </button>
                             </div>
                         )}
                     </div>

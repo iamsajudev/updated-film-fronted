@@ -81,8 +81,8 @@ const TermsCondition = () => {
         },
         conduct: {
             title: "Code of Conduct",
-            icon: <Shield className="w-5 h-5 text-red-400" />,
-            gradient: "from-red-500/10 to-rose-500/10",
+            icon: <Shield className="w-5 h-5 text-emerald-400" />,
+            gradient: "from-emerald-500/10 to-rose-500/10",
             items: [
                 "Treat all participants with respect",
                 "No harassment or discrimination",
@@ -209,9 +209,9 @@ const TermsCondition = () => {
                                     e.preventDefault();
                                     const checkbox = document.getElementById('accept');
                                     checkbox?.scrollIntoView({ behavior: 'smooth' });
-                                    checkbox?.classList.add('ring-2', 'ring-red-500');
+                                    checkbox?.classList.add('ring-2', 'ring-emerald-500');
                                     setTimeout(() => {
-                                        checkbox?.classList.remove('ring-2', 'ring-red-500');
+                                        checkbox?.classList.remove('ring-2', 'ring-emerald-500');
                                     }, 1000);
                                 }
                             }}

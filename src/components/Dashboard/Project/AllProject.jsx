@@ -20,7 +20,7 @@ const AllProject = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
     useEffect(() => {
         checkAuthAndFetch();
@@ -304,18 +304,18 @@ const AllProject = () => {
     // Show projects table for authenticated users
     return (
         <>
-            <div className="min-h-screen bg-black font-sans max-w-7xl mx-auto">
+            <div className=" bg-black font-sans max-w-7xl mx-auto">
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-lg p-4 backdrop-blur-sm">
+                    <div className="mb-6 bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 backdrop-blur-sm">
                         <div className="flex items-center gap-2">
-                            <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <p className="text-red-400 text-sm">{error}</p>
+                            <p className="text-emerald-400 text-sm">{error}</p>
                             <button
                                 onClick={() => setError('')}
-                                className="ml-auto text-red-400 hover:text-red-300"
+                                className="ml-auto text-emerald-400 hover:text-emerald-300"
                             >
                                 ✕
                             </button>
@@ -425,7 +425,7 @@ const AllProject = () => {
                                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${project.submissionStatus === 'approved' || project.status === 'approved'
                                                     ? 'bg-green-500/20 text-green-400'
                                                     : project.submissionStatus === 'rejected' || project.status === 'rejected'
-                                                        ? 'bg-red-500/20 text-red-400'
+                                                        ? 'bg-emerald-500/20 text-emerald-400'
                                                         : 'bg-yellow-500/20 text-yellow-400'
                                                     }`}>
                                                     {project.submissionStatus || project.status || 'pending'}
@@ -561,13 +561,13 @@ const AllProject = () => {
                                                 <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium ${selectedProject.submissionStatus === 'approved' || selectedProject.status === 'approved'
                                                     ? 'bg-green-500/20 text-green-400'
                                                     : selectedProject.submissionStatus === 'rejected' || selectedProject.status === 'rejected'
-                                                        ? 'bg-red-500/20 text-red-400'
+                                                        ? 'bg-emerald-500/20 text-emerald-400'
                                                         : 'bg-yellow-500/20 text-yellow-400'
                                                     }`}>
                                                     <div className={`w-1.5 h-1.5 rounded-full ${selectedProject.submissionStatus === 'approved' || selectedProject.status === 'approved'
                                                         ? 'bg-green-500'
                                                         : selectedProject.submissionStatus === 'rejected' || selectedProject.status === 'rejected'
-                                                            ? 'bg-red-500'
+                                                            ? 'bg-emerald-500'
                                                             : 'bg-yellow-500'
                                                         }`} />
                                                     {selectedProject.submissionStatus || selectedProject.status || 'pending'}
@@ -822,7 +822,7 @@ const AllProject = () => {
                                 {/* Submitter Information */}
                                 <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                                        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-emerald-500 rounded-xl flex items-center justify-center">
                                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
@@ -889,16 +889,16 @@ const AllProject = () => {
 
                                 {/* Admin Notes */}
                                 {selectedProject.adminNotes && (
-                                    <div className="bg-gradient-to-r from-red-500/10 to-rose-500/10 rounded-2xl p-5 border border-red-500/20">
+                                    <div className="bg-gradient-to-r from-emerald-500/10 to-rose-500/10 rounded-2xl p-5 border border-emerald-500/20">
                                         <div className="flex items-start gap-3">
-                                            <div className="w-8 h-8 bg-red-500/20 rounded-xl flex items-center justify-center">
-                                                <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div className="w-8 h-8 bg-emerald-500/20 rounded-xl flex items-center justify-center">
+                                                <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                                 </svg>
                                             </div>
                                             <div>
-                                                <h4 className="font-semibold text-red-400">Admin Notes</h4>
-                                                <p className="text-red-300 text-sm mt-1">{selectedProject.adminNotes}</p>
+                                                <h4 className="font-semibold text-emerald-400">Admin Notes</h4>
+                                                <p className="text-emerald-300 text-sm mt-1">{selectedProject.adminNotes}</p>
                                             </div>
                                         </div>
                                     </div>

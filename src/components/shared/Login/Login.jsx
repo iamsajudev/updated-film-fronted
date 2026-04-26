@@ -18,7 +18,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [focusedField, setFocusedField] = useState(null);
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
     // Add this state at the top with your other useState declarations
     const [particles, setParticles] = useState([]);
@@ -204,16 +204,16 @@ const Login = () => {
                                     initial={{ opacity: 0, y: -10, scale: 0.95 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                    className="mb-6 bg-red-500/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-4"
+                                    className="mb-6 bg-emerald-500/10 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-4"
                                 >
                                     <div className="flex items-center gap-3">
                                         <div className="shrink-0">
-                                            <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-red-400 text-sm flex-1">{error}</p>
-                                        <button onClick={() => setError('')} className="text-red-400 hover:text-red-300">
+                                        <p className="text-emerald-400 text-sm flex-1">{error}</p>
+                                        <button onClick={() => setError('')} className="text-emerald-400 hover:text-emerald-300">
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                             </svg>

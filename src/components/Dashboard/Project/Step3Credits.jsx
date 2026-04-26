@@ -66,7 +66,7 @@ const PersonForm = memo(({ category, title, icon: Icon, persons, updateFormData,
             case 'directors': return 'from-[#1EB97A] to-emerald-600';
             case 'writers': return 'from-blue-500 to-cyan-500';
             case 'producers': return 'from-purple-500 to-pink-500';
-            case 'keyCast': return 'from-orange-500 to-red-500';
+            case 'keyCast': return 'from-orange-500 to-emerald-500';
             default: return 'from-gray-500 to-gray-600';
         }
     };
@@ -160,7 +160,7 @@ const PersonForm = memo(({ category, title, icon: Icon, persons, updateFormData,
                                     whileTap={{ scale: 0.95 }}
                                     type="button"
                                     onClick={() => removePerson(index)}
-                                    className="text-red-400 hover:text-red-300 transition-colors p-1 rounded-lg hover:bg-red-500/10"
+                                    className="text-emerald-400 hover:text-emerald-300 transition-colors p-1 rounded-lg hover:bg-emerald-500/10"
                                 >
                                     <Trash2 className="w-4 h-4" />
                                 </motion.button>

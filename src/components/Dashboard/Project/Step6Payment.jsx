@@ -165,7 +165,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
 
             let clientIp = '';
             try {
@@ -472,11 +472,11 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="bg-red-500/10 border border-red-500/30 rounded-xl p-4"
+                        className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4"
                     >
                         <div className="flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4 text-red-400" />
-                            <p className="text-red-400 text-sm">{error}</p>
+                            <AlertCircle className="w-4 h-4 text-emerald-400" />
+                            <p className="text-emerald-400 text-sm">{error}</p>
                         </div>
                     </motion.div>
                 )}

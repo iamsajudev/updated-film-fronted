@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const StatusRow = React.memo(({ label, value, isGood, icon }) => {
     const getStatusColor = () => {
         if (isGood === undefined) return "text-gray-900";
-        return isGood ? "text-green-600" : "text-red-600";
+        return isGood ? "text-green-600" : "text-emerald-600";
     };
 
     const getStatusDot = () => {
@@ -15,7 +15,7 @@ const StatusRow = React.memo(({ label, value, isGood, icon }) => {
             <motion.span
                 animate={{ scale: isGood ? [1, 1.2, 1] : 1 }}
                 transition={{ duration: 2, repeat: isGood ? Infinity : 0 }}
-                className={`inline-block w-2 h-2 rounded-full mr-2 ${isGood ? 'bg-green-500' : 'bg-red-500'}`}
+                className={`inline-block w-2 h-2 rounded-full mr-2 ${isGood ? 'bg-green-500' : 'bg-emerald-500'}`}
             />
         );
     };

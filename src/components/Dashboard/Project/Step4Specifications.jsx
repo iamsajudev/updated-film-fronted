@@ -102,7 +102,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
             aspect: "from-teal-500 to-cyan-500",
             color: "from-rose-500 to-pink-500",
             student: "from-indigo-500 to-purple-500",
-            firstTime: "from-orange-500 to-red-500"
+            firstTime: "from-orange-500 to-emerald-500"
         };
         return gradients[section] || "from-gray-500 to-gray-600";
     };
@@ -186,7 +186,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="text-red-400 text-sm mt-3 flex items-center gap-1"
+                                    className="text-emerald-400 text-sm mt-3 flex items-center gap-1"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -230,7 +230,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 className={`w-full px-4 py-2.5 bg-gray-800 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer text-white ${
                                     focusedField === 'genres'
                                         ? 'border-blue-500 ring-2 ring-blue-500/20 shadow-md'
-                                        : errors.genres ? 'border-red-500' : 'border-gray-700 hover:border-gray-600'
+                                        : errors.genres ? 'border-emerald-500' : 'border-gray-700 hover:border-gray-600'
                                 }`}
                             >
                                 <option value="" className="bg-gray-800">Select primary genre</option>
@@ -244,7 +244,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
-                                        className="text-red-400 text-sm mt-2 flex items-center gap-1"
+                                        className="text-emerald-400 text-sm mt-2 flex items-center gap-1"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -443,7 +443,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 className={`w-full px-4 py-2.5 bg-gray-800 border rounded-xl focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer text-white ${
                                     focusedField === 'language'
                                         ? 'border-amber-500 ring-2 ring-amber-500/20 shadow-md'
-                                        : errors.language ? 'border-red-500' : 'border-gray-700 hover:border-gray-600'
+                                        : errors.language ? 'border-emerald-500' : 'border-gray-700 hover:border-gray-600'
                                 }`}
                             >
                                 <option value="" className="bg-gray-800">Select primary language</option>
@@ -457,7 +457,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
-                                        className="text-red-400 text-sm mt-2 flex items-center gap-1"
+                                        className="text-emerald-400 text-sm mt-2 flex items-center gap-1"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -614,7 +614,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 onClick={() => updateFormData({ firstTimeFilmmaker: "Yes" })}
                                 className={`px-6 py-2 rounded-xl font-medium transition-all ${
                                     formData.firstTimeFilmmaker === "Yes"
-                                        ? 'bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-md'
+                                        ? 'bg-gradient-to-r from-orange-600 to-emerald-600 text-white shadow-md'
                                         : 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600'
                                 }`}
                             >

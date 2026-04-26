@@ -72,7 +72,7 @@ const UserEdit = () => {
                 return;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
             const response = await fetch(`${API_URL}/api/users/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -270,7 +270,7 @@ const UserEdit = () => {
                 delete submitData.profileImageBase64;
             }
 
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
             const response = await fetch(`${API_URL}/api/users/${userId}`, {
                 method: 'PUT',
                 headers: {
@@ -348,12 +348,12 @@ const UserEdit = () => {
 
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
                         <div className="flex items-center gap-2">
-                            <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <p className="text-red-600 text-sm">{error}</p>
+                            <p className="text-emerald-600 text-sm">{error}</p>
                         </div>
                     </div>
                 )}
@@ -375,7 +375,7 @@ const UserEdit = () => {
                                         <button
                                             type="button"
                                             onClick={removeImage}
-                                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition"
+                                            className="absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full p-1 hover:bg-emerald-600 transition"
                                         >
                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -422,7 +422,7 @@ const UserEdit = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Full Name <span className="text-red-500">*</span>
+                                    Full Name <span className="text-emerald-500">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -451,7 +451,7 @@ const UserEdit = () => {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Email Address <span className="text-red-500">*</span>
+                                    Email Address <span className="text-emerald-500">*</span>
                                 </label>
                                 <input
                                     type="email"
@@ -851,9 +851,9 @@ const UserEdit = () => {
                 </form>
 
                 {/* Danger Zone */}
-                <div className="mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-red-800 mb-2">Danger Zone</h3>
-                    <p className="text-sm text-red-600 mb-4">
+                <div className="mt-8 bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-emerald-800 mb-2">Danger Zone</h3>
+                    <p className="text-sm text-emerald-600 mb-4">
                         Once you delete a user, there is no going back. Please be certain.
                     </p>
                     <button
@@ -861,7 +861,7 @@ const UserEdit = () => {
                             if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
                                 try {
                                     const token = localStorage.getItem('token');
-                                    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+                                    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://server.nybff.us';
                                     const response = await fetch(`${API_URL}/api/users/${userId}`, {
                                         method: 'DELETE',
                                         headers: {
@@ -880,7 +880,7 @@ const UserEdit = () => {
                                 }
                             }
                         }}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition"
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-semibold transition"
                     >
                         Delete User
                     </button>

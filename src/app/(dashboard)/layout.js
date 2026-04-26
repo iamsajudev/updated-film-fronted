@@ -31,7 +31,7 @@ export default function DashboardLayout({ children }) {
 
       if (token) {
         await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/auth/logout`,
+          `${process.env.NEXT_PUBLIC_API_URL || "http://server.nybff.us"}/api/auth/logout`,
           {
             method: "POST",
             headers: {
