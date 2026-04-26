@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { motion, AnimatePresence } from "framer-motion";
-import { CreditCard, Shield, Lock, Sparkles, AlertCircle, CheckCircle, TrendingUp, Clock, Loader2 } from "lucide-react";
+import { CreditCard, Shield, Lock, AlertCircle, CheckCircle, TrendingUp, Clock, Loader2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -42,7 +42,7 @@ const getCountryCode = (countryName) => {
     };
 
     if (countryMap[countryName]) return countryMap[countryName];
-    
+
     const lowerCountry = countryName.toLowerCase();
     for (const [key, value] of Object.entries(countryMap)) {
         if (key.toLowerCase() === lowerCountry) return value;
@@ -50,7 +50,7 @@ const getCountryCode = (countryName) => {
     return null;
 };
 
-function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, setIsDemoMode, setIsProcessing }) {
+function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing }) {
     const router = useRouter();
     const stripe = useStripe();
     const elements = useElements();
@@ -109,40 +109,8 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
         return Math.abs(hash).toString(36);
     };
 
-    const handleDemoSubmit = async () => {
-        setProcessing(true);
-        setIsProcessing(true);
-        setError("");
-        
-        const loadingToast = toast.loading("Processing demo submission...");
-        
-        try {
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            const demoPaymentIntentId = `demo_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-            
-            toast.success("Demo submission successful! 🎉", { id: loadingToast });
-            
-            setPaymentSuccess(true);
-            await onSubmit(demoPaymentIntentId);
-            
-            setTimeout(() => {
-                router.push('/projects');
-            }, 2000);
-        } catch (err) {
-            toast.error(err.message || "Demo submission failed. Please try again.", { id: loadingToast });
-            setError(err.message || "Demo submission failed. Please try again.");
-            setProcessing(false);
-            setIsProcessing(false);
-        }
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
-        if (isDemoMode) {
-            await handleDemoSubmit();
-            return;
-        }
 
         if (!stripe || !elements) {
             toast.error("Payment system is initializing. Please wait...");
@@ -153,7 +121,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
         setIsProcessing(true);
         setError("");
 
-        const loadingToast = toast.loading("Processing payment and creating your account...");
+        const loadingToast = toast.loading("Processing payment and submitting your project...");
 
         try {
             const token = localStorage.getItem('token');
@@ -237,12 +205,12 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 setProcessing(false);
                 setIsProcessing(false);
             } else if (paymentIntent.status === "succeeded") {
-                toast.success("Payment successful! Creating your account and submitting project...", { id: loadingToast });
-                
+                toast.success("Payment successful! Submitting your project...", { id: loadingToast });
+
                 if (typeof window.gtag !== 'undefined') {
                     window.gtag('event', 'purchase', {
                         transaction_id: paymentIntent.id,
-                        value: 25.00,
+                        value: 50.00,
                         currency: 'USD',
                         payment_type: 'card'
                     });
@@ -250,7 +218,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
 
                 setPaymentSuccess(true);
                 await onSubmit(paymentIntent.id);
-                
+
                 setTimeout(() => {
                     router.push('/projects');
                 }, 2000);
@@ -285,19 +253,15 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                     <CheckCircle className="w-12 h-12 text-white" />
                 </motion.div>
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-[#1EB97A] to-emerald-500 bg-clip-text text-transparent mb-3">
-                    {isDemoMode ? "Demo Submission Successful!" : "Payment Successful!"}
+                    Payment Successful!
                 </h3>
                 <p className="text-gray-400 mb-2">
-                    {isDemoMode 
-                        ? "Your demo submission has been received successfully." 
-                        : "Your project has been submitted and account has been created!"}
+                    Your project has been submitted and payment has been processed successfully!
                 </p>
                 <p className="text-sm text-gray-500 mb-6">
-                    {isDemoMode 
-                        ? "No actual payment was processed." 
-                        : "You will receive a confirmation email shortly."}
+                    You will receive a confirmation email shortly.
                 </p>
-                
+
                 <div className="bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-5 max-w-md mx-auto border border-[#1EB97A]/20">
                     <div className="flex items-center justify-center gap-2 mb-3">
                         <Loader2 className="w-5 h-5 text-[#1EB97A] animate-spin" />
@@ -319,129 +283,70 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Mode Toggle */}
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="relative"
-            >
-                <div className="bg-gray-800 rounded-2xl p-1 border border-gray-700 flex">
-                    <button
-                        type="button"
-                        onClick={() => setIsDemoMode(false)}
-                        className={`flex-1 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
-                            !isDemoMode
-                                ? 'bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white shadow-md'
-                                : 'text-gray-400 hover:text-gray-300'
-                        }`}
-                    >
-                        <Lock className="w-4 h-4" />
-                        Live Mode
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setIsDemoMode(true)}
-                        className={`flex-1 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
-                            isDemoMode
-                                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
-                                : 'text-gray-400 hover:text-gray-300'
-                        }`}
-                    >
-                        <Sparkles className="w-4 h-4" />
-                        Demo Mode
-                    </button>
-                </div>
-                <p className="text-xs text-center text-gray-500 mt-3">
-                    {isDemoMode ? "Test submission without actual payment" : "Real payment will be processed securely"}
-                </p>
-            </motion.div>
-
             {/* Payment Section */}
-            {!isDemoMode ? (
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl"
-                >
-                    <div className="px-6 py-4 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700">
-                        <div className="flex items-center gap-2">
-                            <CreditCard className="w-5 h-5 text-[#1EB97A]" />
-                            <h3 className="text-lg font-semibold text-white">Card Details</h3>
-                        </div>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl"
+            >
+                <div className="px-6 py-4 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700">
+                    <div className="flex items-center gap-2">
+                        <CreditCard className="w-5 h-5 text-[#1EB97A]" />
+                        <h3 className="text-lg font-semibold text-white">Card Details</h3>
                     </div>
-                    <div className="p-6">
-                        <div 
-                            className={`bg-gray-800 border rounded-xl p-4 transition-all duration-300 ${
-                                focusedCard ? 'border-[#1EB97A] ring-2 ring-[#1EB97A]/20 shadow-md' : 'border-gray-700'
+                </div>
+                <div className="p-6">
+                    <div
+                        className={`bg-gray-800 border rounded-xl p-4 transition-all duration-300 ${focusedCard ? 'border-[#1EB97A] ring-2 ring-[#1EB97A]/20 shadow-md' : 'border-gray-700'
                             }`}
-                        >
-                            <CardElement
-                                options={{
-                                    style: {
-                                        base: {
-                                            fontSize: "16px",
-                                            color: "#ffffff",
-                                            "::placeholder": { color: "#6b7280" },
-                                            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                                            backgroundColor: "#1f2937",
-                                        },
-                                        invalid: {
-                                            color: "#ef4444",
-                                        },
+                    >
+                        <CardElement
+                            options={{
+                                style: {
+                                    base: {
+                                        fontSize: "16px",
+                                        color: "#ffffff",
+                                        "::placeholder": { color: "#6b7280" },
+                                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                                        backgroundColor: "#1f2937",
                                     },
-                                    hidePostalCode: true,
-                                }}
-                                onFocus={() => setFocusedCard(true)}
-                                onBlur={() => setFocusedCard(false)}
-                            />
-                        </div>
+                                    invalid: {
+                                        color: "#ef4444",
+                                    },
+                                },
+                                hidePostalCode: true,
+                            }}
+                            onFocus={() => setFocusedCard(true)}
+                            onBlur={() => setFocusedCard(false)}
+                        />
+                    </div>
 
-                        {/* Security Badges */}
-                        <div className="flex items-center justify-center gap-4 mt-4">
-                            <div className="flex items-center gap-1 text-xs text-gray-500">
-                                <Shield className="w-3 h-3 text-[#1EB97A]" />
-                                <span>PCI Compliant</span>
-                            </div>
-                            <div className="flex items-center gap-1 text-xs text-gray-500">
-                                <Lock className="w-3 h-3 text-[#1EB97A]" />
-                                <span>256-bit SSL</span>
-                            </div>
+                    {/* Security Badges */}
+                    <div className="flex items-center justify-center gap-4 mt-4">
+                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                            <Shield className="w-3 h-3 text-[#1EB97A]" />
+                            <span>PCI Compliant</span>
                         </div>
+                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                            <Lock className="w-3 h-3 text-[#1EB97A]" />
+                            <span>256-bit SSL</span>
+                        </div>
+                    </div>
 
-                        {/* Test Card Info */}
-                        {process.env.NODE_ENV === 'development' &&
-                            process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith('pk_test') && (
-                                <div className="mt-4 bg-gray-800/50 rounded-xl p-4 border border-gray-700">
-                                    <p className="text-xs font-semibold text-gray-400 mb-2">Test Card</p>
-                                    <div className="flex flex-wrap gap-2 text-xs">
-                                        <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">4242 4242 4242 4242</code>
-                                        <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">12/30</code>
-                                        <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">123</code>
-                                    </div>
+                    {/* Test Card Info - Only in development */}
+                    {process.env.NODE_ENV === 'development' &&
+                        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith('pk_test') && (
+                            <div className="mt-4 bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+                                <p className="text-xs font-semibold text-gray-400 mb-2">Test Card</p>
+                                <div className="flex flex-wrap gap-2 text-xs">
+                                    <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">4242 4242 4242 4242</code>
+                                    <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">12/30</code>
+                                    <code className="px-2 py-1 bg-gray-900 border border-gray-700 rounded font-mono text-gray-300">123</code>
                                 </div>
-                            )}
-                    </div>
-                </motion.div>
-            ) : (
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl p-8 text-center border-2 border-purple-500/30 border-dashed"
-                >
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                        <Sparkles className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-purple-400 mb-2">Demo Mode</h3>
-                    <p className="text-purple-300 text-sm mb-4">
-                        Testing the submission process without any payment
-                    </p>
-                    <div className="bg-gray-800/50 rounded-xl p-3 border border-purple-500/20">
-                        <p className="text-xs font-mono text-purple-400">
-                            Demo ID: demo_[timestamp]_[random]
-                        </p>
-                    </div>
-                </motion.div>
-            )}
+                            </div>
+                        )}
+                </div>
+            </motion.div>
 
             {/* Fee Summary */}
             <motion.div
@@ -451,7 +356,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
             >
                 <div className="flex justify-between items-center mb-3">
                     <span className="text-gray-400">Submission Fee</span>
-                    <span className="text-2xl font-bold text-white">$25.00</span>
+                    <span className="text-2xl font-bold text-white">$50.00</span>
                 </div>
                 <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
                     <span>Processing Fee</span>
@@ -460,7 +365,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 <div className="border-t border-gray-700 pt-3 mt-2">
                     <div className="flex justify-between items-center font-semibold">
                         <span className="text-gray-300">Total</span>
-                        <span className="text-xl bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">$25.00 USD</span>
+                        <span className="text-xl bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">$50.00 USD</span>
                     </div>
                 </div>
             </motion.div>
@@ -472,11 +377,11 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4"
+                        className="bg-red-500/10 border border-red-500/30 rounded-xl p-4"
                     >
                         <div className="flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4 text-emerald-400" />
-                            <p className="text-emerald-400 text-sm">{error}</p>
+                            <AlertCircle className="w-4 h-4 text-red-400" />
+                            <p className="text-red-400 text-sm">{error}</p>
                         </div>
                     </motion.div>
                 )}
@@ -494,17 +399,13 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                 >
                     ← Back
                 </motion.button>
-                
+
                 <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    disabled={(!isDemoMode && (!stripe || processing)) || processing || isSubmitting}
-                    className={`group px-8 py-3 rounded-xl font-semibold transition-all duration-300 shadow-md flex items-center gap-2 ${
-                        isDemoMode 
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg shadow-purple-500/25' 
-                            : 'bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white hover:shadow-lg shadow-[#1EB97A]/25'
-                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                    disabled={!stripe || processing || isSubmitting}
+                    className="group px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold transition-all duration-300 shadow-md hover:shadow-lg shadow-[#1EB97A]/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                     {processing || isSubmitting ? (
                         <>
@@ -513,17 +414,8 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
                         </>
                     ) : (
                         <>
-                            {isDemoMode ? (
-                                <>
-                                    <Sparkles className="w-4 h-4" />
-                                    Submit Demo
-                                </>
-                            ) : (
-                                <>
-                                    <Lock className="w-4 h-4" />
-                                    Pay & Submit
-                                </>
-                            )}
+                            <Lock className="w-4 h-4" />
+                            Pay & Submit ($50.00)
                         </>
                     )}
                 </motion.button>
@@ -533,14 +425,13 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, isDemoMode, set
 }
 
 export default function Step6Payment({ formData, updateFormData, onSubmit, onPrev, isSubmitting, isLoggedIn }) {
-    const [isDemoMode, setIsDemoMode] = useState(false);
     const [processing, setProcessing] = useState(false);
 
     const getGradient = () => "from-[#1EB97A] to-emerald-600";
 
     return (
         <>
-            <Toaster 
+            <Toaster
                 position="top-center"
                 toastOptions={{
                     duration: 4000,
@@ -624,9 +515,7 @@ export default function Step6Payment({ formData, updateFormData, onSubmit, onPre
                         formData={formData}
                         onSubmit={onSubmit}
                         onPrev={onPrev}
-                        isSubmitting={isSubmitting || processing}
-                        isDemoMode={isDemoMode}
-                        setIsDemoMode={setIsDemoMode}
+                        isSubmitting={isSubmitting}
                         setIsProcessing={setProcessing}
                     />
                 </Elements>
