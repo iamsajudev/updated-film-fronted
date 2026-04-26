@@ -179,7 +179,7 @@ const AllProject = () => {
     if (!isLoggedIn) {
         return (
             <>
-                <div className="min-h-screen bg-black flex items-center justify-center p-6">
+                <div className="min-h-screen bg-black flex items-center justify-center p-6 mt-20">
                     <div className="max-w-4xl w-full">
                         <div className="bg-gradient-to-br from-gray-900 to-black rounded-3xl overflow-hidden border border-gray-800 shadow-2xl">
                             <div className="relative">
