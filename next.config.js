@@ -4,6 +4,16 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "*" }],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/projects',
+        permanent: true, // Use true for 308 permanent redirect
+        basePath: false,
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig
