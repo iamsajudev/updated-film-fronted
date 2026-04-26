@@ -333,7 +333,7 @@ const CountrySelect = ({ value, onChange, placeholder = "Select a country", requ
                                         onClick={() => handleSelectCountry(country)}
                                         className={`w-full px-4 py-3 text-left hover:bg-gray-800 transition-all duration-200 flex items-center gap-3 group ${
                                             selectedCountry?.code === country.code 
-                                                ? "bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 border-l-2 border-[#1EB97A]" 
+                                                ? "bg-linear-to-r from-[#1EB97A]/10 to-emerald-500/10 border-l-2 border-[#1EB97A]" 
                                                 : "border-l-2 border-transparent"
                                         }`}
                                     >

@@ -110,13 +110,13 @@ const PersonForm = memo(({ category, title, icon: Icon, persons, updateFormData,
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
         >
             {/* Header */}
-            <div className={`px-6 py-4 bg-gradient-to-r ${getGradient()} bg-opacity-10 border-b border-gray-800`}>
+            <div className={`px-6 py-4 bg-linear-to-r ${getGradient()} bg-opacity-10 border-b border-gray-800`}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 bg-gradient-to-br ${getGradient()} rounded-xl flex items-center justify-center shadow-lg`}>
+                        <div className={`w-10 h-10 bg-linear-to-br ${getGradient()} rounded-xl flex items-center justify-center shadow-lg`}>
                             {Icon && <Icon className="w-5 h-5 text-white" />}
                         </div>
                         <div>
@@ -148,7 +148,7 @@ const PersonForm = memo(({ category, title, icon: Icon, persons, updateFormData,
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex items-center gap-2">
-                                    <div className={`w-8 h-8 bg-gradient-to-br ${getGradient()} rounded-lg flex items-center justify-center`}>
+                                    <div className={`w-8 h-8 bg-linear-to-br ${getGradient()} rounded-lg flex items-center justify-center`}>
                                         <span className="text-white text-xs font-bold">{index + 1}</span>
                                     </div>
                                     <h4 className="font-semibold text-gray-300">
@@ -243,16 +243,16 @@ export default function Step3Credits({ formData, updateFormData, onNext, onPrev 
         >
             {/* Header Section */}
             <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
                     <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
                     Step 3 of 7
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20">
+                    <div className="w-12 h-12 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20">
                         <Users className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                             Credits
                         </h2>
                     </div>
@@ -267,7 +267,7 @@ export default function Step3Credits({ formData, updateFormData, onNext, onPrev 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-4 border border-[#1EB97A]/20"
+                className="bg-linear-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-4 border border-[#1EB97A]/20"
             >
                 <div className="flex items-start gap-3">
                     <Star className="w-5 h-5 text-[#1EB97A] mt-0.5" />
@@ -344,9 +344,9 @@ export default function Step3Credits({ formData, updateFormData, onNext, onPrev 
                     onClick={onNext}
                     onMouseEnter={() => setFocusedButton('next')}
                     onMouseLeave={() => setFocusedButton(null)}
-                    className="group relative px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative flex items-center gap-2">
                         Next Step
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -181,15 +181,15 @@ const AllProject = () => {
             <>
                 <div className="min-h-screen bg-black flex items-center justify-center p-6 mt-20">
                     <div className="max-w-4xl w-full">
-                        <div className="bg-gradient-to-br from-gray-900 to-black rounded-3xl overflow-hidden border border-gray-800 shadow-2xl">
+                        <div className="bg-linear-to-br from-gray-900 to-black rounded-3xl overflow-hidden border border-gray-800 shadow-2xl">
                             <div className="relative">
-                                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#1EB97A] via-emerald-500 to-teal-600"></div>
+                                <div className="absolute top-0 left-0 right-0 h-2 bg-linear-to-r from-[#1EB97A] via-emerald-500 to-teal-600"></div>
 
                                 <div className="p-8 md:p-12">
                                     <div className="flex justify-center mb-8">
                                         <div className="relative">
-                                            <div className="absolute inset-0 bg-gradient-to-r from-[#1EB97A] to-emerald-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
-                                            <div className="relative w-28 h-28 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300 border border-gray-700">
+                                            <div className="absolute inset-0 bg-linear-to-r from-[#1EB97A] to-emerald-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                                            <div className="relative w-28 h-28 bg-linear-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300 border border-gray-700">
                                                 <svg className="w-14 h-14 text-[#1EB97A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                                 </svg>
@@ -198,10 +198,10 @@ const AllProject = () => {
                                     </div>
 
                                     <div className="text-center mb-8">
-                                        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-4">
+                                        <h2 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent mb-4">
                                             No Submissions Yet
                                         </h2>
-                                        <div className="w-24 h-1 bg-gradient-to-r from-[#1EB97A] to-emerald-500 mx-auto rounded-full mb-6"></div>
+                                        <div className="w-24 h-1 bg-linear-to-r from-[#1EB97A] to-emerald-500 mx-auto rounded-full mb-6"></div>
                                         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                                             Ready to showcase your work? Start your journey by submitting your first project to our platform.
                                         </p>
@@ -243,9 +243,9 @@ const AllProject = () => {
                                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                                         <Link
                                             href="/projects/drop-project"
-                                            className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#1EB97A] to-[#189663] text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#1EB97A]/20 hover:scale-105 overflow-hidden"
+                                            className="group relative inline-flex items-center justify-center gap-2 bg-linear-to-r from-[#1EB97A] to-[#189663] text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#1EB97A]/20 hover:scale-105 overflow-hidden"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-[#189663] to-[#1EB97A] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                            <div className="absolute inset-0 bg-linear-to-r from-[#189663] to-[#1EB97A] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                             <span className="relative flex items-center gap-2">
                                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -292,8 +292,8 @@ const AllProject = () => {
                         </div>
 
                         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-                            <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 rounded-full blur-3xl"></div>
-                            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+                            <div className="absolute -top-40 -right-40 w-80 h-80 bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 rounded-full blur-3xl"></div>
+                            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-linear-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
                         </div>
                     </div>
                 </div>
@@ -307,15 +307,15 @@ const AllProject = () => {
             <div className=" bg-black font-sans max-w-7xl mx-auto">
                 {/* Error Message */}
                 {error && (
-                    <div className="mb-6 bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 backdrop-blur-sm">
+                    <div className="mb-6 bg-emerald-500/10 border border-yellow-500/30 rounded-lg p-4 backdrop-blur-sm">
                         <div className="flex items-center gap-2">
-                            <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <p className="text-emerald-400 text-sm">{error}</p>
+                            <p className="text-yellow-400 text-sm">{error}</p>
                             <button
                                 onClick={() => setError('')}
-                                className="ml-auto text-emerald-400 hover:text-emerald-300"
+                                className="ml-auto text-yellow-400 hover:text-yellow-300"
                             >
                                 ✕
                             </button>
@@ -326,21 +326,21 @@ const AllProject = () => {
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">My Projects</h1>
+                        <h1 className="text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">My Projects</h1>
                         <p className="text-gray-500 mt-1">
                             Total Projects: <span className="text-[#1EB97A] font-semibold">{projects.length}</span> | Manage your film submissions
                         </p>
                     </div>
                     <Link
                         href="/projects/drop-project"
-                        className="bg-gradient-to-r from-[#1EB97A] to-[#189663] hover:from-[#189663] hover:to-[#1EB97A] text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all shadow-lg shadow-[#1EB97A]/20 w-fit"
+                        className="bg-linear-to-r from-[#1EB97A] to-[#189663] hover:from-[#189663] hover:to-[#1EB97A] text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all shadow-lg shadow-[#1EB97A]/20 w-fit"
                     >
                         <span className="text-xl">+</span> Add New Project
                     </Link>
                 </div>
 
                 {/* Table Container */}
-                <div className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
+                <div className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-2xl">
                     {/* Table Controls */}
                     <div className="p-4 border-b border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-900/50">
                         <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -382,7 +382,7 @@ const AllProject = () => {
                             </svg>
                             <p className="text-gray-400 text-lg">No projects found</p>
                             <p className="text-gray-600 text-sm mt-1">Get started by creating your first project</p>
-                            <Link href="/projects/drop-project" className="inline-block mt-4 bg-gradient-to-r from-[#1EB97A] to-[#189663] text-white px-6 py-2 rounded-xl">
+                            <Link href="/projects/drop-project" className="inline-block mt-4 bg-linear-to-r from-[#1EB97A] to-[#189663] text-white px-6 py-2 rounded-xl">
                                 Create Project
                             </Link>
                         </div>
@@ -403,7 +403,7 @@ const AllProject = () => {
                                         <tr key={project._id} className="hover:bg-gray-800/50 transition-all duration-200 group">
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-10 h-10 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
+                                                    <div className="w-10 h-10 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
                                                         {getInitials(project.projectTitle || project.title)}
                                                     </div>
                                                     <div>
@@ -481,7 +481,7 @@ const AllProject = () => {
                                             key={index}
                                             onClick={() => setCurrentPage(pageNum)}
                                             className={`w-8 h-8 rounded-lg text-sm font-medium transition ${currentPage === pageNum
-                                                ? 'bg-gradient-to-r from-[#1EB97A] to-[#189663] text-white shadow-lg'
+                                                ? 'bg-linear-to-r from-[#1EB97A] to-[#189663] text-white shadow-lg'
                                                 : 'text-gray-400 hover:bg-gray-800'
                                                 }`}
                                         >
@@ -509,13 +509,13 @@ const AllProject = () => {
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            className="bg-gradient-to-br from-gray-900 to-black shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-2xl border border-gray-800"
+                            className="bg-linear-to-br from-gray-900 to-black shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-2xl border border-gray-800"
                             onClick={e => e.stopPropagation()}
                         >
                             {/* Modal Header - Modern Dark Gradient */}
-                            <div className="sticky top-0 z-10 bg-gradient-to-r from-gray-800 via-gray-900 to-black px-8 py-5 flex justify-between items-center border-b border-gray-800">
+                            <div className="sticky top-0 z-10 bg-linear-to-r from-gray-800 via-gray-900 to-black px-8 py-5 flex justify-between items-center border-b border-gray-800">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                                    <div className="w-10 h-10 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
                                         <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -542,7 +542,7 @@ const AllProject = () => {
                                 <div className="border-b border-gray-800 pb-6">
                                     <div className="flex items-start justify-between flex-wrap gap-4">
                                         <div>
-                                            <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                                            <h3 className="text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                                                 {selectedProject.projectTitle || selectedProject.title || 'Untitled'}
                                             </h3>
                                             <div className="flex flex-wrap gap-2 mt-3">
@@ -580,7 +580,7 @@ const AllProject = () => {
                                 {/* Project Information Card */}
                                 <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-gray-600 transition-all">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                        <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
                                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
@@ -622,7 +622,7 @@ const AllProject = () => {
                                 {(selectedProject.mediaLink || selectedProject.uploadedImage) && (
                                     <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-gray-600 transition-all">
                                         <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-8 h-8 bg-gradient-to-br from-[#1EB97A] to-emerald-500 rounded-xl flex items-center justify-center">
+                                            <div className="w-8 h-8 bg-linear-to-br from-[#1EB97A] to-emerald-500 rounded-xl flex items-center justify-center">
                                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                                 </svg>
@@ -669,9 +669,9 @@ const AllProject = () => {
 
                                 {/* International Info Card */}
                                 {(selectedProject.hasNonEnglishTitle || selectedProject.nonEnglishTitle) && (
-                                    <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-2xl p-6 border border-amber-500/20">
+                                    <div className="bg-linear-to-r from-amber-500/10 to-orange-500/10 rounded-2xl p-6 border border-amber-500/20">
                                         <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                            <div className="w-8 h-8 bg-linear-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
                                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10" />
                                                 </svg>
@@ -700,7 +700,7 @@ const AllProject = () => {
                                     selectedProject.producers?.length > 0 || selectedProject.keyCast?.length > 0) && (
                                         <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
                                             <div className="flex items-center gap-2 mb-4">
-                                                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                                <div className="w-8 h-8 bg-linear-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                                     </svg>
@@ -776,7 +776,7 @@ const AllProject = () => {
                                 {/* Technical Specifications */}
                                 <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                        <div className="w-8 h-8 bg-linear-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
                                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                             </svg>
@@ -822,7 +822,7 @@ const AllProject = () => {
                                 {/* Submitter Information */}
                                 <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                        <div className="w-8 h-8 bg-linear-to-br from-orange-500 to-emerald-500 rounded-xl flex items-center justify-center">
                                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
@@ -855,7 +855,7 @@ const AllProject = () => {
                                 {(selectedProject.website || selectedProject.twitter || selectedProject.facebook || selectedProject.instagram) && (
                                     <div className="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
                                         <div className="flex items-center gap-2 mb-4">
-                                            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                                            <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
                                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.66 0 3-4 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4-3-9s1.34-9 3-9m-9 9a9 9 0 019-9" />
                                                 </svg>
@@ -889,7 +889,7 @@ const AllProject = () => {
 
                                 {/* Admin Notes */}
                                 {selectedProject.adminNotes && (
-                                    <div className="bg-gradient-to-r from-emerald-500/10 to-rose-500/10 rounded-2xl p-5 border border-emerald-500/20">
+                                    <div className="bg-linear-to-r from-emerald-500/10 to-rose-500/10 rounded-2xl p-5 border border-emerald-500/20">
                                         <div className="flex items-start gap-3">
                                             <div className="w-8 h-8 bg-emerald-500/20 rounded-xl flex items-center justify-center">
                                                 <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -63,7 +63,7 @@ export default function DashboardLayout({ children }) {
             
             {/* Inner gradient dot */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#1EB97A] to-emerald-500 rounded-full animate-pulse shadow-lg shadow-[#1EB97A]/50"></div>
+              <div className="w-8 h-8 bg-linear-to-r from-[#1EB97A] to-emerald-500 rounded-full animate-pulse shadow-lg shadow-[#1EB97A]/50"></div>
             </div>
             
             {/* Pulsing rings */}
@@ -94,17 +94,17 @@ export default function DashboardLayout({ children }) {
       {/* Animated Background Pattern - Dark Theme */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {/* Top right glow - green gradient */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#1EB97A]/15 to-emerald-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-linear-to-bl from-[#1EB97A]/15 to-emerald-500/5 rounded-full blur-3xl animate-pulse"></div>
         
         {/* Bottom left glow - blue/purple gradient */}
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-500/5 to-purple-500/5 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-linear-to-tr from-blue-500/5 to-purple-500/5 rounded-full blur-3xl animate-pulse delay-700"></div>
         
         {/* Center glow - white/gray */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-gradient-to-r from-white/3 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-linear-to-r from-white/3 to-transparent rounded-full blur-3xl"></div>
         
         {/* Additional accent glows */}
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-r from-[#1EB97A]/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-gradient-to-r from-emerald-500/5 to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-linear-to-r from-[#1EB97A]/5 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-linear-to-r from-emerald-500/5 to-transparent rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Header - Dark theme sticky */}
@@ -128,7 +128,7 @@ export default function DashboardLayout({ children }) {
             transition={{ delay: 0.2 }}
             className="mb-8"
           >
-            <div className="bg-gradient-to-r mt-20 from-[#1EB97A] to-emerald-600 rounded-2xl p-6 text-white shadow-xl shadow-[#1EB97A]/20 relative overflow-hidden">
+            <div className="bg-linear-to-r mt-20 from-[#1EB97A] to-emerald-600 rounded-2xl p-6 text-white shadow-xl shadow-[#1EB97A]/20 relative overflow-hidden">
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-black/20 rounded-full blur-2xl -ml-20 -mb-20"></div>

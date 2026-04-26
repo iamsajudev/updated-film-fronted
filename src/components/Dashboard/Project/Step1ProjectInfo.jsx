@@ -46,11 +46,11 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
         >
             {/* Header Section */}
             <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
                     <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
                     Step 1 of 7
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                     Project Information
                 </h2>
                 <p className="text-gray-400 mt-2 max-w-2xl">
@@ -195,7 +195,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                                         className={`h-1.5 flex-1 rounded-full transition-all ${
                                             formData.briefSynopsis.length >= threshold
                                                 ? formData.briefSynopsis.length <= 500
-                                                    ? 'bg-gradient-to-r from-[#1EB97A] to-emerald-500'
+                                                    ? 'bg-linear-to-r from-[#1EB97A] to-emerald-500'
                                                     : 'bg-emerald-500'
                                                 : 'bg-gray-700'
                                         }`}
@@ -233,7 +233,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.25 }}
-                    className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-800 to-gray-800/50 rounded-xl border border-gray-700"
+                    className="flex items-center gap-3 p-4 bg-linear-to-r from-gray-800 to-gray-800/50 rounded-xl border border-gray-700"
                 >
                     <div className="relative">
                         <input
@@ -243,7 +243,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                             onChange={(e) => updateFormData({ hasNonEnglishTitle: e.target.checked })}
                             className="sr-only peer"
                         />
-                        <div className="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-gradient-to-r peer-checked:from-[#1EB97A] peer-checked:to-emerald-500 transition-all duration-300 cursor-pointer"></div>
+                        <div className="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-linear-to-r peer-checked:from-[#1EB97A] peer-checked:to-emerald-500 transition-all duration-300 cursor-pointer"></div>
                         <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5"></div>
                     </div>
                     <label htmlFor="hasNonEnglishTitle" className="text-sm font-medium text-gray-300 cursor-pointer">
@@ -297,7 +297,7 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                     className="space-y-4"
                 >
                     <div className="flex items-center gap-2">
-                        <div className="w-1 h-6 bg-gradient-to-b from-[#1EB97A] to-emerald-500 rounded-full"></div>
+                        <div className="w-1 h-6 bg-linear-to-b from-[#1EB97A] to-emerald-500 rounded-full"></div>
                         <h3 className="text-lg font-semibold text-white">Social Media Links</h3>
                         <span className="text-xs text-gray-500">(Optional)</span>
                     </div>
@@ -358,9 +358,9 @@ export default function Step1ProjectInfo({ formData, updateFormData, onNext }) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleNext}
-                    className="group relative px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative flex items-center gap-2">
                         Next Step
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

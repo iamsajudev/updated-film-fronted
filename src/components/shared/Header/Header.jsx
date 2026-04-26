@@ -170,11 +170,13 @@ const Header = () => {
         links.push(
           { name: "Dashboard", href: "/admin/dashboard", public: false, icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
           { name: "Users", href: "/admin/all-users", public: false, icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" },
-          { name: "Submissions", href: "/admin/all-submissions", public: false, icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" }
+          { name: "Submissions", href: "/admin/all-submissions", public: false, icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" },
+          { name: "Visit NYBFF", href: "https://nybff.us/", public: false, icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" }
         );
       } else {
         links.push(
-          { name: "Dashboard", href: "/dashboard", public: false, icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" }
+          { name: "Dashboard", href: "/dashboard", public: false, icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
+          { name: "Visit NYBFF", href: "https://nybff.us/", public: false, icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" }
         );
       }
     }
@@ -204,18 +206,18 @@ const Header = () => {
       <header
         className={`
           fixed top-0 left-0 right-0 z-50 transition-all duration-500
-          ${isScrolled 
-            ? "bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-2xl" 
+          ${isScrolled
+            ? "bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
             : "bg-black/80 backdrop-blur-md border-b border-white/5"
           }
         `}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            
+
             {/* Logo */}
-            <Link 
-              href="/projects" 
+            <Link
+              href="/projects"
               className="group relative flex items-center gap-2"
               aria-label="Home"
             >
@@ -266,7 +268,7 @@ const Header = () => {
                     className={`
                       relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200
                       ${isActive
-                        ? "text-white bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30"
+                        ? "text-white bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30"
                         : "text-gray-300 hover:text-white hover:bg-white/5"
                       }
                     `}
@@ -275,7 +277,7 @@ const Header = () => {
                     {isActive && (
                       <motion.div
                         layoutId="activeNav"
-                        className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-[#1EB97A] to-emerald-500 rounded-full"
+                        className="absolute bottom-0 left-4 right-4 h-0.5 bg-linear-to-r from-[#1EB97A] to-emerald-500 rounded-full"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -288,13 +290,13 @@ const Header = () => {
             <div className="flex items-center gap-3 lg:gap-4">
               {/* Welcome Text - Desktop */}
               {isLoggedIn && userName && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="hidden lg:block text-sm"
                 >
                   <span className="text-gray-400">Welcome back,</span>
-                  <span className="text-white font-semibold ml-1 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  <span className="text-white font-semibold ml-1 bg-linear-to-r from-white to-gray-300 bg-clip-text text-transparent">
                     {userName.split(' ')[0]}
                   </span>
                 </motion.div>
@@ -302,7 +304,7 @@ const Header = () => {
 
               {/* Admin Badge - Desktop */}
               {isLoggedIn && (userRole === 'admin' || userRole === 'Administrator') && (
-                <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
+                <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-linear-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30">
                   <span className="text-sm">👑</span>
                   <span className="text-xs font-medium text-purple-300">Admin</span>
                 </div>
@@ -325,7 +327,7 @@ const Header = () => {
                   </Link>
                   <Link
                     href="/register"
-                    className="px-5 py-2 text-sm font-semibold bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-[#1EB97A]/25 transition-all duration-300 hover:scale-105"
+                    className="px-5 py-2 text-sm font-semibold bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:shadow-lg hover:shadow-[#1EB97A]/25 transition-all duration-300 hover:scale-105"
                   >
                     Get Started
                   </Link>
@@ -370,14 +372,14 @@ const Header = () => {
               className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 lg:hidden"
               onClick={toggleMenu}
             />
-            
+
             <motion.div
               ref={menuRef}
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-[280px] max-w-[85vw] bg-gradient-to-b from-gray-900 to-black z-50 shadow-2xl lg:hidden"
+              className="fixed top-0 left-0 bottom-0 w-[280px] max-w-[85vw] bg-linear-to-b from-gray-900 to-black z-50 shadow-2xl lg:hidden"
             >
               {/* Mobile Menu Header */}
               <div className="flex items-center justify-between p-5 border-b border-white/10">
@@ -395,7 +397,7 @@ const Header = () => {
               {/* User Profile Preview */}
               {isLoggedIn && (
                 <div className="p-5 border-b border-white/10 flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold text-lg shadow-lg overflow-hidden">
+                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold text-lg shadow-lg overflow-hidden">
                     {userAvatar ? (
                       <img src={userAvatar} alt={userName} className="w-full h-full object-cover" />
                     ) : (
@@ -437,7 +439,7 @@ const Header = () => {
                       className={`
                         flex items-center gap-3 px-5 py-3 transition-all duration-200
                         ${isActive
-                          ? "bg-gradient-to-r from-[#1EB97A]/10 to-transparent border-l-2 border-[#1EB97A] text-white"
+                          ? "bg-linear-to-r from-[#1EB97A]/10 to-transparent border-l-2 border-[#1EB97A] text-white"
                           : "text-gray-300 hover:text-white hover:bg-white/5"
                         }
                       `}
@@ -495,7 +497,7 @@ const Header = () => {
                     </Link>
                     <Link
                       href="/register"
-                      className="block text-center py-2.5 text-sm font-semibold bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all"
+                      className="block text-center py-2.5 text-sm font-semibold bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:shadow-lg transition-all"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Create Account

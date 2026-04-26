@@ -25,7 +25,7 @@ export default function ProgressBar({ currentStep, totalSteps }) {
                     
                     {/* Active connecting line */}
                     <motion.div
-                        className="absolute top-5 left-0 h-0.5 bg-gradient-to-r from-[#1EB97A] to-emerald-500 -z-0 rounded-full"
+                        className="absolute top-5 left-0 h-0.5 bg-linear-to-r from-[#1EB97A] to-emerald-500 -z-0 rounded-full"
                         style={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
                         initial={{ width: 0 }}
                         animate={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
@@ -49,7 +49,7 @@ export default function ProgressBar({ currentStep, totalSteps }) {
                                     className={`
                                         w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-300
                                         ${isCompleted
-                                            ? "bg-gradient-to-br from-[#1EB97A] to-emerald-600 text-white shadow-lg shadow-[#1EB97A]/30"
+                                            ? "bg-linear-to-br from-[#1EB97A] to-emerald-600 text-white shadow-lg shadow-[#1EB97A]/30"
                                             : isCurrent
                                                 ? "bg-gray-800 border-2 border-[#1EB97A] text-[#1EB97A] shadow-lg shadow-[#1EB97A]/20 ring-4 ring-[#1EB97A]/10"
                                                 : "bg-gray-800 border border-gray-700 text-gray-500"}
@@ -81,7 +81,7 @@ export default function ProgressBar({ currentStep, totalSteps }) {
                 <div className="flex justify-between items-center mb-3 mt-5">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
-                            <div className="w-8 h-8 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20">
+                            <div className="w-8 h-8 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20">
                                 <span className="text-white text-sm font-bold">{currentStep}</span>
                             </div>
                             <h3 className="text-lg font-semibold text-white">
@@ -93,7 +93,7 @@ export default function ProgressBar({ currentStep, totalSteps }) {
                         </p>
                     </div>
                     <div className="text-right">
-                        <div className="text-2xl font-bold bg-gradient-to-r from-[#1EB97A] to-emerald-500 bg-clip-text text-transparent">
+                        <div className="text-2xl font-bold bg-linear-to-r from-[#1EB97A] to-emerald-500 bg-clip-text text-transparent">
                             {Math.round(progress)}%
                         </div>
                         <p className="text-xs text-gray-500">Complete</p>
@@ -107,16 +107,16 @@ export default function ProgressBar({ currentStep, totalSteps }) {
                             initial={{ width: 0 }}
                             animate={{ width: `${progress}%` }}
                             transition={{ duration: 0.5, ease: "easeOut" }}
-                            className="h-full rounded-full bg-gradient-to-r from-[#1EB97A] via-emerald-500 to-teal-500 relative"
+                            className="h-full rounded-full bg-linear-to-r from-[#1EB97A] via-emerald-500 to-teal-500 relative"
                         >
                             {/* Shine effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+                            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
                         </motion.div>
                     </div>
 
                     {/* Progress glow */}
                     <div
-                        className="absolute -top-1 h-4 rounded-full bg-gradient-to-r from-[#1EB97A] to-emerald-500 blur-md opacity-30 transition-all duration-300"
+                        className="absolute -top-1 h-4 rounded-full bg-linear-to-r from-[#1EB97A] to-emerald-500 blur-md opacity-30 transition-all duration-300"
                         style={{ width: `${progress}%` }}
                     />
                 </div>
@@ -128,7 +128,7 @@ export default function ProgressBar({ currentStep, totalSteps }) {
                             key={step.number}
                             className={`flex-1 text-center py-2 rounded-lg transition-all duration-300 ${
                                 step.number <= currentStep
-                                    ? "bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white shadow-sm"
+                                    ? "bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white shadow-sm"
                                     : "bg-gray-800 text-gray-500"
                             }`}
                         >

@@ -116,18 +116,18 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
         >
             {/* Header Section */}
             <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
                     <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
                     Step 5 of 7
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${getGradient("projectTypes")} rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20`}>
+                    <div className={`w-12 h-12 bg-linear-to-br ${getGradient("projectTypes")} rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20`}>
                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                             Technical Specifications
                         </h2>
                     </div>
@@ -143,11 +143,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                    className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                 >
-                    <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("projectTypes")} bg-opacity-10 border-b border-gray-800`}>
+                    <div className={`px-6 py-4 bg-linear-to-r ${getGradient("projectTypes")} bg-opacity-10 border-b border-gray-800`}>
                         <div className="flex items-center gap-2">
-                            <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("projectTypes")} rounded-lg flex items-center justify-center`}>
+                            <div className={`w-8 h-8 bg-linear-to-br ${getGradient("projectTypes")} rounded-lg flex items-center justify-center`}>
                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                                 </svg>
@@ -166,7 +166,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                     transition={{ delay: idx * 0.03 }}
                                     className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-all duration-200 ${
                                         formData.projectTypes.includes(type)
-                                            ? 'bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 shadow-sm'
+                                            ? 'bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 shadow-sm'
                                             : 'hover:bg-gray-800 border border-transparent'
                                     }`}
                                 >
@@ -205,11 +205,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("genres")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("genres")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("genres")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("genres")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                                     </svg>
@@ -261,11 +261,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("runtime")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("runtime")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("runtime")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("runtime")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -329,11 +329,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("completion")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("completion")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("completion")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("completion")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
@@ -356,11 +356,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("budget")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("budget")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("budget")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("budget")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -418,11 +418,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.45 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("language")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("language")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("language")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("language")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                                     </svg>
@@ -477,11 +477,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("format")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("format")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("format")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("format")} rounded-lg flex items-center justify-center`}>
                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                     </svg>
@@ -516,9 +516,9 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.55 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("aspect")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("aspect")} bg-opacity-10 border-b border-gray-800`}>
                             <h3 className="text-lg font-semibold text-white">Aspect Ratio</h3>
                         </div>
                         <div className="p-6">
@@ -538,9 +538,9 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("color")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("color")} bg-opacity-10 border-b border-gray-800`}>
                             <h3 className="text-lg font-semibold text-white">Film Color</h3>
                         </div>
                         <div className="p-6">
@@ -560,9 +560,9 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.65 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("student")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("student")} bg-opacity-10 border-b border-gray-800`}>
                             <h3 className="text-lg font-semibold text-white">Student Project?</h3>
                         </div>
                         <div className="p-6">
@@ -583,11 +583,11 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className={`bg-gradient-to-r ${getGradient("firstTime")} bg-opacity-10 rounded-2xl p-6 border border-orange-500/20`}
+                    className={`bg-linear-to-r ${getGradient("firstTime")} bg-opacity-10 rounded-2xl p-6 border border-orange-500/20`}
                 >
                     <div className="flex items-center justify-between flex-wrap gap-4">
                         <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 bg-gradient-to-br ${getGradient("firstTime")} rounded-xl flex items-center justify-center`}>
+                            <div className={`w-10 h-10 bg-linear-to-br ${getGradient("firstTime")} rounded-xl flex items-center justify-center`}>
                                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                                 </svg>
@@ -603,7 +603,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 onClick={() => updateFormData({ firstTimeFilmmaker: "No" })}
                                 className={`px-6 py-2 rounded-xl font-medium transition-all ${
                                     formData.firstTimeFilmmaker === "No"
-                                        ? 'bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-md'
+                                        ? 'bg-linear-to-r from-gray-700 to-gray-800 text-white shadow-md'
                                         : 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600'
                                 }`}
                             >
@@ -614,7 +614,7 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                                 onClick={() => updateFormData({ firstTimeFilmmaker: "Yes" })}
                                 className={`px-6 py-2 rounded-xl font-medium transition-all ${
                                     formData.firstTimeFilmmaker === "Yes"
-                                        ? 'bg-gradient-to-r from-orange-600 to-emerald-600 text-white shadow-md'
+                                        ? 'bg-linear-to-r from-orange-600 to-emerald-600 text-white shadow-md'
                                         : 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-gray-600'
                                 }`}
                             >
@@ -650,9 +650,9 @@ export default function Step4Specifications({ formData, updateFormData, onNext, 
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleNext}
-                    className="group relative px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative flex items-center gap-2">
                         Next Step
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

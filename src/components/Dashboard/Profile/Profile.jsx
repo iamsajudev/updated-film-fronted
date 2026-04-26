@@ -499,7 +499,7 @@ const Profile = () => {
                         exit={{ opacity: 0, x: 50 }}
                         className="fixed top-4 right-4 z-50"
                     >
-                        <div className="bg-gradient-to-r from-[#1EB97A] to-emerald-600 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
+                        <div className="bg-linear-to-r from-[#1EB97A] to-emerald-600 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
                             <CheckCircle className="w-5 h-5" />
                             <p className="font-medium">{successMessage}</p>
                         </div>
@@ -516,7 +516,7 @@ const Profile = () => {
                         exit={{ opacity: 0, x: 50 }}
                         className="fixed top-4 right-4 z-50"
                     >
-                        <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
+                        <div className="bg-linear-to-r from-emerald-600 to-emerald-700 rounded-xl shadow-2xl p-4 flex items-center gap-3 text-white">
                             <AlertCircle className="w-5 h-5" />
                             <p className="font-medium">{error}</p>
                         </div>
@@ -540,7 +540,7 @@ const Profile = () => {
                         );
                     }
                     return (
-                        <div className="w-full h-full bg-gradient-to-r from-[#1EB97A]/30 via-emerald-500/20 to-teal-500/30">
+                        <div className="w-full h-full bg-linear-to-r from-[#1EB97A]/30 via-emerald-500/20 to-teal-500/30">
                             <div className="absolute inset-0 animate-pulse" style={{
                                 background: 'linear-gradient(45deg, rgba(30,185,122,0.3), rgba(16,185,129,0.3), rgba(20,184,166,0.3))',
                                 backgroundSize: '200% 200%',
@@ -585,7 +585,7 @@ const Profile = () => {
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleSave}
                                 disabled={submitting}
-                                className="px-5 py-2.5 bg-gradient-to-r from-[#1EB97A] to-emerald-600 rounded-xl text-white hover:from-[#189663] hover:to-emerald-700 transition-all duration-200 flex items-center gap-2 text-sm font-medium shadow-lg shadow-[#1EB97A]/20 disabled:opacity-50"
+                                className="px-5 py-2.5 bg-linear-to-r from-[#1EB97A] to-emerald-600 rounded-xl text-white hover:from-[#189663] hover:to-emerald-700 transition-all duration-200 flex items-center gap-2 text-sm font-medium shadow-lg shadow-[#1EB97A]/20 disabled:opacity-50"
                             >
                                 {submitting ? (
                                     <>
@@ -624,12 +624,12 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-2xl"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-2xl"
                         >
                             <div className="relative flex justify-center mt-16">
                                 <div className="relative group">
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-[#1EB97A] via-emerald-500 to-teal-500 rounded-2xl opacity-75 blur-md group-hover:opacity-100 transition duration-300"></div>
-                                    <div className="relative rounded-2xl border-4 border-gray-800 shadow-2xl overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 w-32 h-32">
+                                    <div className="absolute -inset-1 bg-linear-to-r from-[#1EB97A] via-emerald-500 to-teal-500 rounded-2xl opacity-75 blur-md group-hover:opacity-100 transition duration-300"></div>
+                                    <div className="relative rounded-2xl border-4 border-gray-800 shadow-2xl overflow-hidden bg-linear-to-br from-gray-800 to-gray-900 w-32 h-32">
                                         {isUploading ? (
                                             <div className="w-full h-full flex items-center justify-center bg-gray-800">
                                                 <Loader2 className="w-6 h-6 text-[#1EB97A] animate-spin" />
@@ -705,10 +705,10 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-6 shadow-xl"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-6 shadow-xl"
                         >
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-lg">
+                                <div className="p-2 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-lg">
                                     <AtSign className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Contact Details</h3>
@@ -799,10 +799,10 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-6 shadow-xl"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-6 shadow-xl"
                         >
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg">
+                                <div className="p-2 bg-linear-to-br from-purple-500 to-pink-500 rounded-lg">
                                     <TrendingUp className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Skills & Expertise</h3>
@@ -820,7 +820,7 @@ const Profile = () => {
                                         />
                                         <button
                                             onClick={addSkill}
-                                            className="px-4 py-2 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:from-[#189663] hover:to-emerald-700 transition-all duration-200 font-medium whitespace-nowrap"
+                                            className="px-4 py-2 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl hover:from-[#189663] hover:to-emerald-700 transition-all duration-200 font-medium whitespace-nowrap"
                                         >
                                             Add
                                         </button>
@@ -859,10 +859,10 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
                         >
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2 bg-gradient-to-br from-green-500 to-green-600 rounded-lg">
+                                <div className="p-2 bg-linear-to-br from-green-500 to-green-600 rounded-lg">
                                     <User className="w-4 h-4 text-white" />
                                 </div>
                                 <h2 className="text-lg font-bold text-white">Biography</h2>
@@ -898,7 +898,7 @@ const Profile = () => {
                                 { key: 'followers', icon: Users, gradient: 'from-pink-500 to-rose-500', label: 'Followers' },
                                 { key: 'following', icon: Users, gradient: 'from-indigo-500 to-purple-500', label: 'Following' }
                             ].map((stat) => (
-                                <div key={stat.key} className={`bg-gradient-to-br ${stat.gradient} rounded-2xl p-4 text-center text-white shadow-xl transform transition-all duration-300 hover:scale-105 cursor-pointer`}>
+                                <div key={stat.key} className={`bg-linear-to-br ${stat.gradient} rounded-2xl p-4 text-center text-white shadow-xl transform transition-all duration-300 hover:scale-105 cursor-pointer`}>
                                     <div className="p-2 bg-white/20 rounded-lg inline-block mb-2">
                                         <stat.icon className="w-5 h-5" />
                                     </div>
@@ -925,7 +925,7 @@ const Profile = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                                className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
                             >
                                 <h2 className="text-lg font-bold text-white mb-4">Change Password</h2>
                                 <p className="text-sm text-gray-500 mb-4">Leave blank to keep current password</p>
@@ -961,7 +961,7 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.5 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
                         >
                             <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                                 <Briefcase className="w-5 h-5 text-[#1EB97A]" />
@@ -980,7 +980,7 @@ const Profile = () => {
                                             <input type="text" placeholder="Period (e.g., 2020 - Present)" value={newExperience.period} onChange={(e) => setNewExperience({ ...newExperience, period: e.target.value })} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent" />
                                             <textarea placeholder="Description" value={newExperience.description} onChange={(e) => setNewExperience({ ...newExperience, description: e.target.value })} rows={2} className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#1EB97A] focus:border-transparent resize-none" />
                                             <div className="flex gap-2">
-                                                <button onClick={addExperience} className="px-3 py-1 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-lg hover:from-[#189663] hover:to-emerald-700 transition-all duration-200">Add</button>
+                                                <button onClick={addExperience} className="px-3 py-1 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-lg hover:from-[#189663] hover:to-emerald-700 transition-all duration-200">Add</button>
                                                 <button onClick={() => setShowAddExperience(false)} className="px-3 py-1 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-all duration-200">Cancel</button>
                                             </div>
                                         </div>
@@ -1012,7 +1012,7 @@ const Profile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.6 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 p-8 shadow-xl"
                         >
                             <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                                 <Globe className="w-5 h-5 text-[#1EB97A]" />

@@ -104,7 +104,7 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                 <p className="text-sm text-gray-400">
                     Add your project trailer/sizzle reel and a poster image to showcase your work.
                 </p>
-                <div className="w-16 h-1 bg-gradient-to-r from-[#1EB97A] to-emerald-500 rounded-full mt-2" />
+                <div className="w-16 h-1 bg-linear-to-r from-[#1EB97A] to-emerald-500 rounded-full mt-2" />
             </div>
 
             {/* Media Link Field */}
@@ -295,7 +295,7 @@ export default function Step4Media({ formData, updateFormData, onNext, onPrev })
                 </button>
                 <button
                     onClick={handleNext}
-                    className="px-6 py-2.5 bg-gradient-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 text-white font-medium rounded-xl transition-all duration-200 shadow-lg shadow-[#1EB97A]/20"
+                    className="px-6 py-2.5 bg-linear-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 text-white font-medium rounded-xl transition-all duration-200 shadow-lg shadow-[#1EB97A]/20"
                 >
                     Next Step →
                 </button>

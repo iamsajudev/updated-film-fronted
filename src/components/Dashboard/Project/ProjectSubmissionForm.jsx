@@ -222,10 +222,10 @@ export default function ProjectSubmissionForm() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-[#1EB97A] to-white bg-clip-text text-transparent">
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-white via-[#1EB97A] to-white bg-clip-text text-transparent">
                             Submit Your Project
                         </h1>
-                        <div className="w-24 h-1 bg-gradient-to-r from-[#1EB97A] to-emerald-500 mx-auto rounded-full mt-4 mb-6" />
+                        <div className="w-24 h-1 bg-linear-to-r from-[#1EB97A] to-emerald-500 mx-auto rounded-full mt-4 mb-6" />
                         <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
                             Complete the form below to submit your project for consideration.
                             Our team will review your submission and get back to you shortly.
@@ -270,11 +270,11 @@ export default function ProjectSubmissionForm() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-gradient-to-br from-gray-900 via-gray-900 to-black rounded-2xl border border-gray-800 shadow-2xl overflow-hidden"
+                    className="bg-linear-to-br from-gray-900 via-gray-900 to-black rounded-2xl border border-gray-800 shadow-2xl overflow-hidden"
                 >
                     <div className="relative">
                         {/* Decorative gradient line */}
-                        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1EB97A] via-emerald-500 to-transparent" />
+                        <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#1EB97A] via-emerald-500 to-transparent" />
 
                         {/* Form Content */}
                         <div className="p-6 sm:p-8 lg:p-10">

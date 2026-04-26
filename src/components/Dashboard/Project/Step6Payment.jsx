@@ -248,11 +248,11 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="w-24 h-24 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-[#1EB97A]/30"
+                    className="w-24 h-24 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-[#1EB97A]/30"
                 >
                     <CheckCircle className="w-12 h-12 text-white" />
                 </motion.div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-[#1EB97A] to-emerald-500 bg-clip-text text-transparent mb-3">
+                <h3 className="text-3xl font-bold bg-linear-to-r from-[#1EB97A] to-emerald-500 bg-clip-text text-transparent mb-3">
                     Payment Successful!
                 </h3>
                 <p className="text-gray-400 mb-2">
@@ -262,7 +262,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
                     You will receive a confirmation email shortly.
                 </p>
 
-                <div className="bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-5 max-w-md mx-auto border border-[#1EB97A]/20">
+                <div className="bg-linear-to-r from-[#1EB97A]/10 to-emerald-500/10 rounded-xl p-5 max-w-md mx-auto border border-[#1EB97A]/20">
                     <div className="flex items-center justify-center gap-2 mb-3">
                         <Loader2 className="w-5 h-5 text-[#1EB97A] animate-spin" />
                         <p className="text-sm text-[#1EB97A]">
@@ -271,7 +271,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
                     </div>
                     <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
                         <motion.div
-                            className="bg-gradient-to-r from-[#1EB97A] to-emerald-500 h-1.5 rounded-full"
+                            className="bg-linear-to-r from-[#1EB97A] to-emerald-500 h-1.5 rounded-full"
                             animate={{ width: "100%" }}
                             transition={{ duration: 2, ease: "linear" }}
                         />
@@ -287,9 +287,9 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl"
+                className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl"
             >
-                <div className="px-6 py-4 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700">
+                <div className="px-6 py-4 bg-linear-to-r from-gray-800 to-gray-900 border-b border-gray-700">
                     <div className="flex items-center gap-2">
                         <CreditCard className="w-5 h-5 text-[#1EB97A]" />
                         <h3 className="text-lg font-semibold text-white">Card Details</h3>
@@ -352,7 +352,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700"
+                className="bg-linear-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700"
             >
                 <div className="flex justify-between items-center mb-3">
                     <span className="text-gray-400">Submission Fee</span>
@@ -365,7 +365,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
                 <div className="border-t border-gray-700 pt-3 mt-2">
                     <div className="flex justify-between items-center font-semibold">
                         <span className="text-gray-300">Total</span>
-                        <span className="text-xl bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">$50.00 USD</span>
+                        <span className="text-xl bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">$50.00 USD</span>
                     </div>
                 </div>
             </motion.div>
@@ -405,7 +405,7 @@ function PaymentForm({ formData, onSubmit, onPrev, isSubmitting, setIsProcessing
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={!stripe || processing || isSubmitting}
-                    className="group px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold transition-all duration-300 shadow-md hover:shadow-lg shadow-[#1EB97A]/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="group px-8 py-3 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold transition-all duration-300 shadow-md hover:shadow-lg shadow-[#1EB97A]/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                     {processing || isSubmitting ? (
                         <>
@@ -467,16 +467,16 @@ export default function Step6Payment({ formData, updateFormData, onSubmit, onPre
             >
                 {/* Header Section */}
                 <div className="text-center md:text-left">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
                         <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
                         Final Step - Step 7 of 7
                     </div>
                     <div className="flex items-center gap-3 mb-2">
-                        <div className={`w-14 h-14 bg-gradient-to-br ${getGradient()} rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20`}>
+                        <div className={`w-14 h-14 bg-linear-to-br ${getGradient()} rounded-2xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20`}>
                             <CreditCard className="w-7 h-7 text-white" />
                         </div>
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                            <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                                 Complete Payment
                             </h2>
                             <p className="text-gray-400 mt-1">Secure checkout to submit your project</p>
@@ -486,21 +486,21 @@ export default function Step6Payment({ formData, updateFormData, onSubmit, onPre
 
                 {/* Info Cards Row */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-4 border border-blue-500/20">
+                    <div className="bg-linear-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-4 border border-blue-500/20">
                         <div className="flex items-center gap-2 mb-2">
                             <Shield className="w-4 h-4 text-blue-400" />
                             <span className="text-sm font-semibold text-blue-400">Secure Payment</span>
                         </div>
                         <p className="text-xs text-blue-300">256-bit SSL encryption</p>
                     </div>
-                    <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20">
+                    <div className="bg-linear-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20">
                         <div className="flex items-center gap-2 mb-2">
                             <Clock className="w-4 h-4 text-purple-400" />
                             <span className="text-sm font-semibold text-purple-400">Quick Review</span>
                         </div>
                         <p className="text-xs text-purple-300">5-7 business days</p>
                     </div>
-                    <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-xl p-4 border border-amber-500/20">
+                    <div className="bg-linear-to-br from-amber-500/10 to-orange-500/10 rounded-xl p-4 border border-amber-500/20">
                         <div className="flex items-center gap-2 mb-2">
                             <TrendingUp className="w-4 h-4 text-amber-400" />
                             <span className="text-sm font-semibold text-amber-400">Global Exposure</span>

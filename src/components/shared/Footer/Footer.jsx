@@ -7,11 +7,11 @@ const Footer = () => {
 
     return (
         <footer className="relative bg-black/95 backdrop-blur-sm border-t border-white/10 ">
-            <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-white/5 to-transparent pointer-events-none" />
             <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-10">
                     <div className="md:col-span-5 space-y-4">
-                        <Link href="/" className="inline-block text-2xl font-bold bg-gradient-to-r from-[#1EB97A] to-white/70 bg-clip-text text-transparent hover:from-white hover:to-[#1EB97A] transition-all duration-300">
+                        <Link href="/" className="inline-block text-2xl font-bold bg-linear-to-r from-[#1EB97A] to-white/70 bg-clip-text text-transparent hover:from-white hover:to-[#1EB97A] transition-all duration-300">
                             NYBFF
                         </Link>
                         <p className="text-gray-400 text-sm leading-relaxed max-w-md">

@@ -117,7 +117,7 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
                 aria-expanded={isOpen}
             >
                 <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md transition-all duration-200 group-hover:shadow-lg group-hover:scale-105">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold overflow-hidden shadow-md transition-all duration-200 group-hover:shadow-lg group-hover:scale-105">
                         {getAvatarContent()}
                     </div>
                     {/* Online indicator */}
@@ -138,12 +138,12 @@ const AvatarDropdown = ({ userAvatar, userName, userInitials }) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute right-0 mt-3 w-80 bg-gradient-to-br from-gray-900 to-gray-950 rounded-xl border border-gray-800 overflow-hidden z-50 shadow-2xl"
+                        className="absolute right-0 mt-3 w-80 bg-linear-to-br from-gray-900 to-gray-950 rounded-xl border border-gray-800 overflow-hidden z-50 shadow-2xl"
                     >
                         {/* User Info Header - Dark Theme */}
-                        <div className="p-4 bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 border-b border-gray-800">
+                        <div className="p-4 bg-linear-to-r from-[#1EB97A]/10 to-emerald-500/10 border-b border-gray-800">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden shadow-lg">
+                                <div className="w-12 h-12 rounded-full bg-linear-to-br from-[#1EB97A] to-emerald-600 flex items-center justify-center text-white font-semibold text-lg overflow-hidden shadow-lg">
                                     {userAvatar ? (
                                         <img src={userAvatar} alt={getDisplayName()} className="w-full h-full object-cover" />
                                     ) : (

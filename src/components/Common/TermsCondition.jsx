@@ -105,11 +105,11 @@ const TermsCondition = () => {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-8"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
                         <Shield className="w-3 h-3" />
                         Legal Agreement
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                    <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                         Terms and Conditions
                     </h1>
                     <p className="text-gray-400 mt-3 text-sm md:text-base">
@@ -122,7 +122,7 @@ const TermsCondition = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-xl overflow-hidden mb-6"
+                    className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-xl overflow-hidden mb-6"
                 >
                     <div className="border-b border-gray-800 overflow-x-auto">
                         <div className="flex">
@@ -150,7 +150,7 @@ const TermsCondition = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.3 }}
-                            className={`p-6 bg-gradient-to-br ${currentContent.gradient}`}
+                            className={`p-6 bg-linear-to-br ${currentContent.gradient}`}
                         >
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-2 bg-gray-800 rounded-xl">
@@ -184,7 +184,7 @@ const TermsCondition = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-xl p-6"
+                    className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-xl p-6"
                 >
                     <div className="flex items-start gap-3">
                         <div className="relative">
@@ -217,7 +217,7 @@ const TermsCondition = () => {
                             }}
                             className={`px-6 py-2.5 rounded-xl font-semibold text-center transition-all duration-200 ${
                                 accepted
-                                    ? "bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white hover:from-[#189663] hover:to-emerald-700 shadow-lg shadow-[#1EB97A]/20 hover:shadow-xl transform hover:scale-105"
+                                    ? "bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white hover:from-[#189663] hover:to-emerald-700 shadow-lg shadow-[#1EB97A]/20 hover:shadow-xl transform hover:scale-105"
                                     : "bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700"
                             }`}
                         >

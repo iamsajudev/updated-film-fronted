@@ -74,15 +74,15 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
     const getStatusBadgeColor = (status) => {
         switch (status) {
             case "selected":
-                return "bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30";
+                return "bg-linear-to-r from-green-500/20 to-emerald-500/20 text-green-400 border-green-500/30";
             case "pending":
-                return "bg-gradient-to-r from-yellow-500/20 to-amber-500/20 text-yellow-400 border-yellow-500/30";
+                return "bg-linear-to-r from-yellow-500/20 to-amber-500/20 text-yellow-400 border-yellow-500/30";
             case "screened":
-                return "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-400 border-blue-500/30";
+                return "bg-linear-to-r from-blue-500/20 to-cyan-500/20 text-blue-400 border-blue-500/30";
             case "rejected":
-                return "bg-gradient-to-r from-emerald-500/20 to-rose-500/20 text-emerald-400 border-emerald-500/30";
+                return "bg-linear-to-r from-emerald-500/20 to-rose-500/20 text-emerald-400 border-emerald-500/30";
             default:
-                return "bg-gradient-to-r from-gray-500/20 to-slate-500/20 text-gray-400 border-gray-500/30";
+                return "bg-linear-to-r from-gray-500/20 to-slate-500/20 text-gray-400 border-gray-500/30";
         }
     };
 
@@ -103,16 +103,16 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
         >
             {/* Header Section */}
             <div className="text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-[#1EB97A]/20 to-emerald-500/20 border border-[#1EB97A]/30 text-[#1EB97A] text-xs font-semibold mb-4">
                     <span className="w-2 h-2 bg-[#1EB97A] rounded-full animate-pulse"></span>
                     Step 6 of 7
                 </div>
                 <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${getGradient("screenings")} rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/20`}>
+                    <div className={`w-12 h-12 bg-linear-to-br ${getGradient("screenings")} rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/20`}>
                         <Ticket className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                        <h2 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                             Screenings & Distribution
                         </h2>
                     </div>
@@ -128,7 +128,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                     onClick={() => setActiveTab("screenings")}
                     className={`px-6 py-3 rounded-t-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
                         activeTab === "screenings"
-                            ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
+                            ? "bg-linear-to-r from-purple-600 to-pink-600 text-white shadow-lg"
                             : "text-gray-400 hover:text-purple-400 hover:bg-gray-800"
                     }`}
                 >
@@ -144,7 +144,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                     onClick={() => setActiveTab("distributors")}
                     className={`px-6 py-3 rounded-t-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
                         activeTab === "distributors"
-                            ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg"
+                            ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white shadow-lg"
                             : "text-gray-400 hover:text-blue-400 hover:bg-gray-800"
                     }`}
                 >
@@ -167,11 +167,11 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("screenings")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("screenings")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("screenings")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("screenings")} rounded-lg flex items-center justify-center`}>
                                     <Calendar className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-lg font-semibold text-white">Festival Screenings</h3>
@@ -318,7 +318,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                         type="button"
                                         onClick={addScreening}
                                         disabled={!newScreening.festivalName || !newScreening.date}
-                                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+                                        className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                                     >
                                         <Plus className="w-4 h-4" />
                                         Add Screening
@@ -337,11 +337,11 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
+                        className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
                     >
-                        <div className={`px-6 py-4 bg-gradient-to-r ${getGradient("distributors")} bg-opacity-10 border-b border-gray-800`}>
+                        <div className={`px-6 py-4 bg-linear-to-r ${getGradient("distributors")} bg-opacity-10 border-b border-gray-800`}>
                             <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 bg-gradient-to-br ${getGradient("distributors")} rounded-lg flex items-center justify-center`}>
+                                <div className={`w-8 h-8 bg-linear-to-br ${getGradient("distributors")} rounded-lg flex items-center justify-center`}>
                                     <Building className="w-4 h-4 text-white" />
                                 </div>
                                 <h3 className="text-lg font-semibold text-white">Distributors</h3>
@@ -489,7 +489,7 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                                         type="button"
                                         onClick={addDistributor}
                                         disabled={!newDistributor.company || !newDistributor.contactName}
-                                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+                                        className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                                     >
                                         <Plus className="w-4 h-4" />
                                         Add Distributor
@@ -526,9 +526,9 @@ export default function Step5Screenings({ formData, updateFormData, onNext, onPr
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onNext}
-                    className="group relative px-8 py-3 bg-gradient-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    className="group relative px-8 py-3 bg-linear-to-r from-[#1EB97A] to-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-[#1EB97A]/25 hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative flex items-center gap-2">
                         Next Step
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

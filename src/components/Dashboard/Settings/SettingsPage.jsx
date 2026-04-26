@@ -393,7 +393,7 @@ const SettingsPage = () => {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="mb-6 p-4 bg-gradient-to-r from-[#1EB97A]/10 to-emerald-500/10 border border-[#1EB97A]/30 rounded-xl"
+                            className="mb-6 p-4 bg-linear-to-r from-[#1EB97A]/10 to-emerald-500/10 border border-[#1EB97A]/30 rounded-xl"
                         >
                             <div className="flex items-center gap-2">
                                 <CheckCircle className="w-5 h-5 text-[#1EB97A]" />
@@ -424,16 +424,16 @@ const SettingsPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-2xl overflow-hidden"
+                    className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl border border-gray-800 shadow-2xl overflow-hidden"
                 >
-                    <div className="h-1 bg-gradient-to-r from-[#1EB97A] via-emerald-500 to-transparent"></div>
+                    <div className="h-1 bg-linear-to-r from-[#1EB97A] via-emerald-500 to-transparent"></div>
                     
                     <div className="p-6 md:p-10">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 bg-gradient-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20">
+                            <div className="w-10 h-10 bg-linear-to-br from-[#1EB97A] to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-[#1EB97A]/20">
                                 <User className="w-5 h-5 text-white" />
                             </div>
-                            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                            <h1 className="text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
                                 My Account
                             </h1>
                         </div>
@@ -453,7 +453,7 @@ const SettingsPage = () => {
                                                 className="object-cover w-full h-full"
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1EB97A] to-emerald-600 text-white text-5xl font-bold">
+                                            <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-[#1EB97A] to-emerald-600 text-white text-5xl font-bold">
                                                 {editForm.firstName?.charAt(0) || 'U'}
                                             </div>
                                         )}
@@ -675,7 +675,7 @@ const SettingsPage = () => {
                                     <button
                                         type="submit"
                                         disabled={submitting}
-                                        className="bg-gradient-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-lg shadow-[#1EB97A]/20"
+                                        className="bg-linear-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2 shadow-lg shadow-[#1EB97A]/20"
                                     >
                                         {submitting ? (
                                             <>
@@ -730,7 +730,7 @@ const SettingsPage = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="p-6 border-b border-gray-800">
@@ -796,7 +796,7 @@ const SettingsPage = () => {
                                 <button
                                     onClick={handlePasswordChange}
                                     disabled={submitting}
-                                    className="flex-1 bg-gradient-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 text-white py-2.5 rounded-xl font-semibold transition disabled:opacity-50"
+                                    className="flex-1 bg-linear-to-r from-[#1EB97A] to-emerald-600 hover:from-[#189663] hover:to-emerald-700 text-white py-2.5 rounded-xl font-semibold transition disabled:opacity-50"
                                 >
                                     {submitting ? 'Changing...' : 'Change Password'}
                                 </button>
@@ -826,7 +826,7 @@ const SettingsPage = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl shadow-2xl max-w-md w-full border border-emerald-500/30"
+                            className="bg-linear-to-br from-gray-900 to-gray-950 rounded-2xl shadow-2xl max-w-md w-full border border-emerald-500/30"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="p-6 border-b border-emerald-500/20">
