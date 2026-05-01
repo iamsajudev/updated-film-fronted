@@ -113,7 +113,7 @@ const Header = () => {
   }, []);
 
   const handleNavigation = (e, href) => {
-    const publicRoutes = ['/', '/projects', '/projects/drop-project'];
+    const publicRoutes = ['/', '/projects', '/projects/submit-film'];
     const isPublicRoute = publicRoutes.some(route => href.startsWith(route));
 
     if (!isPublicRoute && !isLoggedIn) {
@@ -217,7 +217,7 @@ const Header = () => {
 
             {/* Logo */}
             <Link
-              href="/projects"
+              href="http://nybff.us"
               className="group relative flex items-center gap-2"
               aria-label="Home"
             >
@@ -383,7 +383,7 @@ const Header = () => {
             >
               {/* Mobile Menu Header */}
               <div className="flex items-center justify-between p-5 border-b border-white/10">
-                <Image src="/assets/logo-final.webp" alt="NYBFF" width={100} height={28} className="w-24" />
+                <Image src="/assets/logo-white.webp" alt="NYBFF" width={100} height={28} className="w-24" />
                 <button
                   onClick={toggleMenu}
                   className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"

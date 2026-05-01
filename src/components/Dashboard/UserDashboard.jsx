@@ -397,7 +397,7 @@ export default function UserDashboard() {
                                     </p>
                                 </div>
                                 <Link
-                                    href="/projects/drop-project"
+                                    href="/projects/submit-film"
                                     className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all shadow-lg"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

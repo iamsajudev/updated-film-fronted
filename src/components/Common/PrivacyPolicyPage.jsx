@@ -405,7 +405,7 @@ const PrivacyPolicyPage = () => {
                             </label>
                         </div>
                         <Link
-                            href="/projects/drop-project"
+                            href="/projects/submit-film"
                             onClick={(e) => {
                                 if (!accepted) {
                                     e.preventDefault();

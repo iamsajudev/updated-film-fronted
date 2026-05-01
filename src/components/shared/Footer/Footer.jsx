@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -12,10 +13,17 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-10">
                     <div className="md:col-span-5 space-y-4">
                         <Link href="/" className="inline-block text-2xl font-bold bg-linear-to-r from-[#1EB97A] to-white/70 bg-clip-text text-transparent hover:from-white hover:to-[#1EB97A] transition-all duration-300">
-                            NYBFF
+                            <Image
+                                src="/assets/logo-white.webp"
+                                alt="NYBFF"
+                                width={140}
+                                height={40}
+                                className="w-32 lg:w-36 transition-all duration-300 group-hover:scale-105"
+                                priority
+                            />
                         </Link>
                         <p className="text-gray-400 text-sm leading-relaxed max-w-md">
-                            Your trusted platform for exceptional experiences. 
+                            Your trusted platform for exceptional experiences.
                             We're dedicated to delivering quality and innovation across every interaction.
                         </p>
                         <div className="flex gap-3 pt-2">

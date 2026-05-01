@@ -242,7 +242,7 @@ const AllProject = () => {
 
                                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                                         <Link
-                                            href="/projects/drop-project"
+                                            href="/projects/submit-film"
                                             className="group relative inline-flex items-center justify-center gap-2 bg-linear-to-r from-[#1EB97A] to-[#189663] text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-[#1EB97A]/20 hover:scale-105 overflow-hidden"
                                         >
                                             <div className="absolute inset-0 bg-linear-to-r from-[#189663] to-[#1EB97A] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -332,7 +332,7 @@ const AllProject = () => {
                         </p>
                     </div>
                     <Link
-                        href="/projects/drop-project"
+                        href="/projects/submit-film"
                         className="bg-linear-to-r from-[#1EB97A] to-[#189663] hover:from-[#189663] hover:to-[#1EB97A] text-white px-6 py-2.5 rounded-xl font-semibold flex items-center gap-2 transition-all shadow-lg shadow-[#1EB97A]/20 w-fit"
                     >
                         <span className="text-xl">+</span> Add New Project
@@ -382,7 +382,7 @@ const AllProject = () => {
                             </svg>
                             <p className="text-gray-400 text-lg">No projects found</p>
                             <p className="text-gray-600 text-sm mt-1">Get started by creating your first project</p>
-                            <Link href="/projects/drop-project" className="inline-block mt-4 bg-linear-to-r from-[#1EB97A] to-[#189663] text-white px-6 py-2 rounded-xl">
+                            <Link href="/projects/submit-film" className="inline-block mt-4 bg-linear-to-r from-[#1EB97A] to-[#189663] text-white px-6 py-2 rounded-xl">
                                 Create Project
                             </Link>
                         </div>

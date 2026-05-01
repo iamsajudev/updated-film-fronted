@@ -348,7 +348,7 @@ const Login = () => {
                                     Create an account
                                 </Link>
                                 <span className="mx-2">•</span>
-                                <Link href="/projects/drop-project" className="text-emerald-400 font-semibold hover:text-emerald-300 hover:underline transition-colors duration-200">
+                                <Link href="/projects/submit-film" className="text-emerald-400 font-semibold hover:text-emerald-300 hover:underline transition-colors duration-200">
                                     Submit as Guest
                                 </Link>
                             </motion.p>

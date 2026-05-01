@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/projects',
+        destination: '/projects/submit-film',
         permanent: true, // Use true for 308 permanent redirect
         basePath: false,
       },

@@ -164,7 +164,7 @@ const SubmissionsPage = () => {
             <h1 className="text-2xl font-bold text-gray-800 tracking-tight">My Submissions</h1>
             <p className="text-sm text-gray-500 mt-1">Track all your film project submissions.</p>
           </div>
-          <Link href="/projects/drop-project">
+          <Link href="/projects/submit-film">
             <button className="bg-[#1EB97A] hover:bg-[#189663] text-white px-5 py-2.5 rounded-md font-semibold text-sm transition-all shadow-sm">
               + New Submission
             </button>
@@ -278,7 +278,7 @@ const SubmissionsPage = () => {
                 </svg>
                 <p className="text-gray-500 text-lg">No submissions found</p>
                 <p className="text-gray-400 text-sm mt-1">Start by submitting your first project!</p>
-                <Link href="/projects/drop-project" className="inline-block mt-4 bg-[#1EB97A] text-white px-6 py-2 rounded-md">
+                <Link href="/projects/submit-film" className="inline-block mt-4 bg-[#1EB97A] text-white px-6 py-2 rounded-md">
                   Submit Your First Project
                 </Link>
               </div>
