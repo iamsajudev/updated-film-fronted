@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-10">
                     <div className="md:col-span-5 space-y-4">
-                        <Link href="/" className="inline-block text-2xl font-bold bg-linear-to-r from-[#1EB97A] to-white/70 bg-clip-text text-transparent hover:from-white hover:to-[#1EB97A] transition-all duration-300">
+                        <Link href="http://nybff.us/" className="inline-block text-2xl font-bold bg-linear-to-r from-[#1EB97A] to-white/70 bg-clip-text text-transparent hover:from-white hover:to-[#1EB97A] transition-all duration-300">
                             <Image
                                 src="/assets/logo-white.webp"
                                 alt="NYBFF"
